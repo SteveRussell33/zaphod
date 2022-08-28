@@ -8,15 +8,10 @@
 >
 
   <style>
-    text.logo {
+    text.title {
       fill: #a91913;
       font-family: 'American Typewriter';
       font-size: 11pt;
-    }
-    text.title {
-      fill: #3a3a3a;
-      font-family: 'Futura';
-      font-size: 12pt;
     }
     text.big-label {
       fill: #3a3a3a;
@@ -34,11 +29,11 @@
       stroke: #7c6f64;
       stroke-width: 1;
     }
-    .scaffold-button {
+    .layout-button {
       stroke: #080;
       fill: #080;
     }
-    .scaffold {
+    .layout {
       stroke: #08f;
       fill: none;
     }
@@ -53,48 +48,52 @@
   <defs>
     <symbol id="knob36" >
       <g transform="translate(18 18)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="scaffold"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="scaffold"/>
-        <circle cx="0" cy="0" r="17.5" stroke-width="1" class="scaffold" fill="none"/>
+        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
+        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
+        <circle cx="0" cy="0" r="17.5" stroke-width="1" class="layout" fill="none"/>
       </g>
     </symbol>
     <symbol id="knob18" >
       <g transform="translate(9 9)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="scaffold"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="scaffold"/>
-        <circle cx="0" cy="0" r="8.5" stroke-width="1" class="scaffold" fill="none"/>
+        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
+        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
+        <circle cx="0" cy="0" r="8.5" stroke-width="1" class="layout" fill="none"/>
+      </g>
+    </symbol>
+    <symbol id="port" >
+      <g transform="translate(12 12)">
+        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
+        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
+        <circle cx="0" cy="0" r="10.5" stroke-width="3" class="layout"/>
       </g>
     </symbol>
   </defs>
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="logo" x="50%" y="28"  text-anchor="middle">FM</text>
-  <text class="logo"  x="50%" y="362" text-anchor="middle">zäphød</text>
+  <text class="title" x="50%" y="28"  text-anchor="middle">FM</text>
+  <text class="title" x="50%" y="362" text-anchor="middle">zaphød</text>
 
   <g transform="translate(30 76)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob36" transform="translate(-18 -18)"/>
-    <use xlink:href="#knob18" transform="translate(-24 25)"/>
-    <circle cx="13" cy="34" r="10.5" stroke-width="3" class="scaffold"/>
-    <polyline points="-16,34 13,34" class="connect"/>
-  </g>
-
-  <g transform="translate(30 174)">
-    <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
-    <use xlink:href="#knob18" transform="translate(-24 25)"/>
-    <circle cx="13" cy="34" r="10.5" stroke-width="3" class="scaffold"/>
-    <polyline points="-16,34 13,34" class="connect"/>
+    <g transform="translate(-15 34)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+    </g>
+    <g transform="translate(15 34)">
+      <use xlink:href="#port" transform="translate(-12 -12)"/>
+    </g>
+    <polyline points="-15,34 15,34" class="connect"/>
   </g>
 
   <g transform="translate(30 266)">
-    <circle cx="0" cy="0" r="10.5" stroke-width="3" class="scaffold"/>
+    <circle cx="0" cy="0" r="10.5" stroke-width="3" class="layout"/>
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">IN</text>
   </g>
 
   <g transform="translate(30 310)">
     <rect x="-16" y="-16" width="32" height="46" rx="3" class="output"/>
-    <circle cx="0" cy="0" r="10.5" stroke-width="3" class="scaffold"/>
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OUT</text>
   </g>
 

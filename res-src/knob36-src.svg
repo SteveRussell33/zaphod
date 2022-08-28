@@ -7,8 +7,8 @@
   viewBox="0 0 36 36"
 >
   <g transform="translate(18 18)">
-    <circle r="18" fill="#4a4a4a"/>
-    <circle r="16" fill="#202020"/>
+    <circle r="18" fill="#555"/>
+    <circle r="16" fill="#222"/>
     <polyline points="0,-16 0,0" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" />
   </g>
 </svg>

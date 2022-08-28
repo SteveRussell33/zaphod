@@ -49,11 +49,11 @@
      inkscape:current-layer="svg10" />
   <path
      id="circle2"
-     style="fill:#4a4a4a"
+     style="fill:#555555"
      d="M 36,18 A 18,18 0 0 1 18,36 18,18 0 0 1 0,18 18,18 0 0 1 18,0 18,18 0 0 1 36,18 Z" />
   <path
      id="circle4"
-     style="fill:#202020"
+     style="fill:#222222"
      d="M 34,18 A 16,16 0 0 1 18,34 16,16 0 0 1 2,18 16,16 0 0 1 18,2 16,16 0 0 1 34,18 Z" />
   <path
      id="polyline6"
