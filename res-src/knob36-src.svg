@@ -1,0 +1,14 @@
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36"
+  height="36"
+  viewBox="0 0 36 36"
+>
+  <g transform="translate(18 18)">
+    <circle r="18" fill="#4a4a4a"/>
+    <circle r="16" fill="#202020"/>
+    <polyline points="0,-16 0,0" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" />
+  </g>
+</svg>

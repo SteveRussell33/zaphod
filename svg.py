@@ -4,6 +4,7 @@ import subprocess
 
 files = [
     'FM',
+    'knob36',
     'port'
 ]
 

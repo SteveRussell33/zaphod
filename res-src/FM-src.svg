@@ -12,27 +12,23 @@
       fill: #a91913;
       font-family: 'American Typewriter';
       font-size: 11pt;
-      letter-spacing: 1px;
     }
     text.title {
       fill: #3a3a3a;
-      font-family: 'Helvetica';
+      font-family: 'Futura';
       font-size: 12pt;
-      letter-spacing: 1px;
     }
     text.big-label {
       fill: #3a3a3a;
       font-family: 'Helvetica';
       font-weight: bold;
-      font-size: 8pt;
-      letter-spacing: 1px;
+      font-size: 7.5pt;
     }
     text.label {
       fill: #3a3a3a;
       font-family: 'Helvetica';
       font-weight: bold;
       font-size: 6pt;
-      letter-spacing: 1px;
     }
     polyline.connect {
       stroke: #7c6f64;
@@ -47,7 +43,7 @@
       fill: none;
     }
     .background {
-      fill: #e9e9e9;
+      fill: #e0e0e0;
     }
     .output {
       fill: #c3c3c3;
@@ -72,11 +68,11 @@
   </defs>
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="title" x="50%" y="28"  text-anchor="middle">FM</text>
+  <text class="logo" x="50%" y="28"  text-anchor="middle">FM</text>
   <text class="logo"  x="50%" y="362" text-anchor="middle">zäphød</text>
 
   <g transform="translate(30 76)">
-    <text x="0" y="-26" class="big-label" text-anchor="middle">RATIO</text>
+    <text x="0" y="-24" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob36" transform="translate(-18 -18)"/>
     <use xlink:href="#knob18" transform="translate(-24 25)"/>
     <circle cx="13" cy="34" r="10.5" stroke-width="3" class="scaffold"/>
@@ -84,7 +80,7 @@
   </g>
 
   <g transform="translate(30 174)">
-    <text x="0" y="-26" class="big-label" text-anchor="middle">OFFSET</text>
+    <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
     <use xlink:href="#knob36" transform="translate(-18 -18)"/>
     <use xlink:href="#knob18" transform="translate(-24 25)"/>
     <circle cx="13" cy="34" r="10.5" stroke-width="3" class="scaffold"/>

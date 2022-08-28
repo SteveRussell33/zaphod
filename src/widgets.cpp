@@ -1,25 +1,25 @@
 #include "widgets.hpp"
 
-////-----------------------------------------------------------------
-//
-//ZaphodKnob::ZaphodKnob(const char* svg, int dim) {
-//    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
-//    box.size = Vec(dim, dim);
-//    shadow->blurRadius = 2.0;
-//    shadow->box.pos = Vec(0.0, 3.0);
-//}
-//
-//void ZaphodKnob::redraw() {
-//    event::Change c;
-//    onChange(c);
-//}
-//
-////-----------------------------------------------------------------
-//
-//ZaphodKnob45::ZaphodKnob45() : ZaphodKnob("res/knob45.svg", 45) {
-//}
-//
-////-----------------------------------------------------------------
+//-----------------------------------------------------------------
+
+ZaphodKnob::ZaphodKnob(const char* svg, int dim) {
+    setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
+    box.size = Vec(dim, dim);
+    shadow->blurRadius = 2.0;
+    shadow->box.pos = Vec(0.0, 3.0);
+}
+
+void ZaphodKnob::redraw() {
+    event::Change c;
+    onChange(c);
+}
+
+//-----------------------------------------------------------------
+
+ZaphodKnob36::ZaphodKnob36() : ZaphodKnob("res/knob36.svg", 36) {
+}
+
+//-----------------------------------------------------------------
 
 ZaphodPort24::ZaphodPort24() {
     setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/port.svg")));
