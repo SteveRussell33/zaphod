@@ -15,7 +15,7 @@
       letter-spacing: 1px;
     }
     text.title {
-      fill: #a91913;
+      fill: #3a3a3a;
       font-family: 'Helvetica';
       font-size: 12pt;
       letter-spacing: 1px;
@@ -47,10 +47,10 @@
       fill: none;
     }
     .background {
-      fill: #f6ebc3;
+      fill: #e9e9e9;
     }
     .output {
-      fill: #d1bf99;
+      fill: #c3c3c3;
     }
   </style>
 
@@ -72,11 +72,8 @@
   </defs>
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="title" x="50%" y="26"  text-anchor="middle">FM</text>
-  <text class="logo"  x="50%" y="366" text-anchor="middle">zäphød</text>
-
-  <circle cx="6" cy="6" r="5.5" stroke-width="1" class="scaffold"/>
-  <circle cx="54" cy="374" r="5.5" stroke-width="1" class="scaffold"/>
+  <text class="title" x="50%" y="28"  text-anchor="middle">FM</text>
+  <text class="logo"  x="50%" y="362" text-anchor="middle">zäphød</text>
 
   <g transform="translate(30 76)">
     <text x="0" y="-26" class="big-label" text-anchor="middle">RATIO</text>
