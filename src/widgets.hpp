@@ -20,6 +20,10 @@ struct ZaphodKnob : RoundKnob {
     }
 };
 
+struct ZaphodKnob18 : ZaphodKnob {
+    ZaphodKnob18() : ZaphodKnob("res/knob18.svg", 18) {}
+};
+
 struct ZaphodKnob36 : ZaphodKnob {
     ZaphodKnob36() : ZaphodKnob("res/knob36.svg", 36) {}
 };

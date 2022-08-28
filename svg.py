@@ -4,6 +4,7 @@ import subprocess
 
 files = [
     'FM',
+    'knob18',
     'knob36',
     'port'
 ]
@@ -20,10 +21,8 @@ for f in files:
     lout = []
     for ln in lin:
         lout.append(ln)
-        ## nuke the scaffolding
-        #if 'class="scaffold' not in ln:
-        #    #if 'coords' in ln:
-        #    #    print(ln.rstrip())
+        ## nuke the layout scaffolding
+        #if 'class="layout"' not in ln:
         #    lout.append(ln)
 
     # write output
