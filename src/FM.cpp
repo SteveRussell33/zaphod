@@ -7,6 +7,7 @@ struct FM : Module {
         PARAMS_LEN
     };
     enum InputId {
+        RATIO_INPUT,
         FM_INPUT,
         INPUTS_LEN
     };
@@ -18,7 +19,8 @@ struct FM : Module {
     FM() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
-        configParam(RATIO_PARAM, 0.f, 1.f, 0.f, "Freq Ratio");
+        configParam(RATIO_PARAM, 0.f, 1.f, 0.f, "Ratio");
+        configInput(RATIO_INPUT, "Ratio CV");
 
         configInput(FM_INPUT, "V/Oct");
         configOutput(FM_OUTPUT, "V/Oct");
@@ -37,9 +39,10 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
         addParam(createParamCentered<ZaphodKnob36>(Vec(30, 76), module, FM::RATIO_PARAM));
+        addInput(createInputCentered<ZaphodPort>(Vec(30+15, 76+34), module, FM::RATIO_INPUT));
 
-        addInput(createInputCentered<ZaphodPort>(Vec(30, 266), module, FM::FM_INPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(30, 310), module, FM::FM_OUTPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(30, 270), module, FM::FM_INPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(30, 312), module, FM::FM_OUTPUT));
     }
 };
 
