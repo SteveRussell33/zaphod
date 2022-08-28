@@ -3,13 +3,14 @@
 import subprocess
 
 files = [
-    'FM' 
+    'FM',
+    'port'
 ]
 
 for f in files:
     fin = 'res-src/' + f + '-src.svg'
     fout = 'res/' + f + '.svg'
-    print('Creating ' + fout + '...')
+    print('Processing ' + fout + '...')
 
     # read input
     lin = open(fin, 'r').readlines()
