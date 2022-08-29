@@ -35,7 +35,13 @@ struct FM : Module {
         configOutput(FM_OUTPUT, "V/Oct");
     }
 
+    bool active() {
+        return outputs[FM_OUTPUT].isConnected();
+    }
+
     void process(const ProcessArgs& args) override {
+        float voct = inputs[FM_INPUT].getVoltage();
+        outputs[FM_OUTPUT].setVoltage(voct);
     }
 };
 
