@@ -76,10 +76,10 @@
       </g>
     </symbol>
 
-    <symbol id="knob45" >
-      <g transform="translate(22.5, 22.5)">
-        <circle r="22" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
-        <circle r="20" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+    <symbol id="knob50" >
+      <g transform="translate(25, 25)">
+        <circle r="24.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="21.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
@@ -97,9 +97,9 @@
   <text class="title" x="50%" y="362" text-anchor="middle">zephyr</text>
 
   <!-- big knobs -->  
-  <g transform="translate(60 80)">
-    <text x="0" y="-28" class="big-label" text-anchor="middle">RATIO</text>
-    <use xlink:href="#knob45" transform="translate(-22.5 -22.5)"/>
+  <g transform="translate(60 82)">
+    <text x="0" y="-30" class="big-label" text-anchor="middle">RATIO</text>
+    <use xlink:href="#knob50" transform="translate(-25 -25)"/>
   </g>
 
   <g transform="translate(34 150)">

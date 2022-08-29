@@ -6,7 +6,7 @@ files = [
     'FM',
     'knob18',
     'knob36',
-    'knob45',
+    'knob50',
     'port'
 ]
 

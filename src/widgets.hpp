@@ -32,8 +32,8 @@ struct ZaphodKnob36 : ZaphodKnob {
     }
 };
 
-struct ZaphodKnob45 : ZaphodKnob {
-    ZaphodKnob45() : ZaphodKnob("res/knob45.svg", 45) {
+struct ZaphodKnob50 : ZaphodKnob {
+    ZaphodKnob50() : ZaphodKnob("res/knob50.svg", 50) {
         shadow->blurRadius = 2.7;
         shadow->box.pos = Vec(0.0, 4.0);
     }

@@ -8,11 +8,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="36"
-   height="36"
-   viewBox="0 0 36 36"
+   width="50"
+   height="50"
+   viewBox="0 0 50 50"
    id="svg10"
-   sodipodi:docname="knob36.svg"
+   sodipodi:docname="knob50.svg"
    inkscape:version="1.0.2 (e86c8708, 2021-01-15)">
   <metadata
      id="metadata16">
@@ -40,9 +40,9 @@
      inkscape:window-height="480"
      id="namedview12"
      showgrid="false"
-     inkscape:zoom="22.972222"
-     inkscape:cx="18"
-     inkscape:cy="18"
+     inkscape:zoom="16.54"
+     inkscape:cx="25"
+     inkscape:cy="25"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
@@ -50,14 +50,14 @@
   <path
      id="circle2"
      style="fill:#222222"
-     d="M 32,18 A 14,14 0 0 1 18,32 14,14 0 0 1 4,18 14,14 0 0 1 18,4 14,14 0 0 1 32,18 Z" />
+     d="M 45,25 A 20,20 0 0 1 25,45 20,20 0 0 1 5,25 20,20 0 0 1 25,5 20,20 0 0 1 45,25 Z" />
   <path
      id="circle4"
      style="fill:#f0f0f0"
-     d="M 31,18 A 13,13 0 0 1 18,31 13,13 0 0 1 5,18 13,13 0 0 1 18,5 13,13 0 0 1 31,18 Z" />
+     d="M 44,25 A 19,19 0 0 1 25,44 19,19 0 0 1 6,25 19,19 0 0 1 25,6 19,19 0 0 1 44,25 Z" />
   <path
      id="polyline6"
-     transform="translate(18,18)"
+     transform="translate(25,25)"
      style="fill:none;stroke:#222222;stroke-width:3;stroke-linecap:round"
-     d="M 0,-12 V -2" />
+     d="M 0,-18 V -2" />
 </svg>

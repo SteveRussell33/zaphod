@@ -1,0 +1,15 @@
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="50"
+  height="50"
+  viewBox="0 0 50 50"
+>
+
+  <g transform="translate(25 25)">
+    <circle r="20" fill="#222"/>
+    <circle r="19" fill="#f0f0f0"/>
+    <polyline points="0,-18 0,-2" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none" />
+  </g>
+</svg>
