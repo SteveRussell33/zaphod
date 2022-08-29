@@ -2,9 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="75"
+  width="120"
   height="380"
-  viewBox="0 0 75 380"
+  viewBox="0 0 120 380"
 >
 
   <style>
@@ -69,6 +69,13 @@
       </g>
     </symbol>
 
+    <symbol id="knob36" >
+      <g transform="translate(18, 18)">
+        <circle r="17.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="15.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+      </g>
+    </symbol>
+
     <symbol id="knob45" >
       <g transform="translate(22.5, 22.5)">
         <circle r="22" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
@@ -90,18 +97,28 @@
   <text class="title" x="50%" y="362" text-anchor="middle">zephyr</text>
 
   <!-- big knobs -->  
-  <g transform="translate(37.5 80)">
+  <g transform="translate(60 80)">
     <text x="0" y="-28" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob45" transform="translate(-22.5 -22.5)"/>
   </g>
 
-  <g transform="translate(37.5 160)">
-    <text x="0" y="-28" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob45" transform="translate(-22.5 -22.5)"/>
+  <g transform="translate(34 150)">
+    <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
+    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+  </g>
+
+  <g transform="translate(86 150)">
+    <text x="0" y="-24" class="big-label" text-anchor="middle">INDEX</text>
+    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+  </g>
+
+  <!-- output rect -->  
+  <g transform="translate(60 320)">
+    <rect x="-16" y="-16" width="68" height="42" rx="3" class="output"/>
   </g>
 
   <!-- left column -->  
-  <g transform="translate(19.5 236)">
+  <g transform="translate(24 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
@@ -110,22 +127,22 @@
     </g>
   </g>
 
-  <g transform="translate(19.5 236)">
+  <g transform="translate(24 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
-  <g transform="translate(19.5 278)">
+  <g transform="translate(24 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
   </g>
 
-  <g transform="translate(19.5 320)">
+  <g transform="translate(24 320)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">IN</text>
+    <text x="0" y="22" class="label" text-anchor="middle">V/OCT</text>
   </g>
 
-  <!-- right column -->  
-  <g transform="translate(55.5 236)">
+  <!-- middle column -->  
+  <g transform="translate(60 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
@@ -134,19 +151,42 @@
     </g>
   </g>
 
-  <g transform="translate(55.5 236)">
+  <g transform="translate(60 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
-  <g transform="translate(55.5 278)">
+  <g transform="translate(60 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
   </g>
 
-  <g transform="translate(55.5 320)">
-    <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
+  <g transform="translate(60 320)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">OUT</text>
+    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
+  </g>
+
+  <!-- right column -->  
+  <g transform="translate(96 236)">
+      <polyline points="0 0 0 42" class="connect"/>
+      <g transform="translate(0 15)">
+        <polyline points="-7 0 -3 0" class="connect"/>
+        <polyline points="7 0 3 0" class="connect"/>
+        <polyline points="5 -2 5 2" class="connect"/>
+    </g>
+  </g>
+
+  <g transform="translate(96 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+  </g>
+
+  <g transform="translate(96 278)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">IDX</text>
+  </g>
+
+  <g transform="translate(96 320)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">CAR</text>
   </g>
 
 </svg>
