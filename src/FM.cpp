@@ -50,8 +50,8 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // big knobs
-        addParam(createParamCentered<ZaphodKnob36>(Vec(37.5, 76), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodKnob36>(Vec(37.5, 140), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZaphodKnob45>(Vec(37.5, 80), module, FM::RATIO_PARAM));
+        addParam(createParamCentered<ZaphodKnob45>(Vec(37.5, 160), module, FM::OFFSET_PARAM));
 
         // left column
         addParam(createParamCentered<ZaphodKnob18>(Vec(19.5, 236), module, FM::RATIO_CV_PARAM));

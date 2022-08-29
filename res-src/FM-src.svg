@@ -47,18 +47,18 @@
   </style>
 
   <defs>
-    <symbol id="knob36" >
-      <g transform="translate(18 18)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
-        <circle cx="0" cy="0" r="17.5" stroke-width="1" class="layout" fill="none"/>
-      </g>
-    </symbol>
     <symbol id="knob18" >
       <g transform="translate(9 9)">
         <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
         <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
         <circle cx="0" cy="0" r="8.5" stroke-width="1" class="layout" fill="none"/>
+      </g>
+    </symbol>
+    <symbol id="knob45" >
+      <g transform="translate(22.5, 22.5)">
+        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
+        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
+        <circle cx="0" cy="0" r="22" stroke-width="1" class="layout" fill="none"/>
       </g>
     </symbol>
     <symbol id="port" >
@@ -75,14 +75,14 @@
   <text class="title" x="50%" y="362" text-anchor="middle">zephyr</text>
 
   <!-- big knobs -->  
-  <g transform="translate(37.5 76)">
-    <text x="0" y="-24" class="big-label" text-anchor="middle">RATIO</text>
-    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+  <g transform="translate(37.5 80)">
+    <text x="0" y="-28" class="big-label" text-anchor="middle">RATIO</text>
+    <use xlink:href="#knob45" transform="translate(-22.5 -22.5)"/>
   </g>
 
-  <g transform="translate(37.5 140)">
-    <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+  <g transform="translate(37.5 160)">
+    <text x="0" y="-28" class="big-label" text-anchor="middle">OFFSET</text>
+    <use xlink:href="#knob45" transform="translate(-22.5 -22.5)"/>
   </g>
 
   <!-- left column -->  
