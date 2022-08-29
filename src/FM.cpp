@@ -1,5 +1,6 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
+#include "dsp.hpp"
 
 struct FM : Module {
     enum ParamId {
@@ -23,12 +24,12 @@ struct FM : Module {
     FM() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
-        configParam(RATIO_PARAM, 0.f, 1.f, 0.f, "Ratio");
-        configParam(RATIO_CV_PARAM, -1.0, 1.f, 0.f, "Ratio CV amount");
+        configParam(RATIO_PARAM, 0.0, 16.0, 1.0, "Ratio");
+        configParam(RATIO_CV_PARAM, -1.0, 1.0, 0.0, "Ratio CV amount");
         configInput(RATIO_INPUT, "Ratio CV");
 
-        configParam(OFFSET_PARAM, 0.f, 1.f, 0.f, "Offset");
-        configParam(OFFSET_CV_PARAM, -1.0, 1.f, 0.f, "Offset CV amount");
+        configParam(OFFSET_PARAM, 0.0, 1.0, 0.0, "Offset");
+        configParam(OFFSET_CV_PARAM, -1.0, 1.0, 0.0, "Offset CV amount");
         configInput(OFFSET_INPUT, "Offset CV");
 
         configInput(FM_INPUT, "V/Oct");
@@ -40,8 +41,15 @@ struct FM : Module {
     }
 
     void process(const ProcessArgs& args) override {
-        float voct = inputs[FM_INPUT].getVoltage();
-        outputs[FM_OUTPUT].setVoltage(voct);
+
+        float vin = inputs[FM_INPUT].getVoltage();
+        float freq = voctToFreq(vin);
+
+        float ratio = params[RATIO_PARAM].getValue();
+        freq = freq * ratio;
+
+        float vout = freqToVOct(freq);
+        outputs[FM_OUTPUT].setVoltage(vout);
     }
 };
 
