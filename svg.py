@@ -20,10 +20,9 @@ for f in files:
     # pre-process output
     lout = []
     for ln in lin:
-        lout.append(ln)
-        ## nuke the layout scaffolding
-        #if 'class="layout"' not in ln:
-        #    lout.append(ln)
+        # nuke the layout scaffolding
+        if 'class="layout"' not in ln:
+            lout.append(ln)
 
     # write output
     open(fout, 'w').writelines(lout)
