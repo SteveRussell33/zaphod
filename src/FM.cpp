@@ -24,11 +24,11 @@ struct FM : Module {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
         configParam(RATIO_PARAM, 0.f, 1.f, 0.f, "Ratio");
-        configParam(RATIO_CV_PARAM, -1.0, 1.f, 0.f, "Ratio CV");
+        configParam(RATIO_CV_PARAM, -1.0, 1.f, 0.f, "Ratio CV amount");
         configInput(RATIO_INPUT, "Ratio CV");
 
         configParam(OFFSET_PARAM, 0.f, 1.f, 0.f, "Offset");
-        configParam(OFFSET_CV_PARAM, -1.0, 1.f, 0.f, "Offset CV");
+        configParam(OFFSET_CV_PARAM, -1.0, 1.f, 0.f, "Offset CV amount");
         configInput(OFFSET_INPUT, "Offset CV");
 
         configInput(FM_INPUT, "V/Oct");
