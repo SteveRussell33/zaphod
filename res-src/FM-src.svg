@@ -29,7 +29,7 @@
       fill: #e0e0e0;
     }
     .output {
-      fill: #c3c3c3;
+      fill: #b8b8b8;
     }
     polyline.connect {
       stroke: #3a3a3a;
@@ -93,9 +93,9 @@
   <g transform="translate(19.5 236)">
       <polyline points="0 0 0 48" class="connect"/>
       <g transform="translate(0 15)">
-        <polyline points="-9 0 -3 0" class="connect"/>
-        <polyline points="9 0 3 0" class="connect"/>
-        <polyline points="6 -3 6 3" class="connect"/>
+        <polyline points="-7 0 -3 0" class="connect"/>
+        <polyline points="7 0 3 0" class="connect"/>
+        <polyline points="5 -2 5 2" class="connect"/>
     </g>
   </g>
 
@@ -117,9 +117,9 @@
   <g transform="translate(55.5 236)">
       <polyline points="0 0 0 48" class="connect"/>
       <g transform="translate(0 15)">
-        <polyline points="-9 0 -3 0" class="connect"/>
-        <polyline points="9 0 3 0" class="connect"/>
-        <polyline points="6 -3 6 3" class="connect"/>
+        <polyline points="-7 0 -3 0" class="connect"/>
+        <polyline points="7 0 3 0" class="connect"/>
+        <polyline points="5 -2 5 2" class="connect"/>
     </g>
   </g>
 
