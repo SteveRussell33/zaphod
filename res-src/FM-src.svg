@@ -69,15 +69,15 @@
       </g>
     </symbol>
 
-    <symbol id="knob36" >
-      <g transform="translate(18, 18)">
-        <circle r="17.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
-        <circle r="15.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+    <symbol id="knob40" >
+      <g transform="translate(20 20)">
+        <circle r="19.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="16.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
     <symbol id="knob50" >
-      <g transform="translate(25, 25)">
+      <g transform="translate(25 25)">
         <circle r="24.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
         <circle r="21.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
@@ -102,14 +102,14 @@
     <use xlink:href="#knob50" transform="translate(-25 -25)"/>
   </g>
 
-  <g transform="translate(34 150)">
+  <g transform="translate(34 154)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
-  <g transform="translate(86 150)">
+  <g transform="translate(86 154)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">INDEX</text>
-    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
   <!-- output rect -->  

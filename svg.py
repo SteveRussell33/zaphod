@@ -5,7 +5,7 @@ import subprocess
 files = [
     'FM',
     'knob18',
-    'knob36',
+    'knob40',
     'knob50',
     'port'
 ]
