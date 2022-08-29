@@ -53,13 +53,13 @@
       font-size: 11pt;
     }
     text.big-label {
-      fill: #3a3a3a;
+      fill: #343434;
       font-family: 'Helvetica';
       font-weight: bold;
       font-size: 7.5pt;
     }
     text.label {
-      fill: #3a3a3a;
+      fill: #343434;
       font-family: 'Helvetica';
       font-weight: bold;
       font-size: 6pt;
@@ -71,7 +71,7 @@
       fill: #b8b8b8;
     }
     polyline.connect {
-      stroke: #3a3a3a;
+      stroke: #343434;
       stroke-width: 1;
     }
 
@@ -214,27 +214,27 @@
   <g
      aria-label="RATIO"
      id="text39"
-     style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="big-label">
     <path
        d="M 26.132812,49.177734 H 24.580078 V 52 h -1.469726 v -7.197266 h 3.530273 q 0.756836,0.01465 1.162109,0.185547 0.410157,0.170899 0.69336,0.50293 0.234375,0.273437 0.371093,0.605469 0.136719,0.332031 0.136719,0.756836 0,0.512695 -0.258789,1.010742 -0.258789,0.493164 -0.854492,0.698242 0.498047,0.200195 0.703125,0.571289 0.209961,0.366211 0.209961,1.123047 v 0.483398 q 0,0.493164 0.03906,0.668946 0.05859,0.27832 0.273438,0.410156 V 52 h -1.655274 q -0.06836,-0.239258 -0.09766,-0.385742 -0.05859,-0.302735 -0.06348,-0.620117 l -0.0098,-0.668946 q -0.0098,-0.688476 -0.253906,-0.917968 -0.239258,-0.229493 -0.903321,-0.229493 z m 0.913086,-1.308593 q 0.449219,-0.205079 0.449219,-0.810547 0,-0.654297 -0.43457,-0.878907 -0.244141,-0.126953 -0.732422,-0.126953 h -1.748047 v 1.933594 h 1.704102 q 0.507812,0 0.761718,-0.117187 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path311" />
     <path
        d="M 34.516602,50.520508 H 31.865234 L 31.367187,52 h -1.572265 l 2.568359,-7.197266 H 34.0625 L 36.611328,52 h -1.630859 z m -0.419922,-1.240235 -0.898438,-2.832031 -0.927734,2.832031 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path313" />
     <path
        d="m 42.019043,44.802734 v 1.274414 h -2.15332 V 52 h -1.513672 v -5.922852 h -2.163086 v -1.274414 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path315" />
     <path
        d="m 42.783203,44.802734 h 1.494141 V 52 h -1.494141 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path317" />
     <path
        d="m 48.857422,52.200195 q -1.542969,0 -2.358399,-0.839843 -1.09375,-1.030274 -1.09375,-2.96875 0,-1.97754 1.09375,-2.96875 0.81543,-0.839844 2.358399,-0.839844 1.542969,0 2.358398,0.839844 1.088867,0.99121 1.088867,2.96875 0,1.938476 -1.088867,2.96875 -0.815429,0.839843 -2.358398,0.839843 z m 1.420898,-1.933593 q 0.522461,-0.65918 0.522461,-1.875 0,-1.210938 -0.527344,-1.870118 -0.52246,-0.664062 -1.416015,-0.664062 -0.893555,0 -1.425781,0.65918 -0.532227,0.659179 -0.532227,1.875 0,1.21582 0.532227,1.875 0.532226,0.659179 1.425781,0.659179 0.893555,0 1.420898,-0.659179 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path319" />
   </g>
   <g
@@ -263,31 +263,31 @@
   <g
      aria-label="OFFSET"
      id="text45"
-     style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="big-label">
     <path
        d="m 21.708984,132.2002 q -1.542968,0 -2.358398,-0.83985 -1.09375,-1.03027 -1.09375,-2.96875 0,-1.97754 1.09375,-2.96875 0.81543,-0.83984 2.358398,-0.83984 1.542969,0 2.358399,0.83984 1.088867,0.99121 1.088867,2.96875 0,1.93848 -1.088867,2.96875 -0.81543,0.83985 -2.358399,0.83985 z m 1.420899,-1.9336 q 0.522461,-0.65918 0.522461,-1.875 0,-1.21094 -0.527344,-1.87012 -0.522461,-0.66406 -1.416016,-0.66406 -0.893554,0 -1.425781,0.65918 -0.532226,0.65918 -0.532226,1.875 0,1.21582 0.532226,1.875 0.532227,0.65918 1.425781,0.65918 0.893555,0 1.420899,-0.65918 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path270" />
     <path
        d="m 31.401367,126.07715 h -3.608398 v 1.65527 h 3.159179 v 1.25 H 27.792969 V 132 h -1.494141 v -7.1875 h 5.102539 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path272" />
     <path
        d="M 37.514648,126.07715 H 33.90625 v 1.65527 h 3.15918 v 1.25 H 33.90625 V 132 h -1.494141 v -7.1875 h 5.102539 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path274" />
     <path
        d="m 41.137695,130.95996 q 0.532227,0 0.864258,-0.11719 0.629883,-0.22461 0.629883,-0.83496 0,-0.35644 -0.3125,-0.55176 -0.3125,-0.19043 -0.981445,-0.33691 l -0.761719,-0.1709 q -1.123047,-0.2539 -1.552735,-0.55176 -0.727539,-0.49804 -0.727539,-1.55761 0,-0.9668 0.703125,-1.60645 0.703125,-0.63965 2.06543,-0.63965 1.137695,0 1.938477,0.60547 0.805664,0.60059 0.844726,1.74805 h -1.445312 q -0.03906,-0.64941 -0.566407,-0.92285 -0.351562,-0.18067 -0.874023,-0.18067 -0.581055,0 -0.927734,0.23438 -0.34668,0.23437 -0.34668,0.6543 0,0.38574 0.341797,0.57617 0.219726,0.12695 0.9375,0.29785 l 1.240234,0.29785 q 0.81543,0.19531 1.230469,0.52246 0.644531,0.50781 0.644531,1.46973 0,0.98633 -0.756836,1.64062 -0.751953,0.64942 -2.128906,0.64942 -1.40625,0 -2.211914,-0.63965 -0.805664,-0.64453 -0.805664,-1.76758 h 1.435547 q 0.06836,0.49316 0.268554,0.7373 0.366211,0.44434 1.254883,0.44434 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path276" />
     <path
        d="M 50.214844,128.85547 H 46.71875 v 1.85058 h 3.984375 V 132 h -5.454102 v -7.19727 h 5.278321 v 1.27442 H 46.71875 v 1.52832 h 3.496094 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path278" />
     <path
        d="m 57.114258,124.80273 v 1.27442 H 54.960937 V 132 h -1.513671 v -5.92285 H 51.28418 v -1.27442 z"
-       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:10px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path280" />
   </g>
   <g
@@ -340,7 +340,7 @@
   <path
      id="polyline55"
      transform="translate(19.5,236)"
-     style="stroke:#3a3a3a;stroke-width:1"
+     style="stroke:#343434;stroke-width:1"
      d="M 0,0 V 48"
      class="connect" />
   <g
@@ -348,17 +348,17 @@
      id="g63">
     <path
        id="polyline57"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="m -7,0 h 4"
        class="connect" />
     <path
        id="polyline59"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="M 7,0 H 3"
        class="connect" />
     <path
        id="polyline61"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="M 5,-2 V 2"
        class="connect" />
   </g>
@@ -388,19 +388,19 @@
   <g
      aria-label="RAT"
      id="text69"
-     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="label">
     <path
        d="M 14.625,297.74219 H 13.382813 V 300 h -1.175782 v -5.75781 h 2.824219 q 0.605469,0.0117 0.929688,0.14843 0.328124,0.13672 0.554687,0.40235 0.1875,0.21875 0.296875,0.48437 0.109375,0.26563 0.109375,0.60547 0,0.41016 -0.207031,0.8086 -0.207032,0.39453 -0.683594,0.55859 0.398437,0.16016 0.5625,0.45703 0.167969,0.29297 0.167969,0.89844 v 0.38672 q 0,0.39453 0.03125,0.53515 0.04687,0.22266 0.21875,0.32813 V 300 H 15.6875 q -0.05469,-0.19141 -0.07813,-0.30859 -0.04687,-0.24219 -0.05078,-0.4961 l -0.0078,-0.53515 q -0.0078,-0.55079 -0.203125,-0.73438 -0.191406,-0.18359 -0.722656,-0.18359 z m 0.730469,-1.04688 q 0.359375,-0.16406 0.359375,-0.64844 0,-0.52343 -0.347656,-0.70312 -0.195313,-0.10156 -0.585938,-0.10156 h -1.398437 v 1.54687 h 1.363281 q 0.40625,0 0.609375,-0.0937 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path253" />
     <path
        d="M 21.332031,298.81641 H 19.210937 L 18.8125,300 h -1.257813 l 2.054688,-5.75781 H 20.96875 L 23.007812,300 h -1.304687 z m -0.335937,-0.99219 -0.71875,-2.26563 -0.742188,2.26563 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path255" />
     <path
        d="m 27.333984,294.24219 v 1.01953 H 25.611328 V 300 h -1.210937 v -4.73828 h -1.730469 v -1.01953 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path257" />
   </g>
   <g
@@ -429,15 +429,15 @@
   <g
      aria-label="IN"
      id="text75"
-     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="label">
     <path
        d="m 16.015625,336.24219 h 1.195312 V 342 h -1.195312 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path245" />
     <path
        d="M 22.984375,342 H 21.78125 l -2.351563,-4.08984 V 342 h -1.121093 v -5.75781 h 1.261718 l 2.292969,4.01953 v -4.01953 h 1.121094 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path247" />
   </g>
   <!-- right column -->
@@ -467,7 +467,7 @@
   <path
      id="polyline83"
      transform="translate(55.5,236)"
-     style="stroke:#3a3a3a;stroke-width:1"
+     style="stroke:#343434;stroke-width:1"
      d="M 0,0 V 48"
      class="connect" />
   <g
@@ -475,17 +475,17 @@
      id="g91">
     <path
        id="polyline85"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="m -7,0 h 4"
        class="connect" />
     <path
        id="polyline87"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="M 7,0 H 3"
        class="connect" />
     <path
        id="polyline89"
-       style="stroke:#3a3a3a;stroke-width:1"
+       style="stroke:#343434;stroke-width:1"
        d="M 5,-2 V 2"
        class="connect" />
   </g>
@@ -515,19 +515,19 @@
   <g
      aria-label="OFS"
      id="text97"
-     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="label">
     <path
        d="m 50.429687,300.16016 q -1.234375,0 -1.886718,-0.67188 -0.875,-0.82422 -0.875,-2.375 0,-1.58203 0.875,-2.375 0.652343,-0.67187 1.886718,-0.67187 1.234375,0 1.886719,0.67187 0.871094,0.79297 0.871094,2.375 0,1.55078 -0.871094,2.375 -0.652344,0.67188 -1.886719,0.67188 z m 1.136719,-1.54688 q 0.417969,-0.52734 0.417969,-1.5 0,-0.96875 -0.421875,-1.49609 -0.417969,-0.53125 -1.132813,-0.53125 -0.714843,0 -1.140625,0.52734 -0.425781,0.52734 -0.425781,1.5 0,0.97266 0.425781,1.5 0.425782,0.52734 1.140625,0.52734 0.714844,0 1.136719,-0.52734 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path231" />
     <path
        d="m 58.183594,295.26172 h -2.886719 v 1.32422 h 2.527344 v 1 H 55.296875 V 300 h -1.195313 v -5.75 h 4.082032 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path233" />
     <path
        d="m 61.082031,299.16797 q 0.425781,0 0.691406,-0.0937 0.503907,-0.17969 0.503907,-0.66797 0,-0.28516 -0.25,-0.44141 -0.25,-0.15234 -0.785157,-0.26953 l -0.609375,-0.13672 q -0.898437,-0.20312 -1.242187,-0.4414 -0.582031,-0.39844 -0.582031,-1.2461 0,-0.77343 0.5625,-1.28515 0.5625,-0.51172 1.652343,-0.51172 0.910157,0 1.550782,0.48437 0.644531,0.48047 0.675781,1.39844 h -1.15625 q -0.03125,-0.51953 -0.453125,-0.73828 -0.28125,-0.14453 -0.699219,-0.14453 -0.464844,0 -0.742187,0.1875 -0.277344,0.1875 -0.277344,0.52344 0,0.30859 0.273437,0.46093 0.175782,0.10157 0.75,0.23828 l 0.992188,0.23829 q 0.652344,0.15625 0.984375,0.41796 0.515625,0.40625 0.515625,1.17579 0,0.78906 -0.605469,1.3125 -0.601562,0.51953 -1.703125,0.51953 -1.125,0 -1.769531,-0.51172 -0.644531,-0.51563 -0.644531,-1.41406 h 1.148437 q 0.05469,0.39453 0.214844,0.58984 0.292969,0.35547 1.003906,0.35547 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path235" />
   </g>
   <path
@@ -561,19 +561,19 @@
   <g
      aria-label="OUT"
      id="text105"
-     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+     style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
      class="label">
     <path
        d="m 50.210937,342.16016 q -1.234375,0 -1.886718,-0.67188 -0.875,-0.82422 -0.875,-2.375 0,-1.58203 0.875,-2.375 0.652343,-0.67187 1.886718,-0.67187 1.234375,0 1.886719,0.67187 0.871094,0.79297 0.871094,2.375 0,1.55078 -0.871094,2.375 -0.652344,0.67188 -1.886719,0.67188 z m 1.136719,-1.54688 q 0.417969,-0.52734 0.417969,-1.5 0,-0.96875 -0.421875,-1.49609 -0.417969,-0.53125 -1.132813,-0.53125 -0.714843,0 -1.140625,0.52734 -0.425781,0.52734 -0.425781,1.5 0,0.97266 0.425781,1.5 0.425782,0.52734 1.140625,0.52734 0.714844,0 1.136719,-0.52734 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path220" />
     <path
        d="m 57.289062,339.78125 v -3.53906 h 1.222657 v 3.53906 q 0,0.91797 -0.285157,1.42969 -0.53125,0.9375 -2.027343,0.9375 -1.496094,0 -2.03125,-0.9375 -0.285157,-0.51172 -0.285157,-1.42969 v -3.53906 h 1.222657 v 3.53906 q 0,0.59375 0.140625,0.86719 0.21875,0.48437 0.953125,0.48437 0.730468,0 0.949218,-0.48437 0.140625,-0.27344 0.140625,-0.86719 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path222" />
     <path
        d="m 63.847656,336.24219 v 1.01953 H 62.125 V 342 h -1.210938 v -4.73828 h -1.730468 v -1.01953 z"
-       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#3a3a3a"
+       style="font-weight:bold;font-size:8px;font-family:Helvetica;text-anchor:middle;fill:#343434"
        id="path224" />
   </g>
 </svg>

@@ -14,13 +14,13 @@
       font-size: 11pt;
     }
     text.big-label {
-      fill: #3a3a3a;
+      fill: #343434;
       font-family: 'Helvetica';
       font-weight: bold;
       font-size: 7.5pt;
     }
     text.label {
-      fill: #3a3a3a;
+      fill: #343434;
       font-family: 'Helvetica';
       font-weight: bold;
       font-size: 6pt;
@@ -32,7 +32,7 @@
       fill: #b8b8b8;
     }
     polyline.connect {
-      stroke: #3a3a3a;
+      stroke: #343434;
       stroke-width: 1;
     }
 
