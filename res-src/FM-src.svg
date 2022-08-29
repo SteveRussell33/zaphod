@@ -2,9 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="60"
+  width="75"
   height="380"
-  viewBox="0 0 60 380"
+  viewBox="0 0 75 380"
 >
 
   <style>
@@ -25,10 +25,17 @@
       font-weight: bold;
       font-size: 6pt;
     }
+    .background {
+      fill: #e0e0e0;
+    }
+    .output {
+      fill: #c3c3c3;
+    }
     polyline.connect {
-      stroke: #7c6f64;
+      stroke: #3a3a3a;
       stroke-width: 1;
     }
+
     .layout-button {
       stroke: #080;
       fill: #080;
@@ -36,12 +43,6 @@
     .layout {
       stroke: #08f;
       fill: none;
-    }
-    .background {
-      fill: #e0e0e0;
-    }
-    .output {
-      fill: #c3c3c3;
     }
   </style>
 
@@ -73,26 +74,62 @@
   <text class="title" x="50%" y="28"  text-anchor="middle">FM</text>
   <text class="title" x="50%" y="362" text-anchor="middle">zephyr</text>
 
-  <g transform="translate(30 76)">
+  <!-- big knobs -->  
+  <g transform="translate(37.5 76)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob36" transform="translate(-18 -18)"/>
-    <g transform="translate(-15 34)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-    </g>
-    <g transform="translate(15 34)">
-      <use xlink:href="#port" transform="translate(-12 -12)"/>
-    </g>
-    <!--polyline points="-15,34 15,34" class="connect"/-->
   </g>
 
-  <g transform="translate(30 270)">
-    <circle cx="0" cy="0" r="10.5" stroke-width="3" class="layout"/>
+  <g transform="translate(37.5 140)">
+    <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
+    <use xlink:href="#knob36" transform="translate(-18 -18)"/>
+  </g>
+
+  <!-- left column -->  
+  <g transform="translate(19.5 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+  </g>
+
+  <g transform="translate(19.5 236)">
+      <polyline points="0 0 0 48" class="connect"/>
+      <g transform="translate(0 15)">
+        <polyline points="-9 0 -3 0" class="connect"/>
+        <polyline points="9 0 3 0" class="connect"/>
+        <polyline points="6 -3 6 3" class="connect"/>
+    </g>
+  </g>
+
+  <g transform="translate(19.5 278)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
+  </g>
+
+  <g transform="translate(19.5 320)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">IN</text>
   </g>
 
-  <g transform="translate(30 312)">
-    <rect x="-16" y="-16" width="32" height="46" rx="3" class="output"/>
+  <!-- right column -->  
+  <g transform="translate(55.5 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+  </g>
+
+  <g transform="translate(55.5 236)">
+      <polyline points="0 0 0 48" class="connect"/>
+      <g transform="translate(0 15)">
+        <polyline points="-9 0 -3 0" class="connect"/>
+        <polyline points="9 0 3 0" class="connect"/>
+        <polyline points="6 -3 6 3" class="connect"/>
+    </g>
+  </g>
+
+  <g transform="translate(55.5 278)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
+  </g>
+
+  <g transform="translate(55.5 320)">
+    <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OUT</text>
   </g>
