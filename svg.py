@@ -20,8 +20,8 @@ for f in files:
     # pre-process output
     lout = []
     for ln in lin:
-        # nuke the layout scaffolding
-        if 'class="layout"' not in ln:
+        # skip the blueprint elements
+        if 'class="blueprint"' not in ln:
             lout.append(ln)
 
     # write output

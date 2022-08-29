@@ -10,8 +10,6 @@ struct ZaphodKnob : RoundKnob {
     ZaphodKnob(const char* svg, int dim) {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
         box.size = Vec(dim, dim);
-        shadow->blurRadius = 2.0;
-        shadow->box.pos = Vec(0.0, 3.0);
     }
 
     void redraw() {
@@ -21,11 +19,17 @@ struct ZaphodKnob : RoundKnob {
 };
 
 struct ZaphodKnob18 : ZaphodKnob {
-    ZaphodKnob18() : ZaphodKnob("res/knob18.svg", 18) {}
+    ZaphodKnob18() : ZaphodKnob("res/knob18.svg", 18) {
+        shadow->blurRadius = 2.0;
+        shadow->box.pos = Vec(0.0, 3.0);
+    }
 };
 
 struct ZaphodKnob45 : ZaphodKnob {
-    ZaphodKnob45() : ZaphodKnob("res/knob45.svg", 45) {}
+    ZaphodKnob45() : ZaphodKnob("res/knob45.svg", 45) {
+        shadow->blurRadius = 2.7;
+        shadow->box.pos = Vec(0.0, 4.0);
+    }
 };
 
 struct ZaphodPort : SvgPort {

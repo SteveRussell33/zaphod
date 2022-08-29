@@ -6,9 +6,8 @@
   height="45"
   viewBox="0 0 45 45"
 >
+
   <g transform="translate(22.5 22.5)">
-    <circle r="22.5" fill="#222"/>
-    <circle r="20" fill="#888"/>
     <circle r="18" fill="#222"/>
     <circle r="17" fill="#e0e0e0"/>
     <polyline points="0,-16 0,-2" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none" />

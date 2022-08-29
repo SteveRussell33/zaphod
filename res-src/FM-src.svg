@@ -36,36 +36,51 @@
       stroke-width: 1;
     }
 
-    .layout-button {
-      stroke: #080;
-      fill: #080;
-    }
-    .layout {
+    .blueprint {
       stroke: #08f;
       fill: none;
     }
   </style>
 
   <defs>
+    <linearGradient id="smallKnobMediumGradient">
+      <stop offset="5%"  stop-color="#888" />
+      <stop offset="95%" stop-color="#333" />
+    </linearGradient>
+    <linearGradient id="smallKnobDarkGradient">
+      <stop offset="5%"  stop-color="#444" />
+      <stop offset="95%" stop-color="#222" />
+    </linearGradient>
+
+    <linearGradient id="bigKnobMediumGradient">
+      <stop offset="5%"  stop-color="#888" />
+      <stop offset="95%" stop-color="#555" />
+    </linearGradient>
+    <linearGradient id="bigKnobDarkGradient">
+      <stop offset="5%"  stop-color="#555" />
+      <stop offset="95%" stop-color="#222" />
+    </linearGradient>
+
     <symbol id="knob18" >
       <g transform="translate(9 9)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
-        <circle cx="0" cy="0" r="8.5" stroke-width="1" class="layout" fill="none"/>
+        <circle r="8.5" stroke="#222" fill="none"/>
+        <circle r="8" fill="url('#smallKnobMediumGradient')" transform="rotate(90)"/>
+        <circle r="7" fill="url('#smallKnobDarkGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
+
     <symbol id="knob45" >
       <g transform="translate(22.5, 22.5)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
-        <circle cx="0" cy="0" r="22" stroke-width="1" class="layout" fill="none"/>
+        <circle r="22" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="20" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
+
     <symbol id="port" >
       <g transform="translate(12 12)">
-        <polyline points="-5,0 5,0" stroke-width="1" class="layout"/>
-        <polyline points="0,-5 0,5" stroke-width="1" class="layout"/>
-        <circle cx="0" cy="0" r="10.5" stroke-width="3" class="layout"/>
+        <polyline points="-5,0 5,0" stroke-width="1" class="blueprint"/>
+        <polyline points="0,-5 0,5" stroke-width="1" class="blueprint"/>
+        <circle cx="0" cy="0" r="10.5" stroke-width="2" class="blueprint"/>
       </g>
     </symbol>
   </defs>
@@ -87,16 +102,16 @@
 
   <!-- left column -->  
   <g transform="translate(19.5 236)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-  </g>
-
-  <g transform="translate(19.5 236)">
-      <polyline points="0 0 0 48" class="connect"/>
+      <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
         <polyline points="7 0 3 0" class="connect"/>
         <polyline points="5 -2 5 2" class="connect"/>
     </g>
+  </g>
+
+  <g transform="translate(19.5 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <g transform="translate(19.5 278)">
@@ -111,16 +126,16 @@
 
   <!-- right column -->  
   <g transform="translate(55.5 236)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-  </g>
-
-  <g transform="translate(55.5 236)">
-      <polyline points="0 0 0 48" class="connect"/>
+      <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
         <polyline points="7 0 3 0" class="connect"/>
         <polyline points="5 -2 5 2" class="connect"/>
     </g>
+  </g>
+
+  <g transform="translate(55.5 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <g transform="translate(55.5 278)">

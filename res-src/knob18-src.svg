@@ -6,9 +6,8 @@
   height="18"
   viewBox="0 0 18 18"
 >
+
   <g transform="translate(9 9)">
-    <circle r="9" fill="#222"/>
-    <circle r="7.5" stroke="#666" fill="none"/>
-    <polyline points="0,-7 0,-2" stroke="#eeeeee" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <polyline points="0,-7 0,-2.5" stroke="#e0e0e0" stroke-width="2.2" stroke-linecap="round" fill="none" />
   </g>
 </svg>
