@@ -38,7 +38,7 @@ struct FM : Module {
 
         configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
         configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
-        configParam(INDEX_PARAM, 0.0f, 10.0f, 0.0f, "Mod Index");
+        configParam(INDEX_PARAM, 0.0f, 1.0f, 0.0f, "Mod Index");
 
         configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
         configParam(OFFSET_CV_PARAM, -1.0f, 1.0f, 0.0f, "Offset CV amount");
@@ -63,22 +63,20 @@ struct FM : Module {
 
     void process(const ProcessArgs& args) override {
 
+        float baseFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
+        float modAudio = inputs[MOD_AUDIO_INPUT].getVoltage() / 5.0f; // -1 to 1
+
         float ratio = params[RATIO_PARAM].getValue();
-        float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
+        //float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
         float index = params[INDEX_PARAM].getValue();
 
-        float baseFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
-        float modAudio = inputs[MOD_AUDIO_INPUT].getVoltage() / 10.0f; // -1 to 1
+        float modFreq = baseFreq * ratio;
+        float b = modFreq * index;
+        float c = b * modAudio;
+        float d = baseFreq + c;
 
-        // Modulator V/Oct
-        float ratioFreq = baseFreq * ratio;
-        float modFreq = ratioFreq + offset;
+        outputs[CAR_VOCT_OUTPUT].setVoltage(freqToVoct(d));
         outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(modFreq));
-
-        // Carrier V/Oct
-        float carFreq = baseFreq + ratioFreq * index * modAudio;
-        carFreq = fabs(carFreq); // thru-zero
-        outputs[CAR_VOCT_OUTPUT].setVoltage(freqToVoct(carFreq));
     }
 };
 
