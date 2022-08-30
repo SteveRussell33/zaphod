@@ -11,7 +11,12 @@
     text.title {
       fill: #a91913;
       font-family: 'American Typewriter';
-      font-size: 11pt;
+      font-size: 13pt;
+    }
+    text.logo {
+      fill: #a91913;
+      font-family: 'American Typewriter';
+      font-size: 12pt;
     }
     text.big-label {
       fill: #343434;
@@ -41,6 +46,8 @@
       fill: none;
     }
   </style>
+
+  <!-- ======== defs ======== -->  
 
   <defs>
     <linearGradient id="smallKnobMediumGradient">
@@ -92,11 +99,14 @@
     </symbol>
   </defs>
 
+  <!-- ======== id ======== -->  
+
   <rect class="background" width="100%" height="100%"/>
   <text class="title" x="50%" y="28"  text-anchor="middle">FM</text>
-  <text class="title" x="50%" y="362" text-anchor="middle">zephyr</text>
+  <text class="logo" x="50%" y="362" text-anchor="middle">zephyr</text>
 
-  <!-- big knobs -->  
+  <!-- ======== knobs ======== -->  
+
   <g transform="translate(60 82)">
     <text x="0" y="-30" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob50" transform="translate(-25 -25)"/>
@@ -112,12 +122,8 @@
     <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
-  <!-- output rect -->  
-  <g transform="translate(60 320)">
-    <rect x="-16" y="-16" width="68" height="42" rx="3" class="output"/>
-  </g>
+  <!-- ======== row 1 ======== -->  
 
-  <!-- left column -->  
   <g transform="translate(24 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
@@ -126,33 +132,39 @@
         <polyline points="5 -2 5 2" class="connect"/>
     </g>
   </g>
-
   <g transform="translate(24 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
+
+  <g transform="translate(60 236)">
+      <polyline points="0 0 0 42" class="connect"/>
+      <g transform="translate(0 15)">
+        <polyline points="-7 0 -3 0" class="connect"/>
+        <polyline points="7 0 3 0" class="connect"/>
+        <polyline points="5 -2 5 2" class="connect"/>
+    </g>
+  </g>
+  <g transform="translate(60 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+  </g>
+
+  <g transform="translate(96 236)">
+      <polyline points="0 0 0 42" class="connect"/>
+      <g transform="translate(0 15)">
+        <polyline points="-7 0 -3 0" class="connect"/>
+        <polyline points="7 0 3 0" class="connect"/>
+        <polyline points="5 -2 5 2" class="connect"/>
+    </g>
+  </g>
+  <g transform="translate(96 236)">
+      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
+  </g>
+
+  <!-- ======== row 2 ======== -->  
 
   <g transform="translate(24 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
-  </g>
-
-  <g transform="translate(24 320)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">V/OCT</text>
-  </g>
-
-  <!-- middle column -->  
-  <g transform="translate(60 236)">
-      <polyline points="0 0 0 42" class="connect"/>
-      <g transform="translate(0 15)">
-        <polyline points="-7 0 -3 0" class="connect"/>
-        <polyline points="7 0 3 0" class="connect"/>
-        <polyline points="5 -2 5 2" class="connect"/>
-    </g>
-  </g>
-
-  <g transform="translate(60 236)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <g transform="translate(60 278)">
@@ -160,28 +172,26 @@
     <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
   </g>
 
-  <g transform="translate(60 320)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
-  </g>
-
-  <!-- right column -->  
-  <g transform="translate(96 236)">
-      <polyline points="0 0 0 42" class="connect"/>
-      <g transform="translate(0 15)">
-        <polyline points="-7 0 -3 0" class="connect"/>
-        <polyline points="7 0 3 0" class="connect"/>
-        <polyline points="5 -2 5 2" class="connect"/>
-    </g>
-  </g>
-
-  <g transform="translate(96 236)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-  </g>
-
   <g transform="translate(96 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">IDX</text>
+  </g>
+
+  <!-- ======== row 3 ======== -->  
+
+  <!-- output rect -->  
+  <g transform="translate(60 320)">
+    <rect x="-16" y="-16" width="68" height="42" rx="3" class="output"/>
+  </g>
+
+  <g transform="translate(24 320)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">V/OCT</text>
+  </g>
+
+  <g transform="translate(60 320)">
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
   </g>
 
   <g transform="translate(96 320)">

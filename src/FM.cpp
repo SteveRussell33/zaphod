@@ -77,24 +77,24 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
-        // big knobs
+        // knobs
         addParam(createParamCentered<ZaphodKnob50>(Vec(60,  82), module, FM::RATIO_PARAM));
         addParam(createParamCentered<ZaphodKnob40>(Vec(33, 164), module, FM::OFFSET_PARAM));
         addParam(createParamCentered<ZaphodKnob40>(Vec(87, 164), module, FM::INDEX_PARAM));
 
-        // left column
+        // row 1
         addParam(createParamCentered<ZaphodKnob18>(Vec(24, 236), module, FM::RATIO_CV_PARAM));
-        addInput(createInputCentered<ZaphodPort>  (Vec(24, 278), module, FM::RATIO_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>  (Vec(24, 320), module, FM::PITCH_INPUT));
-
-        // right column
         addParam(createParamCentered<ZaphodKnob18>(Vec(60, 236), module, FM::OFFSET_CV_PARAM));
-        addInput(createInputCentered<ZaphodPort>  (Vec(60, 278), module, FM::OFFSET_CV_INPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::MODULATOR_PITCH_OUTPUT));
-
-        // right column
         addParam(createParamCentered<ZaphodKnob18>(Vec(96, 236), module, FM::INDEX_CV_PARAM));
-        addInput(createInputCentered<ZaphodPort>  (Vec(96, 278), module, FM::INDEX_CV_INPUT));
+
+        // row 2
+        addInput(createInputCentered<ZaphodPort>(Vec(24, 278), module, FM::RATIO_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(60, 278), module, FM::OFFSET_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(96, 278), module, FM::INDEX_CV_INPUT));
+
+        // row 3
+        addInput(createInputCentered<ZaphodPort>  (Vec(24, 320), module, FM::PITCH_INPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::MODULATOR_PITCH_OUTPUT));
         addOutput(createOutputCentered<ZaphodPort>(Vec(96, 320), module, FM::CARRIER_FM_OUTPUT));
     }
 };
