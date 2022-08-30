@@ -36,13 +36,13 @@ struct FM : Module {
     FM() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
-        configParam(RATIO_PARAM, 0.0, 10.0, 1.0, "Ratio");
-        configParam(OFFSET_PARAM, -5.0, 5.0, 0.0, "Offset");
-        configParam(INDEX_PARAM, 0.0, 10.0, 0.0, "Mod Index");
+        configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
+        configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
+        configParam(INDEX_PARAM, 0.0f, 10.0f, 0.0f, "Mod Index");
 
-        configParam(RATIO_CV_PARAM, -1.0, 1.0, 0.0, "Ratio CV amount");
-        configParam(OFFSET_CV_PARAM, -1.0, 1.0, 0.0, "Offset CV amount");
-        configParam(INDEX_CV_PARAM, -1.0, 1.0, 0.0, "Mod Index CV amount");
+        configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
+        configParam(OFFSET_CV_PARAM, -1.0f, 1.0f, 0.0f, "Offset CV amount");
+        configParam(INDEX_CV_PARAM, -1.0f, 1.0f, 0.0f, "Mod Index CV amount");
 
         configInput(RATIO_CV_INPUT, "Ratio CV");
         configInput(OFFSET_CV_INPUT, "Offset CV");
@@ -64,15 +64,21 @@ struct FM : Module {
     void process(const ProcessArgs& args) override {
 
         float ratio = params[RATIO_PARAM].getValue();
-        float offset = params[OFFSET_PARAM].getValue() * 40; // -200Hz to 200 Hz
-        //float index = params[INDEX_PARAM].getValue();
+        float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
+        float index = params[INDEX_PARAM].getValue();
 
         float baseFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
+        float modAudio = inputs[MOD_AUDIO_INPUT].getVoltage() / 10.0f; // -1 to 1
 
+        // Modulator V/Oct
         float ratioFreq = baseFreq * ratio;
         float modFreq = ratioFreq + offset;
-
         outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(modFreq));
+
+        // Carrier V/Oct
+        float carFreq = baseFreq + ratioFreq * index * modAudio;
+        carFreq = fabs(carFreq); // thru-zero
+        outputs[CAR_VOCT_OUTPUT].setVoltage(freqToVoct(carFreq));
     }
 };
 
