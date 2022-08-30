@@ -8,9 +8,11 @@ struct FM : Module {
         RATIO_PARAM,
         OFFSET_PARAM,
         INDEX_PARAM,
+
         RATIO_CV_PARAM,
         OFFSET_CV_PARAM,
         INDEX_CV_PARAM,
+
         PARAMS_LEN
     };
 
@@ -18,13 +20,16 @@ struct FM : Module {
         RATIO_CV_INPUT,
         OFFSET_CV_INPUT,
         INDEX_CV_INPUT,
-        PITCH_INPUT,
+
+        VOCT_INPUT,
+        MOD_AUDIO_INPUT,
+
         INPUTS_LEN
     };
 
     enum OutputId {
-        MODULATOR_PITCH_OUTPUT,
-        CARRIER_FM_OUTPUT,
+        MOD_VOCT_OUTPUT,
+        CAR_VOCT_OUTPUT,
         OUTPUTS_LEN
     };
 
@@ -43,27 +48,29 @@ struct FM : Module {
         configInput(OFFSET_CV_INPUT, "Offset CV");
         configInput(INDEX_CV_INPUT, "Index CV");
 
-        configInput(PITCH_INPUT, "V/Oct");
-        configOutput(MODULATOR_PITCH_OUTPUT, "Modulator V/Oct");
-        configOutput(CARRIER_FM_OUTPUT, "Carrier FM");
+        configInput(VOCT_INPUT, "V/Oct");
+        configInput(MOD_AUDIO_INPUT, "Modulator Audio");
+
+        configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
+        configOutput(CAR_VOCT_OUTPUT, "Carrier V/Oct");
     }
 
     bool active() {
         return 
-            outputs[MODULATOR_PITCH_OUTPUT].isConnected() || 
-            outputs[CARRIER_FM_OUTPUT].isConnected();
+            outputs[MOD_VOCT_OUTPUT].isConnected() || 
+            outputs[CAR_VOCT_OUTPUT].isConnected();
     }
 
     void process(const ProcessArgs& args) override {
 
-        //float pin = inputs[PITCH_INPUT].getVoltage();
-        //float freq = pitchToFreq(pin);
+        //float vin = inputs[VOCT_INPUT].getVoltage();
+        //float freq = voctToFreq(vin);
 
         //float ratio = params[RATIO_PARAM].getValue();
         //freq = freq * ratio;
 
-        //float pout = freqToPitch(freq);
-        //outputs[MODULATOR_PITCH_OUTPUT].setVoltage(pout);
+        //float vout = freqToVoct(freq);
+        //outputs[MOD_VOCT_OUTPUT].setVoltage(vout);
     }
 };
 
@@ -79,23 +86,26 @@ struct FMWidget : ModuleWidget {
 
         // knobs
         addParam(createParamCentered<ZaphodKnob50>(Vec(60,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(33, 164), module, FM::OFFSET_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(87, 164), module, FM::INDEX_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>(Vec(33, 150), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>(Vec(87, 150), module, FM::INDEX_PARAM));
 
         // row 1
-        addParam(createParamCentered<ZaphodKnob18>(Vec(24, 236), module, FM::RATIO_CV_PARAM));
-        addParam(createParamCentered<ZaphodKnob18>(Vec(60, 236), module, FM::OFFSET_CV_PARAM));
-        addParam(createParamCentered<ZaphodKnob18>(Vec(96, 236), module, FM::INDEX_CV_PARAM));
+        addParam(createParamCentered<ZaphodKnob18>(Vec(24, 194), module, FM::RATIO_CV_PARAM));
+        addParam(createParamCentered<ZaphodKnob18>(Vec(60, 194), module, FM::OFFSET_CV_PARAM));
+        addParam(createParamCentered<ZaphodKnob18>(Vec(96, 194), module, FM::INDEX_CV_PARAM));
 
         // row 2
-        addInput(createInputCentered<ZaphodPort>(Vec(24, 278), module, FM::RATIO_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(60, 278), module, FM::OFFSET_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(96, 278), module, FM::INDEX_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(24, 236), module, FM::RATIO_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(60, 236), module, FM::OFFSET_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(96, 236), module, FM::INDEX_CV_INPUT));
 
         // row 3
-        addInput(createInputCentered<ZaphodPort>  (Vec(24, 320), module, FM::PITCH_INPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::MODULATOR_PITCH_OUTPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(96, 320), module, FM::CARRIER_FM_OUTPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(24, 278), module, FM::VOCT_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(60, 278), module, FM::MOD_AUDIO_INPUT));
+
+        // row 4
+        addOutput(createOutputCentered<ZaphodPort>(Vec(24, 320), module, FM::MOD_VOCT_OUTPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::CAR_VOCT_OUTPUT));
     }
 };
 
