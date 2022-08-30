@@ -37,16 +37,16 @@ struct FM : Module {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
         configParam(RATIO_PARAM, 0.0, 10.0, 1.0, "Ratio");
-        configParam(OFFSET_PARAM, 0.0, 1.0, 0.0, "Offset");
-        configParam(INDEX_PARAM, 0.0, 10.0, 0.0, "Index");
+        configParam(OFFSET_PARAM, -5.0, 5.0, 0.0, "Offset");
+        configParam(INDEX_PARAM, 0.0, 10.0, 0.0, "Mod Index");
 
         configParam(RATIO_CV_PARAM, -1.0, 1.0, 0.0, "Ratio CV amount");
         configParam(OFFSET_CV_PARAM, -1.0, 1.0, 0.0, "Offset CV amount");
-        configParam(INDEX_CV_PARAM, -1.0, 1.0, 0.0, "Index CV amount");
+        configParam(INDEX_CV_PARAM, -1.0, 1.0, 0.0, "Mod Index CV amount");
 
         configInput(RATIO_CV_INPUT, "Ratio CV");
         configInput(OFFSET_CV_INPUT, "Offset CV");
-        configInput(INDEX_CV_INPUT, "Index CV");
+        configInput(INDEX_CV_INPUT, "Mod Index CV");
 
         configInput(VOCT_INPUT, "V/Oct");
         configInput(MOD_AUDIO_INPUT, "Modulator Audio");
@@ -63,14 +63,16 @@ struct FM : Module {
 
     void process(const ProcessArgs& args) override {
 
-        //float vin = inputs[VOCT_INPUT].getVoltage();
-        //float freq = voctToFreq(vin);
+        float ratio = params[RATIO_PARAM].getValue();
+        float offset = params[OFFSET_PARAM].getValue() * 40; // -200Hz to 200 Hz
+        //float index = params[INDEX_PARAM].getValue();
 
-        //float ratio = params[RATIO_PARAM].getValue();
-        //freq = freq * ratio;
+        float baseFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
 
-        //float vout = freqToVoct(freq);
-        //outputs[MOD_VOCT_OUTPUT].setVoltage(vout);
+        float ratioFreq = baseFreq * ratio;
+        float modFreq = ratioFreq + offset;
+
+        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(modFreq));
     }
 };
 
