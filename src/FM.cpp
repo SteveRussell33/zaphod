@@ -30,6 +30,12 @@ struct FM : Module {
     enum OutputId {
         MOD_VOCT_OUTPUT,
         CAR_VOCT_OUTPUT,
+
+        DBG1_OUTPUT,
+        DBG2_OUTPUT,
+        DBG3_OUTPUT,
+        DBG4_OUTPUT,
+
         OUTPUTS_LEN
     };
 
@@ -53,6 +59,11 @@ struct FM : Module {
 
         configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
         configOutput(CAR_VOCT_OUTPUT, "Carrier V/Oct");
+
+        configOutput(DBG1_OUTPUT, "Debug 1");
+        configOutput(DBG2_OUTPUT, "Debug 2");
+        configOutput(DBG3_OUTPUT, "Debug 3");
+        configOutput(DBG4_OUTPUT, "Debug 4");
     }
 
     bool active() {
@@ -70,13 +81,18 @@ struct FM : Module {
         //float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
         float index = params[INDEX_PARAM].getValue();
 
-        float modFreq = baseFreq * ratio;
-        float b = modFreq * index;
+        float a = baseFreq * ratio;
+        float b = a * index;
         float c = b * modAudio;
         float d = baseFreq + c;
 
         outputs[CAR_VOCT_OUTPUT].setVoltage(freqToVoct(d));
-        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(modFreq));
+        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(a));
+
+        outputs[DBG1_OUTPUT].setVoltage(a/1000.0f);
+        outputs[DBG2_OUTPUT].setVoltage(b/1000.0f);
+        outputs[DBG3_OUTPUT].setVoltage(c/1000.0f);
+        outputs[DBG4_OUTPUT].setVoltage(d/1000.0f);
     }
 };
 
@@ -112,6 +128,12 @@ struct FMWidget : ModuleWidget {
         // row 4
         addOutput(createOutputCentered<ZaphodPort>(Vec(24, 320), module, FM::MOD_VOCT_OUTPUT));
         addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::CAR_VOCT_OUTPUT));
+
+        // debug
+        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
     }
 };
 
