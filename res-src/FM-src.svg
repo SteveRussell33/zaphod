@@ -102,12 +102,12 @@
     <use xlink:href="#knob50" transform="translate(-25 -25)"/>
   </g>
 
-  <g transform="translate(34 154)">
+  <g transform="translate(33 164)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
     <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
-  <g transform="translate(86 154)">
+  <g transform="translate(87 164)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">INDEX</text>
     <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>

@@ -79,8 +79,8 @@ struct FMWidget : ModuleWidget {
 
         // big knobs
         addParam(createParamCentered<ZaphodKnob50>(Vec(60,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(34, 154), module, FM::OFFSET_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(86, 154), module, FM::INDEX_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>(Vec(33, 164), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>(Vec(87, 164), module, FM::INDEX_PARAM));
 
         // left column
         addParam(createParamCentered<ZaphodKnob18>(Vec(24, 236), module, FM::RATIO_CV_PARAM));
