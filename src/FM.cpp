@@ -92,7 +92,7 @@ struct FMWidget : ModuleWidget {
         // knobs
         addParam(createParamCentered<ZaphodKnob50>   (Vec(37.5,  82), module, FM::RATIO_PARAM));
         addParam(createParamCentered<ZaphodHSwitch14>(Vec(37.5, 120), module, FM::RATIO_STEP_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>   (Vec(37.5, 176), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>   (Vec(37.5, 180), module, FM::OFFSET_PARAM));
 
         // row 1
         addParam(createParamCentered<ZaphodKnob18>(Vec(22, 236), module, FM::RATIO_CV_PARAM));

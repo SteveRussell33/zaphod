@@ -52,6 +52,5 @@ struct ZaphodHSwitch14 : SvgSwitch {
 	ZaphodHSwitch14() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-1.svg")));
-        shadow->blurRadius = 0.0;
     }
 };
