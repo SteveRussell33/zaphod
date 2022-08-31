@@ -2,7 +2,7 @@
 #include "widgets.hpp"
 #include "dsp.hpp"
 
-#define FM_DEBUG
+//define FM_DEBUG
 
 struct FM : Module {
 
@@ -85,6 +85,8 @@ struct FM : Module {
     void process(const ProcessArgs& args) override {
         if (!active()) return;
 
+        //----------------------------------
+
         float ratio = params[kRatioParam].getValue();
         float ratioCV = calculateCV(kRatioCvInput, kRatioCvParam);
         ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
@@ -98,13 +100,26 @@ struct FM : Module {
         float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvParam);
         offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
 
-        float inFreq = pitchToFreq(inputs[kCarrierPitchInput].getVoltage());
-        float outFreq = inFreq * ratio + offset;
-        outputs[kModulatorPitchOutput].setVoltage(freqToPitch(outFreq));
+        //----------------------------------
 
+		int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
+		for (int c = 0; c < channels; c++) {
+            float inPitch = inputs[kCarrierPitchInput].getPolyVoltage(c);
+
+            float inFreq = pitchToFreq(inPitch);
+            float outFreq = inFreq * ratio + offset;
+            float outPitch = freqToPitch(outFreq);
+
+            outputs[kModulatorPitchOutput].setVoltage(outPitch, c);
+        }
+		outputs[kModulatorPitchOutput].setChannels(channels);
+
+        //----------------------------------
+        //
 #ifdef FM_DEBUG
         outputs[kDebug1].setVoltage(ratio);
         outputs[kDebug2].setVoltage(offset/1000.0);
+        outputs[kDebug3].setVoltage(channels);
 #endif
     }
 };
