@@ -40,7 +40,7 @@ struct FM : Module {
     FM() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
-        configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
+        configParam(RATIO_PARAM, 0.01f, 10.0f, 1.0f, "Ratio");
         configParam(RATIO_STEP_PARAM, 0.0f, 1.0f, 0.0f, "Ratio Step Mode");
         configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
 
@@ -62,22 +62,34 @@ struct FM : Module {
 #endif
     }
 
-    bool active() {
+    inline bool active() {
         return outputs[MOD_VOCT_OUTPUT].isConnected();
     }
 
     inline float calculateCV(int inputID, int paramID) {
-
         return (inputs[inputID].isConnected()) ?
             inputs[inputID].getVoltage() * params[paramID].getValue() :
             0.0f;
     }
 
+    float applyRatioStep(float ratio) {
+        if      (ratio < 0.125f) return 0.01f;
+        else if (ratio < 0.375f) return 0.25f;
+        else if (ratio < 0.75f)  return 0.5f;
+        else                     return round(ratio);
+    }
+
     void process(const ProcessArgs& args) override {
+        if (!active()) return;
 
         float ratio = params[RATIO_PARAM].getValue();
         float ratioCV = calculateCV(RATIO_CV_INPUT, RATIO_CV_PARAM);
-        ratio = clamp(ratio + ratioCV, 0.0f, 10.0f);
+        ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
+
+        bool isRatioStep = params[RATIO_STEP_PARAM].getValue() < 0.05f;
+        if (isRatioStep) {
+            ratio = applyRatioStep(ratio);
+        }
 
         float offset = params[OFFSET_PARAM].getValue();
         float offsetCV = calculateCV(OFFSET_CV_INPUT, OFFSET_CV_PARAM);
@@ -91,7 +103,7 @@ struct FM : Module {
 #ifdef ZPH_DEBUG
         outputs[DBG1_OUTPUT].setVoltage(ratio);
         outputs[DBG2_OUTPUT].setVoltage(ratioCV);
-        outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
+        outputs[DBG3_OUTPUT].setVoltage(isRatioStep);
 #endif
     }
 };
