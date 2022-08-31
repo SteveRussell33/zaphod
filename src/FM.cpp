@@ -39,7 +39,7 @@ struct FM : Module {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
         configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
-        configParam(RATIO_STEP_PARAM, 0.0f, 1.0f, 0.0f, "Ratio Step");
+        configParam(RATIO_STEP_PARAM, 0.0f, 1.0f, 0.0f, "Ratio Step Mode");
         configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
 
         configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
