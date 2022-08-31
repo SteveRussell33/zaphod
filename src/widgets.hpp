@@ -50,7 +50,7 @@ struct ZphPort : SvgPort {
 
 struct ZphHSwitch : SvgSwitch {
 	ZphHSwitch() {
-        addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-0.svg")));
-        addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-1.svg")));
+        addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-0.svg")));
+        addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-1.svg")));
     }
 };

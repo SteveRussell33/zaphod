@@ -89,9 +89,9 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
-        // knobs
+        // knobs and switches
         addParam(createParamCentered<ZphKnob50> (Vec(37.5,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 120), module, FM::RATIO_STEP_PARAM));
+        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 122), module, FM::RATIO_STEP_PARAM));
         addParam(createParamCentered<ZphKnob40> (Vec(37.5, 180), module, FM::OFFSET_PARAM));
 
         // row 1
