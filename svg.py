@@ -4,6 +4,8 @@ import subprocess
 
 files = [
     'FM',
+    'hswitch14-0',
+    'hswitch14-1',
     'knob18',
     'knob40',
     'knob50',

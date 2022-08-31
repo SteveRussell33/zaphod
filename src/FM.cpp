@@ -6,6 +6,7 @@ struct FM : Module {
 
     enum ParamId {
         RATIO_PARAM,
+        RATIO_STEP_PARAM,
         OFFSET_PARAM,
 
         RATIO_CV_PARAM,
@@ -38,6 +39,7 @@ struct FM : Module {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
         configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
+        configParam(RATIO_STEP_PARAM, 0.0f, 1.0f, 0.0f, "Ratio Step");
         configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
 
         configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
@@ -88,8 +90,9 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // knobs
-        addParam(createParamCentered<ZaphodKnob50>(Vec(37.5,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(37.5, 150), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZaphodKnob50>   (Vec(37.5,  82), module, FM::RATIO_PARAM));
+        addParam(createParamCentered<ZaphodHSwitch14>(Vec(37.5, 120), module, FM::RATIO_STEP_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>   (Vec(37.5, 176), module, FM::OFFSET_PARAM));
 
         // row 1
         addParam(createParamCentered<ZaphodKnob18>(Vec(22, 236), module, FM::RATIO_CV_PARAM));
