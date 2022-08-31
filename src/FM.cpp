@@ -2,6 +2,8 @@
 #include "widgets.hpp"
 #include "dsp.hpp"
 
+#define ZPH_DEBUG
+
 struct FM : Module {
 
     enum ParamId {
@@ -26,12 +28,12 @@ struct FM : Module {
 
     enum OutputId {
         MOD_VOCT_OUTPUT,
-
-        //DBG1_OUTPUT,
-        //DBG2_OUTPUT,
-        //DBG3_OUTPUT,
-        //DBG4_OUTPUT,
-
+#ifdef ZPH_DEBUG
+        DBG1_OUTPUT,
+        DBG2_OUTPUT,
+        DBG3_OUTPUT,
+        DBG4_OUTPUT,
+#endif
         OUTPUTS_LEN
     };
 
@@ -52,30 +54,45 @@ struct FM : Module {
 
         configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
 
-        //configOutput(DBG1_OUTPUT, "Debug 1");
-        //configOutput(DBG2_OUTPUT, "Debug 2");
-        //configOutput(DBG3_OUTPUT, "Debug 3");
-        //configOutput(DBG4_OUTPUT, "Debug 4");
+#ifdef ZPH_DEBUG
+        configOutput(DBG1_OUTPUT, "Debug 1");
+        configOutput(DBG2_OUTPUT, "Debug 2");
+        configOutput(DBG3_OUTPUT, "Debug 3");
+        configOutput(DBG4_OUTPUT, "Debug 4");
+#endif
     }
 
     bool active() {
         return outputs[MOD_VOCT_OUTPUT].isConnected();
     }
 
+    inline float calculateCV(int inputID, int paramID) {
+
+        return (inputs[inputID].isConnected()) ?
+            inputs[inputID].getVoltage() * params[paramID].getValue() :
+            0.0f;
+    }
+
     void process(const ProcessArgs& args) override {
 
-        float inFreq = voctToFreq(inputs[CAR_VOCT_INPUT].getVoltage());
-
         float ratio = params[RATIO_PARAM].getValue();
-        float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
-        float outFreq = inFreq * ratio + offset;
+        float ratioCV = calculateCV(RATIO_CV_INPUT, RATIO_CV_PARAM);
+        ratio = clamp(ratio + ratioCV, 0.0f, 10.0f);
 
+        float offset = params[OFFSET_PARAM].getValue();
+        float offsetCV = calculateCV(OFFSET_CV_INPUT, OFFSET_CV_PARAM);
+        offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
+
+        // TODO getPolyVoltage
+        float inFreq = voctToFreq(inputs[CAR_VOCT_INPUT].getVoltage());
+        float outFreq = inFreq * ratio + offset;
         outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(outFreq));
 
-        //outputs[DBG1_OUTPUT].setVoltage(inFreq/1000.0f);
-        //outputs[DBG2_OUTPUT].setVoltage(outFreq/1000.0f);
-        //outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
-        //outputs[DBG4_OUTPUT].setVoltage(d/1000.0f);
+#ifdef ZPH_DEBUG
+        outputs[DBG1_OUTPUT].setVoltage(ratio);
+        outputs[DBG2_OUTPUT].setVoltage(ratioCV);
+        outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
+#endif
     }
 };
 
@@ -106,11 +123,12 @@ struct FMWidget : ModuleWidget {
         addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::CAR_VOCT_INPUT));
         addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::MOD_VOCT_OUTPUT));
 
-        // debug
-        //addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
-        //addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
-        //addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
-        //addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
+#ifdef ZPH_DEBUG
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
+#endif
     }
 };
 
