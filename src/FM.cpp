@@ -2,7 +2,7 @@
 #include "widgets.hpp"
 #include "dsp.hpp"
 
-#define ZPH_DEBUG
+//define FM_DEBUG
 
 struct FM : Module {
 
@@ -28,7 +28,7 @@ struct FM : Module {
 
     enum OutputId {
         MOD_VOCT_OUTPUT,
-#ifdef ZPH_DEBUG
+#ifdef FM_DEBUG
         DBG1_OUTPUT,
         DBG2_OUTPUT,
         DBG3_OUTPUT,
@@ -41,29 +41,27 @@ struct FM : Module {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
 
         configParam(RATIO_PARAM, 0.01f, 10.0f, 1.0f, "Ratio");
-        configParam(RATIO_STEP_PARAM, 0.0f, 1.0f, 0.0f, "Ratio Step Mode");
-        configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
+		configSwitch(RATIO_STEP_PARAM, 0.f, 1.f, 0.f, "Ratio Step mode", {"On", "Off"});
+        configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
+    
+        //----------------------------------
 
         configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
         configParam(OFFSET_CV_PARAM, -1.0f, 1.0f, 0.0f, "Offset CV amount");
-
         configInput(RATIO_CV_INPUT, "Ratio CV");
         configInput(OFFSET_CV_INPUT, "Offset CV");
 
-        configInput(CAR_VOCT_INPUT, "Carrier V/Oct");
+        //----------------------------------
 
+        configInput(CAR_VOCT_INPUT, "Carrier V/Oct");
         configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
 
-#ifdef ZPH_DEBUG
+#ifdef FM_DEBUG
         configOutput(DBG1_OUTPUT, "Debug 1");
         configOutput(DBG2_OUTPUT, "Debug 2");
         configOutput(DBG3_OUTPUT, "Debug 3");
         configOutput(DBG4_OUTPUT, "Debug 4");
 #endif
-    }
-
-    inline bool active() {
-        return outputs[MOD_VOCT_OUTPUT].isConnected();
     }
 
     inline float calculateCV(int inputID, int paramID) {
@@ -77,6 +75,10 @@ struct FM : Module {
         else if (ratio < 0.375f) return 0.25f;
         else if (ratio < 0.75f)  return 0.5f;
         else                     return round(ratio);
+    }
+
+    inline bool active() {
+        return outputs[MOD_VOCT_OUTPUT].isConnected();
     }
 
     void process(const ProcessArgs& args) override {
@@ -100,10 +102,9 @@ struct FM : Module {
         float outFreq = inFreq * ratio + offset;
         outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(outFreq));
 
-#ifdef ZPH_DEBUG
+#ifdef FM_DEBUG
         outputs[DBG1_OUTPUT].setVoltage(ratio);
-        outputs[DBG2_OUTPUT].setVoltage(ratioCV);
-        outputs[DBG3_OUTPUT].setVoltage(isRatioStep);
+        outputs[DBG2_OUTPUT].setVoltage(offset/1000.0);
 #endif
     }
 };
@@ -135,7 +136,7 @@ struct FMWidget : ModuleWidget {
         addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::CAR_VOCT_INPUT));
         addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::MOD_VOCT_OUTPUT));
 
-#ifdef ZPH_DEBUG
+#ifdef FM_DEBUG
         addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
         addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
         addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
