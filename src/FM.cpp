@@ -74,25 +74,18 @@ struct FM : Module {
 
     void process(const ProcessArgs& args) override {
 
-        float baseFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
-        float modAudio = inputs[MOD_AUDIO_INPUT].getVoltage() / 5.0f; // -1 to 1
+        float inFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
 
         float ratio = params[RATIO_PARAM].getValue();
-        //float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
-        float index = params[INDEX_PARAM].getValue();
+        float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
+        float outFreq = inFreq * ratio + offset;
 
-        float a = baseFreq * ratio;
-        float b = a * index;
-        float c = b * modAudio;
-        float d = baseFreq + c;
+        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(outFreq));
 
-        outputs[CAR_VOCT_OUTPUT].setVoltage(freqToVoct(d));
-        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(a));
-
-        outputs[DBG1_OUTPUT].setVoltage(a/1000.0f);
-        outputs[DBG2_OUTPUT].setVoltage(b/1000.0f);
-        outputs[DBG3_OUTPUT].setVoltage(c/1000.0f);
-        outputs[DBG4_OUTPUT].setVoltage(d/1000.0f);
+        outputs[DBG1_OUTPUT].setVoltage(inFreq/1000.0f);
+        outputs[DBG2_OUTPUT].setVoltage(outFreq/1000.0f);
+        outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
+        //outputs[DBG4_OUTPUT].setVoltage(d/1000.0f);
     }
 };
 
