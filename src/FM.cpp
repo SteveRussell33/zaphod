@@ -7,11 +7,9 @@ struct FM : Module {
     enum ParamId {
         RATIO_PARAM,
         OFFSET_PARAM,
-        INDEX_PARAM,
 
         RATIO_CV_PARAM,
         OFFSET_CV_PARAM,
-        INDEX_CV_PARAM,
 
         PARAMS_LEN
     };
@@ -19,22 +17,19 @@ struct FM : Module {
     enum InputId {
         RATIO_CV_INPUT,
         OFFSET_CV_INPUT,
-        INDEX_CV_INPUT,
 
-        VOCT_INPUT,
-        MOD_AUDIO_INPUT,
+        CAR_VOCT_INPUT,
 
         INPUTS_LEN
     };
 
     enum OutputId {
         MOD_VOCT_OUTPUT,
-        CAR_VOCT_OUTPUT,
 
-        DBG1_OUTPUT,
-        DBG2_OUTPUT,
-        DBG3_OUTPUT,
-        DBG4_OUTPUT,
+        //DBG1_OUTPUT,
+        //DBG2_OUTPUT,
+        //DBG3_OUTPUT,
+        //DBG4_OUTPUT,
 
         OUTPUTS_LEN
     };
@@ -44,37 +39,30 @@ struct FM : Module {
 
         configParam(RATIO_PARAM, 0.0f, 10.0f, 1.0f, "Ratio");
         configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset");
-        configParam(INDEX_PARAM, 0.0f, 1.0f, 0.0f, "Mod Index");
 
         configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
         configParam(OFFSET_CV_PARAM, -1.0f, 1.0f, 0.0f, "Offset CV amount");
-        configParam(INDEX_CV_PARAM, -1.0f, 1.0f, 0.0f, "Mod Index CV amount");
 
         configInput(RATIO_CV_INPUT, "Ratio CV");
         configInput(OFFSET_CV_INPUT, "Offset CV");
-        configInput(INDEX_CV_INPUT, "Mod Index CV");
 
-        configInput(VOCT_INPUT, "V/Oct");
-        configInput(MOD_AUDIO_INPUT, "Modulator Audio");
+        configInput(CAR_VOCT_INPUT, "Carrier V/Oct");
 
         configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
-        configOutput(CAR_VOCT_OUTPUT, "Carrier V/Oct");
 
-        configOutput(DBG1_OUTPUT, "Debug 1");
-        configOutput(DBG2_OUTPUT, "Debug 2");
-        configOutput(DBG3_OUTPUT, "Debug 3");
-        configOutput(DBG4_OUTPUT, "Debug 4");
+        //configOutput(DBG1_OUTPUT, "Debug 1");
+        //configOutput(DBG2_OUTPUT, "Debug 2");
+        //configOutput(DBG3_OUTPUT, "Debug 3");
+        //configOutput(DBG4_OUTPUT, "Debug 4");
     }
 
     bool active() {
-        return 
-            outputs[MOD_VOCT_OUTPUT].isConnected() || 
-            outputs[CAR_VOCT_OUTPUT].isConnected();
+        return outputs[MOD_VOCT_OUTPUT].isConnected();
     }
 
     void process(const ProcessArgs& args) override {
 
-        float inFreq = voctToFreq(inputs[VOCT_INPUT].getVoltage());
+        float inFreq = voctToFreq(inputs[CAR_VOCT_INPUT].getVoltage());
 
         float ratio = params[RATIO_PARAM].getValue();
         float offset = params[OFFSET_PARAM].getValue() * 40.0f; // -200Hz to200 Hz
@@ -82,9 +70,9 @@ struct FM : Module {
 
         outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(outFreq));
 
-        outputs[DBG1_OUTPUT].setVoltage(inFreq/1000.0f);
-        outputs[DBG2_OUTPUT].setVoltage(outFreq/1000.0f);
-        outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
+        //outputs[DBG1_OUTPUT].setVoltage(inFreq/1000.0f);
+        //outputs[DBG2_OUTPUT].setVoltage(outFreq/1000.0f);
+        //outputs[DBG3_OUTPUT].setVoltage(offset/1000.0f);
         //outputs[DBG4_OUTPUT].setVoltage(d/1000.0f);
     }
 };
@@ -100,33 +88,26 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // knobs
-        addParam(createParamCentered<ZaphodKnob50>(Vec(60,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(33, 150), module, FM::OFFSET_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>(Vec(87, 150), module, FM::INDEX_PARAM));
+        addParam(createParamCentered<ZaphodKnob50>(Vec(45,  82), module, FM::RATIO_PARAM));
+        addParam(createParamCentered<ZaphodKnob40>(Vec(45, 150), module, FM::OFFSET_PARAM));
 
         // row 1
-        addParam(createParamCentered<ZaphodKnob18>(Vec(24, 194), module, FM::RATIO_CV_PARAM));
-        addParam(createParamCentered<ZaphodKnob18>(Vec(60, 194), module, FM::OFFSET_CV_PARAM));
-        addParam(createParamCentered<ZaphodKnob18>(Vec(96, 194), module, FM::INDEX_CV_PARAM));
+        addParam(createParamCentered<ZaphodKnob18>(Vec(27, 236), module, FM::RATIO_CV_PARAM));
+        addParam(createParamCentered<ZaphodKnob18>(Vec(63, 236), module, FM::OFFSET_CV_PARAM));
 
         // row 2
-        addInput(createInputCentered<ZaphodPort>(Vec(24, 236), module, FM::RATIO_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(60, 236), module, FM::OFFSET_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(96, 236), module, FM::INDEX_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(27, 278), module, FM::RATIO_CV_INPUT));
+        addInput(createInputCentered<ZaphodPort>(Vec(63, 278), module, FM::OFFSET_CV_INPUT));
 
         // row 3
-        addInput(createInputCentered<ZaphodPort>(Vec(24, 278), module, FM::VOCT_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(60, 278), module, FM::MOD_AUDIO_INPUT));
-
-        // row 4
-        addOutput(createOutputCentered<ZaphodPort>(Vec(24, 320), module, FM::MOD_VOCT_OUTPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(60, 320), module, FM::CAR_VOCT_OUTPUT));
+        addInput (createInputCentered<ZaphodPort> (Vec(27, 320), module, FM::CAR_VOCT_INPUT));
+        addOutput(createOutputCentered<ZaphodPort>(Vec(63, 320), module, FM::MOD_VOCT_OUTPUT));
 
         // debug
-        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
+        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
+        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
+        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
+        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
     }
 };
 

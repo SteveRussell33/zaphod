@@ -2,9 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="120"
+  width="90"
   height="380"
-  viewBox="0 0 120 380"
+  viewBox="0 0 90 380"
 >
 
   <style>
@@ -107,24 +107,19 @@
 
   <!-- ======== knobs ======== -->  
 
-  <g transform="translate(60 82)">
+  <g transform="translate(45 82)">
     <text x="0" y="-30" class="big-label" text-anchor="middle">RATIO</text>
     <use xlink:href="#knob50" transform="translate(-25 -25)"/>
   </g>
 
-  <g transform="translate(33 150)">
+  <g transform="translate(45 150)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
-  </g>
-
-  <g transform="translate(87 150)">
-    <text x="0" y="-24" class="big-label" text-anchor="middle">INDEX</text>
     <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
   <!-- ======== row 1 ======== -->  
 
-  <g transform="translate(24 194)">
+  <g transform="translate(27 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
@@ -132,11 +127,11 @@
         <polyline points="5 -2 5 2" class="connect"/>
     </g>
   </g>
-  <g transform="translate(24 194)">
+  <g transform="translate(27 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
-  <g transform="translate(60 194)">
+  <g transform="translate(63 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="connect"/>
@@ -144,66 +139,33 @@
         <polyline points="5 -2 5 2" class="connect"/>
     </g>
   </g>
-  <g transform="translate(60 194)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-  </g>
-
-  <g transform="translate(96 194)">
-      <polyline points="0 0 0 42" class="connect"/>
-      <g transform="translate(0 15)">
-        <polyline points="-7 0 -3 0" class="connect"/>
-        <polyline points="7 0 3 0" class="connect"/>
-        <polyline points="5 -2 5 2" class="connect"/>
-    </g>
-  </g>
-  <g transform="translate(96 194)">
+  <g transform="translate(63 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <!-- ======== row 2 ======== -->  
 
-  <g transform="translate(24 236)">
+  <g transform="translate(27 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
   </g>
 
-  <g transform="translate(60 236)">
+  <g transform="translate(63 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
   </g>
 
-  <g transform="translate(96 236)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">IDX</text>
-  </g>
-
   <!-- ======== row 3 ======== -->  
 
-  <g transform="translate(24 278)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">V/OCT</text>
-  </g>
-
-  <g transform="translate(60 278)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
-  </g>
-
-  <!-- ======== row 4 ======== -->  
-
-  <!-- output rect -->  
-  <g transform="translate(24 320)">
-    <rect x="-16" y="-16" width="68" height="42" rx="3" class="output"/>
-  </g>
-
-  <g transform="translate(24 320)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
-  </g>
-
-  <g transform="translate(60 320)">
+  <g transform="translate(27 320)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">CAR</text>
+  </g>
+
+  <g transform="translate(63 320)">
+    <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
+    <use xlink:href="#port" transform="translate(-12 -12)"/>
+    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
   </g>
 
 </svg>

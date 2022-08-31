@@ -7,7 +7,7 @@
   viewBox="0 0 24 24"
 >
   <g transform="translate(12 12)">
-    <circle r="11.5" fill="#ededed"/>
+    <circle r="11.5" fill="#f0f0f0"/>
     <circle r="6"    fill="#222"/>
     <circle r="11.5" stroke-width="1" stroke="#666" fill="none"/>
     <circle r="6"    stroke-width="1" stroke="#999" fill="none"/>
