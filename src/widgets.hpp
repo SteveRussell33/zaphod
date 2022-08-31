@@ -6,41 +6,42 @@ using namespace rack;
 
 extern Plugin *pluginInstance;
 
-struct ZphKnob : RoundKnob {
-    ZphKnob(const char* svg, int dim) {
+struct MKnob : RoundKnob {
+    MKnob(const char* svg, int dim) {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
         box.size = Vec(dim, dim);
     }
 
+    // TODO I can't remember why this is here
     void redraw() {
         event::Change c;
         onChange(c);
     }
 };
 
-struct ZphKnob18 : ZphKnob {
-    ZphKnob18() : ZphKnob("res/knob18.svg", 18) {
+struct MKnob18 : MKnob {
+    MKnob18() : MKnob("res/knob18.svg", 18) {
         shadow->blurRadius = 2.0;
         shadow->box.pos = Vec(0.0, 3.0);
     }
 };
 
-struct ZphKnob40 : ZphKnob {
-    ZphKnob40() : ZphKnob("res/knob40.svg", 40) {
+struct MKnob40 : MKnob {
+    MKnob40() : MKnob("res/knob40.svg", 40) {
         shadow->blurRadius = 2.0;
         shadow->box.pos = Vec(0.0, 3.0);
     }
 };
 
-struct ZphKnob50 : ZphKnob {
-    ZphKnob50() : ZphKnob("res/knob50.svg", 50) {
+struct MKnob50 : MKnob {
+    MKnob50() : MKnob("res/knob50.svg", 50) {
         shadow->blurRadius = 2.7;
         shadow->box.pos = Vec(0.0, 4.0);
     }
 };
 
-struct ZphPort : SvgPort {
-    ZphPort() {
+struct MPort : SvgPort {
+    MPort() {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/port.svg")));
         box.size = Vec(24, 24);
         shadow->blurRadius = 1.0;
@@ -48,8 +49,8 @@ struct ZphPort : SvgPort {
     }
 };
 
-struct ZphHSwitch : SvgSwitch {
-	ZphHSwitch() {
+struct MHSwitch : SvgSwitch {
+	MHSwitch() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-1.svg")));
     }

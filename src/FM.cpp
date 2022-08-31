@@ -2,7 +2,7 @@
 #include "widgets.hpp"
 #include "dsp.hpp"
 
-//define FM_DEBUG
+#define FM_DEBUG
 
 struct FM : Module {
 
@@ -120,27 +120,27 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // knobs and switches
-        addParam(createParamCentered<ZphKnob50> (Vec(37.5,  82), module, FM::kRatioParam));
-        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 122), module, FM::kRatioStepParam));
-        addParam(createParamCentered<ZphKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
+        addParam(createParamCentered<MKnob50> (Vec(37.5,  82), module, FM::kRatioParam));
+        addParam(createParamCentered<MHSwitch>(Vec(37.5, 122), module, FM::kRatioStepParam));
+        addParam(createParamCentered<MKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
 
         // row 1
-        addParam(createParamCentered<ZphKnob18>(Vec(22, 236), module, FM::kRatioCvParam));
-        addParam(createParamCentered<ZphKnob18>(Vec(53, 236), module, FM::kOffsetCvParam));
+        addParam(createParamCentered<MKnob18>(Vec(22, 236), module, FM::kRatioCvParam));
+        addParam(createParamCentered<MKnob18>(Vec(53, 236), module, FM::kOffsetCvParam));
 
         // row 2
-        addInput(createInputCentered<ZphPort>(Vec(22, 278), module, FM::kRatioCvInput));
-        addInput(createInputCentered<ZphPort>(Vec(53, 278), module, FM::kOffsetCvInput));
+        addInput(createInputCentered<MPort>(Vec(22, 278), module, FM::kRatioCvInput));
+        addInput(createInputCentered<MPort>(Vec(53, 278), module, FM::kOffsetCvInput));
 
         // row 3
-        addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::kCarrierPitchInput));
-        addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::kModulatorPitchOutput));
+        addInput (createInputCentered<MPort> (Vec(22, 320), module, FM::kCarrierPitchInput));
+        addOutput(createOutputCentered<MPort>(Vec(53, 320), module, FM::kModulatorPitchOutput));
 
 #ifdef FM_DEBUG
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::kDebug1));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::kDebug2));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::kDebug3));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::kDebug4));
+        addOutput(createOutputCentered<MPort>(Vec(12, 12), module, FM::kDebug1));
+        addOutput(createOutputCentered<MPort>(Vec(12, 36), module, FM::kDebug2));
+        addOutput(createOutputCentered<MPort>(Vec(12, 60), module, FM::kDebug3));
+        addOutput(createOutputCentered<MPort>(Vec(12, 84), module, FM::kDebug4));
 #endif
     }
 };
