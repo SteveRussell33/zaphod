@@ -6,8 +6,8 @@ using namespace rack;
 
 extern Plugin *pluginInstance;
 
-struct ZaphodKnob : RoundKnob {
-    ZaphodKnob(const char* svg, int dim) {
+struct ZphKnob : RoundKnob {
+    ZphKnob(const char* svg, int dim) {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
         box.size = Vec(dim, dim);
     }
@@ -18,29 +18,29 @@ struct ZaphodKnob : RoundKnob {
     }
 };
 
-struct ZaphodKnob18 : ZaphodKnob {
-    ZaphodKnob18() : ZaphodKnob("res/knob18.svg", 18) {
+struct ZphKnob18 : ZphKnob {
+    ZphKnob18() : ZphKnob("res/knob18.svg", 18) {
         shadow->blurRadius = 2.0;
         shadow->box.pos = Vec(0.0, 3.0);
     }
 };
 
-struct ZaphodKnob40 : ZaphodKnob {
-    ZaphodKnob40() : ZaphodKnob("res/knob40.svg", 40) {
+struct ZphKnob40 : ZphKnob {
+    ZphKnob40() : ZphKnob("res/knob40.svg", 40) {
         shadow->blurRadius = 2.0;
         shadow->box.pos = Vec(0.0, 3.0);
     }
 };
 
-struct ZaphodKnob50 : ZaphodKnob {
-    ZaphodKnob50() : ZaphodKnob("res/knob50.svg", 50) {
+struct ZphKnob50 : ZphKnob {
+    ZphKnob50() : ZphKnob("res/knob50.svg", 50) {
         shadow->blurRadius = 2.7;
         shadow->box.pos = Vec(0.0, 4.0);
     }
 };
 
-struct ZaphodPort : SvgPort {
-    ZaphodPort() {
+struct ZphPort : SvgPort {
+    ZphPort() {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/port.svg")));
         box.size = Vec(24, 24);
         shadow->blurRadius = 1.0;
@@ -48,8 +48,8 @@ struct ZaphodPort : SvgPort {
     }
 };
 
-struct ZaphodHSwitch14 : SvgSwitch {
-	ZaphodHSwitch14() {
+struct ZphHSwitch : SvgSwitch {
+	ZphHSwitch() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch14-1.svg")));
     }

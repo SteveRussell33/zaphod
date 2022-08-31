@@ -5,8 +5,8 @@ import subprocess
 
 files = [
     'FM',
-    'hswitch14-0',
-    'hswitch14-1',
+    'hswitch-0',
+    'hswitch-1',
     'knob18',
     'knob40',
     'knob50',
@@ -17,9 +17,7 @@ for f in files:
     fin = 'res-src/' + f + '-src.svg'
     fout = 'res/' + f + '.svg'
 
-    tin = os.path.getmtime(fin)
-    tout = os.path.getmtime(fout)
-    if tin > tout:
+    if not os.path.exists(fout) or os.path.getmtime(fin) > os.path.getmtime(fout):
         print('Processing ' + fout + '...')
 
         # read input

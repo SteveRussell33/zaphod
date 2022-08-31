@@ -90,27 +90,27 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // knobs
-        addParam(createParamCentered<ZaphodKnob50>   (Vec(37.5,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZaphodHSwitch14>(Vec(37.5, 120), module, FM::RATIO_STEP_PARAM));
-        addParam(createParamCentered<ZaphodKnob40>   (Vec(37.5, 180), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZphKnob50> (Vec(37.5,  82), module, FM::RATIO_PARAM));
+        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 120), module, FM::RATIO_STEP_PARAM));
+        addParam(createParamCentered<ZphKnob40> (Vec(37.5, 180), module, FM::OFFSET_PARAM));
 
         // row 1
-        addParam(createParamCentered<ZaphodKnob18>(Vec(22, 236), module, FM::RATIO_CV_PARAM));
-        addParam(createParamCentered<ZaphodKnob18>(Vec(53, 236), module, FM::OFFSET_CV_PARAM));
+        addParam(createParamCentered<ZphKnob18>(Vec(22, 236), module, FM::RATIO_CV_PARAM));
+        addParam(createParamCentered<ZphKnob18>(Vec(53, 236), module, FM::OFFSET_CV_PARAM));
 
         // row 2
-        addInput(createInputCentered<ZaphodPort>(Vec(22, 278), module, FM::RATIO_CV_INPUT));
-        addInput(createInputCentered<ZaphodPort>(Vec(53, 278), module, FM::OFFSET_CV_INPUT));
+        addInput(createInputCentered<ZphPort>(Vec(22, 278), module, FM::RATIO_CV_INPUT));
+        addInput(createInputCentered<ZphPort>(Vec(53, 278), module, FM::OFFSET_CV_INPUT));
 
         // row 3
-        addInput (createInputCentered<ZaphodPort> (Vec(22, 320), module, FM::CAR_VOCT_INPUT));
-        addOutput(createOutputCentered<ZaphodPort>(Vec(53, 320), module, FM::MOD_VOCT_OUTPUT));
+        addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::CAR_VOCT_INPUT));
+        addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::MOD_VOCT_OUTPUT));
 
         // debug
-        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
-        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
-        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
-        //addOutput(createOutputCentered<ZaphodPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
+        //addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
+        //addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
+        //addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
+        //addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
     }
 };
 
