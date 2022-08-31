@@ -7,60 +7,61 @@
 struct FM : Module {
 
     enum ParamId {
-        RATIO_PARAM,
-        RATIO_STEP_PARAM,
-        OFFSET_PARAM,
+        kRatioParam,
+        kRatioStepParam,
+        kRatioCvParam,
 
-        RATIO_CV_PARAM,
-        OFFSET_CV_PARAM,
+        kOffsetParam,
+        kOffsetCvParam,
 
-        PARAMS_LEN
+        kParamsLen
     };
 
     enum InputId {
-        RATIO_CV_INPUT,
-        OFFSET_CV_INPUT,
+        kRatioCvInput,
+        kOffsetCvInput,
 
-        CAR_VOCT_INPUT,
+        kCarrierPitchInput,
 
-        INPUTS_LEN
+        kInputsLen
     };
 
     enum OutputId {
-        MOD_VOCT_OUTPUT,
+        kModulatorPitchOutput,
+
 #ifdef FM_DEBUG
-        DBG1_OUTPUT,
-        DBG2_OUTPUT,
-        DBG3_OUTPUT,
-        DBG4_OUTPUT,
+        kDebug1,
+        kDebug2,
+        kDebug3,
+        kDebug4,
 #endif
-        OUTPUTS_LEN
+        kOutputsLen
     };
 
     FM() {
-        config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, 0);
+        config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
-        configParam(RATIO_PARAM, 0.01f, 10.0f, 1.0f, "Ratio");
-		configSwitch(RATIO_STEP_PARAM, 0.f, 1.f, 0.f, "Ratio Step mode", {"On", "Off"});
-        configParam(OFFSET_PARAM, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
+        configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
+		configSwitch(kRatioStepParam, 0.f, 1.f, 0.f, "Ratio Step mode", {"On", "Off"});
+        configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
     
         //----------------------------------
 
-        configParam(RATIO_CV_PARAM, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
-        configParam(OFFSET_CV_PARAM, -1.0f, 1.0f, 0.0f, "Offset CV amount");
-        configInput(RATIO_CV_INPUT, "Ratio CV");
-        configInput(OFFSET_CV_INPUT, "Offset CV");
+        configParam(kRatioCvParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
+        configParam(kOffsetCvParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
+        configInput(kRatioCvInput, "Ratio CV");
+        configInput(kOffsetCvInput, "Offset CV");
 
         //----------------------------------
 
-        configInput(CAR_VOCT_INPUT, "Carrier V/Oct");
-        configOutput(MOD_VOCT_OUTPUT, "Modulator V/Oct");
+        configInput(kCarrierPitchInput, "Carrier V/Oct");
+        configOutput(kModulatorPitchOutput, "Modulator V/Oct");
 
 #ifdef FM_DEBUG
-        configOutput(DBG1_OUTPUT, "Debug 1");
-        configOutput(DBG2_OUTPUT, "Debug 2");
-        configOutput(DBG3_OUTPUT, "Debug 3");
-        configOutput(DBG4_OUTPUT, "Debug 4");
+        configOutput(kDebug1, "Debug 1");
+        configOutput(kDebug2, "Debug 2");
+        configOutput(kDebug3, "Debug 3");
+        configOutput(kDebug4, "Debug 4");
 #endif
     }
 
@@ -78,33 +79,32 @@ struct FM : Module {
     }
 
     inline bool active() {
-        return outputs[MOD_VOCT_OUTPUT].isConnected();
+        return outputs[kModulatorPitchOutput].isConnected();
     }
 
     void process(const ProcessArgs& args) override {
         if (!active()) return;
 
-        float ratio = params[RATIO_PARAM].getValue();
-        float ratioCV = calculateCV(RATIO_CV_INPUT, RATIO_CV_PARAM);
+        float ratio = params[kRatioParam].getValue();
+        float ratioCV = calculateCV(kRatioCvInput, kRatioCvParam);
         ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
 
-        bool isRatioStep = params[RATIO_STEP_PARAM].getValue() < 0.05f;
+        bool isRatioStep = params[kRatioStepParam].getValue() < 0.05f;
         if (isRatioStep) {
             ratio = applyRatioStep(ratio);
         }
 
-        float offset = params[OFFSET_PARAM].getValue();
-        float offsetCV = calculateCV(OFFSET_CV_INPUT, OFFSET_CV_PARAM);
+        float offset = params[kOffsetParam].getValue();
+        float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvParam);
         offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
 
-        // TODO getPolyVoltage
-        float inFreq = voctToFreq(inputs[CAR_VOCT_INPUT].getVoltage());
+        float inFreq = pitchToFreq(inputs[kCarrierPitchInput].getVoltage());
         float outFreq = inFreq * ratio + offset;
-        outputs[MOD_VOCT_OUTPUT].setVoltage(freqToVoct(outFreq));
+        outputs[kModulatorPitchOutput].setVoltage(freqToPitch(outFreq));
 
 #ifdef FM_DEBUG
-        outputs[DBG1_OUTPUT].setVoltage(ratio);
-        outputs[DBG2_OUTPUT].setVoltage(offset/1000.0);
+        outputs[kDebug1].setVoltage(ratio);
+        outputs[kDebug2].setVoltage(offset/1000.0);
 #endif
     }
 };
@@ -120,27 +120,27 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
 
         // knobs and switches
-        addParam(createParamCentered<ZphKnob50> (Vec(37.5,  82), module, FM::RATIO_PARAM));
-        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 122), module, FM::RATIO_STEP_PARAM));
-        addParam(createParamCentered<ZphKnob40> (Vec(37.5, 180), module, FM::OFFSET_PARAM));
+        addParam(createParamCentered<ZphKnob50> (Vec(37.5,  82), module, FM::kRatioParam));
+        addParam(createParamCentered<ZphHSwitch>(Vec(37.5, 122), module, FM::kRatioStepParam));
+        addParam(createParamCentered<ZphKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
 
         // row 1
-        addParam(createParamCentered<ZphKnob18>(Vec(22, 236), module, FM::RATIO_CV_PARAM));
-        addParam(createParamCentered<ZphKnob18>(Vec(53, 236), module, FM::OFFSET_CV_PARAM));
+        addParam(createParamCentered<ZphKnob18>(Vec(22, 236), module, FM::kRatioCvParam));
+        addParam(createParamCentered<ZphKnob18>(Vec(53, 236), module, FM::kOffsetCvParam));
 
         // row 2
-        addInput(createInputCentered<ZphPort>(Vec(22, 278), module, FM::RATIO_CV_INPUT));
-        addInput(createInputCentered<ZphPort>(Vec(53, 278), module, FM::OFFSET_CV_INPUT));
+        addInput(createInputCentered<ZphPort>(Vec(22, 278), module, FM::kRatioCvInput));
+        addInput(createInputCentered<ZphPort>(Vec(53, 278), module, FM::kOffsetCvInput));
 
         // row 3
-        addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::CAR_VOCT_INPUT));
-        addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::MOD_VOCT_OUTPUT));
+        addInput (createInputCentered<ZphPort> (Vec(22, 320), module, FM::kCarrierPitchInput));
+        addOutput(createOutputCentered<ZphPort>(Vec(53, 320), module, FM::kModulatorPitchOutput));
 
 #ifdef FM_DEBUG
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::DBG1_OUTPUT));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::DBG2_OUTPUT));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::DBG3_OUTPUT));
-        addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::DBG4_OUTPUT));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 12), module, FM::kDebug1));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 36), module, FM::kDebug2));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 60), module, FM::kDebug3));
+        addOutput(createOutputCentered<ZphPort>(Vec(12, 84), module, FM::kDebug4));
 #endif
     }
 };
