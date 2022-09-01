@@ -9,7 +9,7 @@ struct FM : Module {
     enum ParamId {
         kRatioParam,
         kRatioCvAmountParam,
-        kRatioStepParam,
+        kRatioQuantParam,
         kOffsetParam,
         kOffsetCvAmountParam,
 
@@ -41,7 +41,7 @@ struct FM : Module {
 
         configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
         configParam(kRatioCvAmountParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
-		configSwitch(kRatioStepParam, 0.f, 1.f, 0.f, "Ratio Quantization", {"On", "Off"});
+		configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Ratio Quantization", {"On", "Off"});
         configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
         configParam(kOffsetCvAmountParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
 
@@ -65,7 +65,7 @@ struct FM : Module {
             0.0f;
     }
 
-    float applyRatioStep(float ratio) {
+    float applyRatioQuant(float ratio) {
         if      (ratio < 0.125f) return 0.01f;
         else if (ratio < 0.375f) return 0.25f;
         else if (ratio < 0.75f)  return 0.5f;
@@ -79,34 +79,34 @@ struct FM : Module {
     void process(const ProcessArgs& args) override {
         if (!active()) return;
 
-        //----------------------------------
+        ////----------------------------------
 
-        float ratio = params[kRatioParam].getValue();
-        float ratioCV = calculateCV(kRatioCvInput, kRatioCvAmountParam);
-        ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
+        //float ratio = params[kRatioParam].getValue();
+        //float ratioCV = calculateCV(kRatioCvInput, kRatioCvAmountParam);
+        //ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
 
-        bool isRatioStep = params[kRatioStepParam].getValue() < 0.05f;
-        if (isRatioStep) {
-            ratio = applyRatioStep(ratio);
-        }
+        //bool isRatioQuant = params[kRatioQuantParam].getValue() < 0.05f;
+        //if (isRatioQuant) {
+        //    ratio = applyRatioQuant(ratio);
+        //}
 
-        float offset = params[kOffsetParam].getValue();
-        float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvAmountParam);
-        offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
+        //float offset = params[kOffsetParam].getValue();
+        //float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvAmountParam);
+        //offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
 
-        //----------------------------------
+        ////----------------------------------
 
-		int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
-		for (int c = 0; c < channels; c++) {
-            float inPitch = inputs[kCarrierPitchInput].getPolyVoltage(c);
+		//int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
+		//for (int c = 0; c < channels; c++) {
+        //    float inPitch = inputs[kCarrierPitchInput].getPolyVoltage(c);
 
-            float inFreq = pitchToFreq(inPitch);
-            float outFreq = inFreq * ratio + offset;
-            float outPitch = freqToPitch(outFreq);
+        //    float inFreq = pitchToFreq(inPitch);
+        //    float outFreq = inFreq * ratio + offset;
+        //    float outPitch = freqToPitch(outFreq);
 
-            outputs[kModulatorPitchOutput].setVoltage(outPitch, c);
-        }
-		outputs[kModulatorPitchOutput].setChannels(channels);
+        //    outputs[kModulatorPitchOutput].setVoltage(outPitch, c);
+        //}
+		//outputs[kModulatorPitchOutput].setChannels(channels);
 
 #ifdef FM_DEBUG
         outputs[kDebug1].setVoltage(ratio);
@@ -128,7 +128,7 @@ struct FMWidget : ModuleWidget {
 
         // knobs and switches
         addParam(createParamCentered<MKnob50> (Vec(37.5,  82), module, FM::kRatioParam));
-        addParam(createParamCentered<MHSwitch>(Vec(37.5, 122), module, FM::kRatioStepParam));
+        addParam(createParamCentered<MHSwitch>(Vec(37.5, 122), module, FM::kRatioQuantParam));
         addParam(createParamCentered<MKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
 
         // row 1
