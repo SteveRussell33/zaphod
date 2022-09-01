@@ -51,6 +51,8 @@ struct FM : Module {
 
         configOutput(kModulatorPitchOutput, "Modulator V/Oct");
 
+        configBypass(kCarrierPitchInput, kModulatorPitchOutput);
+
 #ifdef FM_DEBUG
         configOutput(kDebug1, "Debug 1");
         configOutput(kDebug2, "Debug 2");
