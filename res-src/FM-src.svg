@@ -2,9 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="75"
+  width="60"
   height="380"
-  viewBox="0 0 75 380"
+  viewBox="0 0 60 380"
 >
 
   <style>
@@ -121,29 +121,29 @@
 
   <!-- ======== knobs and switches ======== -->  
 
-  <g transform="translate(37.5 82)">
-    <text x="0" y="-30" class="big-label" text-anchor="middle">RATIO</text>
-    <use xlink:href="#knob50" transform="translate(-25 -25)"/>
+  <g transform="translate(30 76)">
+    <text x="0" y="-24" class="big-label" text-anchor="middle">RATIO</text>
+    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
-  <g transform="translate(37.5 122)">
+  <g transform="translate(30 112)">
     <use xlink:href="#hswitch14" transform="translate(-12 -7)"/>
-    <g transform="translate(20 0)">
+    <g transform="translate(19 0)">
       <polyline points="-4 4 4 -4" class="icon"/>
     </g>
-    <g transform="translate(-20 0)">
+    <g transform="translate(-19 0)">
       <polyline points="-4 4 -4 0 0 0 0 -4 4 -4" class="icon"/>
     </g>
   </g>
 
-  <g transform="translate(37.5 180)">
+  <g transform="translate(30 176)">
     <text x="0" y="-24" class="big-label" text-anchor="middle">OFFSET</text>
     <use xlink:href="#knob40" transform="translate(-20 -20)"/>
   </g>
 
   <!-- ======== row 1 ======== -->  
 
-  <g transform="translate(22 236)">
+  <g transform="translate(16 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="icon"/>
@@ -151,11 +151,11 @@
         <polyline points="5 -2 5 2" class="icon"/>
     </g>
   </g>
-  <g transform="translate(22 236)">
+  <g transform="translate(16 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
-  <g transform="translate(53 236)">
+  <g transform="translate(44 236)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="icon"/>
@@ -163,31 +163,32 @@
         <polyline points="5 -2 5 2" class="icon"/>
     </g>
   </g>
-  <g transform="translate(53 236)">
+  <g transform="translate(44 236)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <!-- ======== row 2 ======== -->  
 
-  <g transform="translate(22 278)">
+  <g transform="translate(16 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
   </g>
 
-  <g transform="translate(53 278)">
+  <g transform="translate(44 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
   </g>
 
   <!-- ======== row 3 ======== -->  
 
-  <g transform="translate(22 320)">
+  <g transform="translate(16 320)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">CAR</text>
   </g>
 
-  <g transform="translate(53 320)">
-    <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
+  <g transform="translate(44 320)">
+    <!-- NOTE: width 32 looks better if we have enough room -->
+    <rect x="-14" y="-16" width="28" height="42" rx="3" class="output"/>
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
   </g>
