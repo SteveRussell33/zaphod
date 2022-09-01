@@ -2,17 +2,16 @@
 #include "widgets.hpp"
 #include "dsp.hpp"
 
-//define FM_DEBUG
+#define FM_DEBUG
 
 struct FM : Module {
 
     enum ParamId {
         kRatioParam,
+        kRatioCvAmountParam,
         kRatioStepParam,
-        kRatioCvParam,
-
         kOffsetParam,
-        kOffsetCvParam,
+        kOffsetCvAmountParam,
 
         kParamsLen
     };
@@ -20,7 +19,6 @@ struct FM : Module {
     enum InputId {
         kRatioCvInput,
         kOffsetCvInput,
-
         kCarrierPitchInput,
 
         kInputsLen
@@ -42,19 +40,15 @@ struct FM : Module {
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
-		configSwitch(kRatioStepParam, 0.f, 1.f, 0.f, "Ratio Step mode", {"On", "Off"});
+        configParam(kRatioCvAmountParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
+		configSwitch(kRatioStepParam, 0.f, 1.f, 0.f, "Ratio Quantization", {"On", "Off"});
         configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
-    
-        //----------------------------------
+        configParam(kOffsetCvAmountParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
 
-        configParam(kRatioCvParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
-        configParam(kOffsetCvParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
         configInput(kRatioCvInput, "Ratio CV");
         configInput(kOffsetCvInput, "Offset CV");
-
-        //----------------------------------
-
         configInput(kCarrierPitchInput, "Carrier V/Oct");
+
         configOutput(kModulatorPitchOutput, "Modulator V/Oct");
 
 #ifdef FM_DEBUG
@@ -88,7 +82,7 @@ struct FM : Module {
         //----------------------------------
 
         float ratio = params[kRatioParam].getValue();
-        float ratioCV = calculateCV(kRatioCvInput, kRatioCvParam);
+        float ratioCV = calculateCV(kRatioCvInput, kRatioCvAmountParam);
         ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
 
         bool isRatioStep = params[kRatioStepParam].getValue() < 0.05f;
@@ -97,7 +91,7 @@ struct FM : Module {
         }
 
         float offset = params[kOffsetParam].getValue();
-        float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvParam);
+        float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvAmountParam);
         offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
 
         //----------------------------------
@@ -114,8 +108,6 @@ struct FM : Module {
         }
 		outputs[kModulatorPitchOutput].setChannels(channels);
 
-        //----------------------------------
-        //
 #ifdef FM_DEBUG
         outputs[kDebug1].setVoltage(ratio);
         outputs[kDebug2].setVoltage(offset/1000.0);
@@ -140,8 +132,8 @@ struct FMWidget : ModuleWidget {
         addParam(createParamCentered<MKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
 
         // row 1
-        addParam(createParamCentered<MKnob18>(Vec(22, 236), module, FM::kRatioCvParam));
-        addParam(createParamCentered<MKnob18>(Vec(53, 236), module, FM::kOffsetCvParam));
+        addParam(createParamCentered<MKnob18>(Vec(22, 236), module, FM::kRatioCvAmountParam));
+        addParam(createParamCentered<MKnob18>(Vec(53, 236), module, FM::kOffsetCvAmountParam));
 
         // row 2
         addInput(createInputCentered<MPort>(Vec(22, 278), module, FM::kRatioCvInput));
