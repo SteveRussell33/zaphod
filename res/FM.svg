@@ -121,11 +121,11 @@
        id="bigKnobDarkGradient">
       <stop
          offset="5%"
-         stop-color="#555"
+         stop-color="#5c5c5c"
          id="stop14" />
       <stop
          offset="95%"
-         stop-color="#222"
+         stop-color="#282828"
          id="stop16" />
     </linearGradient>
     <symbol

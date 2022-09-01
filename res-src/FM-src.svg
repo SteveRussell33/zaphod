@@ -66,8 +66,8 @@
     </linearGradient>
 
     <linearGradient id="bigKnobDarkGradient">
-      <stop offset="5%"  stop-color="#555" />
-      <stop offset="95%" stop-color="#222" />
+      <stop offset="5%"  stop-color="#5c5c5c" />
+      <stop offset="95%" stop-color="#282828" />
     </linearGradient>
 
     <symbol id="knob18" >
