@@ -135,7 +135,7 @@ struct FMWidget : ModuleWidget {
 
         // knobs and switches
         addParam(createParamCentered<MKnob40> (Vec(30,  76), module, FM::kRatioParam));
-        addParam(createParamCentered<MHSwitch>(Vec(30, 116), module, FM::kRatioQuantParam));
+        addParam(createParamCentered<MHSwitch>(Vec(30, 112), module, FM::kRatioQuantParam));
         addParam(createParamCentered<MKnob40> (Vec(30, 176), module, FM::kOffsetParam));
 
         // row 1

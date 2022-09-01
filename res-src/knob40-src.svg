@@ -8,8 +8,8 @@
 >
 
   <g transform="translate(20 20)">
-    <circle r="15" fill="#222"/>
-    <circle r="14" fill="#f0f0f0"/>
-    <polyline points="0,-13 0,-2" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none" />
+    <circle r="16" fill="#222"/>
+    <circle r="15" fill="#f2cb91"/>
+    <polyline points="0,-14 0,-2" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none" />
   </g>
 </svg>

@@ -65,10 +65,6 @@
       <stop offset="95%" stop-color="#222" />
     </linearGradient>
 
-    <linearGradient id="bigKnobMediumGradient">
-      <stop offset="5%"  stop-color="#888" />
-      <stop offset="95%" stop-color="#555" />
-    </linearGradient>
     <linearGradient id="bigKnobDarkGradient">
       <stop offset="5%"  stop-color="#555" />
       <stop offset="95%" stop-color="#222" />
@@ -85,14 +81,12 @@
     <symbol id="knob40" >
       <g transform="translate(20 20)">
         <circle r="19.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
-        <circle r="16.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
     <symbol id="knob50" >
       <g transform="translate(25 25)">
         <circle r="24.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
-        <circle r="21.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
