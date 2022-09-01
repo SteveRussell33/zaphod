@@ -41,7 +41,7 @@ struct FM : Module {
 
         configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
         configParam(kRatioCvAmountParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
-		configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Ratio Quantization", {"On", "Off"});
+		configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Quantize Ratio", {"On", "Off"});
         configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
         configParam(kOffsetCvAmountParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
 
@@ -59,60 +59,64 @@ struct FM : Module {
 #endif
     }
 
-    inline float calculateCV(int inputID, int paramID) {
-        return (inputs[inputID].isConnected()) ?
-            inputs[inputID].getVoltage() * params[paramID].getValue() :
-            0.0f;
+    inline bool active() {
+        return outputs[kModulatorPitchOutput].isConnected();
     }
 
-    float applyRatioQuant(float ratio) {
+    float quantizeRatio(float ratio) {
         if      (ratio < 0.125f) return 0.01f;
         else if (ratio < 0.375f) return 0.25f;
         else if (ratio < 0.75f)  return 0.5f;
         else                     return round(ratio);
     }
 
-    inline bool active() {
-        return outputs[kModulatorPitchOutput].isConnected();
-    }
-
     void process(const ProcessArgs& args) override {
         if (!active()) return;
 
-        ////----------------------------------
+        float pRatio          = params[kRatioParam].getValue();
+        float pRatioCvAmount  = params[kRatioCvAmountParam].getValue();
+        bool  pRatioQuant     = params[kRatioQuantParam].getValue() < 0.5f;
+        float pOffset         = params[kOffsetParam].getValue();
+        float pOffsetCvAmount = params[kOffsetCvAmountParam].getValue();
 
-        //float ratio = params[kRatioParam].getValue();
-        //float ratioCV = calculateCV(kRatioCvInput, kRatioCvAmountParam);
-        //ratio = clamp(ratio + ratioCV, 0.01f, 10.0f);
-
-        //bool isRatioQuant = params[kRatioQuantParam].getValue() < 0.05f;
-        //if (isRatioQuant) {
-        //    ratio = applyRatioQuant(ratio);
-        //}
-
-        //float offset = params[kOffsetParam].getValue();
-        //float offsetCV = calculateCV(kOffsetCvInput, kOffsetCvAmountParam);
-        //offset = clamp(offset + offsetCV, -5.0f, 5.0f) * 40.0f; // -200Hz to200 Hz
-
-        ////----------------------------------
-
-		//int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
-		//for (int c = 0; c < channels; c++) {
-        //    float inPitch = inputs[kCarrierPitchInput].getPolyVoltage(c);
-
-        //    float inFreq = pitchToFreq(inPitch);
-        //    float outFreq = inFreq * ratio + offset;
-        //    float outPitch = freqToPitch(outFreq);
-
-        //    outputs[kModulatorPitchOutput].setVoltage(outPitch, c);
-        //}
-		//outputs[kModulatorPitchOutput].setChannels(channels);
+		int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
 
 #ifdef FM_DEBUG
-        outputs[kDebug1].setVoltage(ratio);
-        outputs[kDebug2].setVoltage(offset/1000.0);
-        outputs[kDebug3].setVoltage(channels);
+outputs[kDebug1].setVoltage(channels);
 #endif
+
+		for (int ch = 0; ch < channels; ch++) {
+
+            float inRatioCv      = inputs[kRatioCvInput].getPolyVoltage(ch);
+            float inOffsetCv     = inputs[kOffsetCvInput].getPolyVoltage(ch);
+            float inCarrierPitch = inputs[kCarrierPitchInput].getPolyVoltage(ch);
+
+            // ratio
+            float ratio = clamp(pRatio + inRatioCv * pRatioCvAmount, 0.01f, 10.0f);
+            if (pRatioQuant) {
+                ratio = quantizeRatio(ratio);
+            }
+
+#ifdef FM_DEBUG
+if (ch == 0) outputs[kDebug2].setVoltage(ratio);
+#endif
+
+            // offset
+            float offset = clamp(pOffset + inOffsetCv * pOffsetCvAmount, -5.0f, 5.0f);
+            offset = offset * 40.0f; // -200Hz to 200 Hz
+
+#ifdef FM_DEBUG
+if (ch == 0) outputs[kDebug3].setVoltage(offset/100.0f);
+#endif
+
+            // frequency
+            float carrierFreq  = pitchToFreq(inCarrierPitch);
+            float modulatorFreq = carrierFreq * ratio + offset;
+            float outModulatorPitch = freqToPitch(modulatorFreq);
+
+            outputs[kModulatorPitchOutput].setVoltage(outModulatorPitch, ch);
+        }
+		outputs[kModulatorPitchOutput].setChannels(channels);
     }
 };
 
