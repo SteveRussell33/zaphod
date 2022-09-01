@@ -34,7 +34,7 @@
       fill: #e0e0e0;
     }
     .output {
-      fill: #bbbbbb;
+      fill: #c1c1c1;
     }
     polyline.icon {
       stroke: #343434;
