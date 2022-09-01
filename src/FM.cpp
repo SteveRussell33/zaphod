@@ -92,7 +92,7 @@ outputs[kDebug1].setVoltage(channels);
             float inCarrierPitch = inputs[kCarrierPitchInput].getPolyVoltage(ch);
 
             // ratio
-            float ratio = clamp(pRatio + inRatioCv * pRatioCvAmount, 0.01f, 10.0f);
+            float ratio = pRatio + inRatioCv * pRatioCvAmount;
             if (pRatioQuant) {
                 ratio = quantizeRatio(ratio);
             }
@@ -102,7 +102,7 @@ if (ch == 0) outputs[kDebug2].setVoltage(ratio);
 #endif
 
             // offset
-            float offset = clamp(pOffset + inOffsetCv * pOffsetCvAmount, -5.0f, 5.0f);
+            float offset = pOffset + inOffsetCv * pOffsetCvAmount;
             offset = offset * 40.0f; // -200Hz to 200 Hz
 
 #ifdef FM_DEBUG
@@ -111,7 +111,7 @@ if (ch == 0) outputs[kDebug3].setVoltage(offset/100.0f);
 
             // frequency
             float carrierFreq  = pitchToFreq(inCarrierPitch);
-            float modulatorFreq = carrierFreq * ratio + offset;
+            float modulatorFreq = clamp(carrierFreq * ratio + offset, 20.0f, 20000.0f);
             float outModulatorPitch = freqToPitch(modulatorFreq);
 
             outputs[kModulatorPitchOutput].setVoltage(outModulatorPitch, ch);
