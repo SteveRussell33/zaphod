@@ -35,7 +35,7 @@ struct SAT : Module {
     SAT() {
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
-        configParam(kDriveParam, 0.01f, 10.0f, 1.0f, "Drive");
+        configParam(kDriveParam, 0.0f, 1.0f, 0.0f, "Drive");
         configParam(kDriveCvAmountParam, -1.0f, 1.0f, 0.0f, "Drive CV amount");
 
         configInput(kDriveCvInput, "Drive CV");
@@ -53,7 +53,33 @@ struct SAT : Module {
 #endif
     }
 
+    float saturate(float input) {
+        return std::tanhf(input * M_PI);
+    }
+
     void process(const ProcessArgs& args) override {
+        if (!outputs[kSatOutput].isConnected())  {
+            return;
+        }
+
+        float pDrive         = params[kDriveParam].getValue();
+        float pDriveCvAmount = params[kDriveCvAmountParam].getValue();
+
+		int channels = std::max(inputs[kSatInput].getChannels(), 1);
+
+		for (int ch = 0; ch < channels; ch++) {
+
+            float inDriveCv = inputs[kDriveCvInput].getPolyVoltage(ch);
+            float drive = pDrive + inDriveCv * pDriveCvAmount;
+            
+            float input = inputs[kSatInput].getPolyVoltage(ch)/5.0f;
+
+            float sat = saturate(input);
+
+            float output = input * (1 - drive) + sat * drive;
+            outputs[kSatOutput].setVoltage(output*5.0f, ch);
+        }
+		outputs[kSatOutput].setChannels(channels);
     }
 };
 
