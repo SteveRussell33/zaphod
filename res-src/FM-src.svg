@@ -34,7 +34,7 @@
       fill: #e0e0e0;
     }
     .output {
-      fill: #c1c1c1;
+      fill: #bbbbbb;
     }
     polyline.icon {
       stroke: #343434;
@@ -56,10 +56,12 @@
   <!-- ======== defs ======== -->  
 
   <defs>
+
     <linearGradient id="smallKnobMediumGradient">
       <stop offset="5%"  stop-color="#888" />
       <stop offset="95%" stop-color="#333" />
     </linearGradient>
+
     <linearGradient id="smallKnobDarkGradient">
       <stop offset="5%"  stop-color="#444" />
       <stop offset="95%" stop-color="#222" />
@@ -68,6 +70,11 @@
     <linearGradient id="bigKnobDarkGradient">
       <stop offset="5%"  stop-color="#5c5c5c" />
       <stop offset="95%" stop-color="#282828" />
+    </linearGradient>
+
+    <linearGradient id="bigKnobMediumGradient">
+      <stop offset="5%"  stop-color="#888" />
+      <stop offset="95%" stop-color="#333" />
     </linearGradient>
 
     <symbol id="knob18" >
@@ -81,12 +88,14 @@
     <symbol id="knob40" >
       <g transform="translate(20 20)">
         <circle r="19.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="17.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
     <symbol id="knob50" >
       <g transform="translate(25 25)">
         <circle r="24.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="22.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
