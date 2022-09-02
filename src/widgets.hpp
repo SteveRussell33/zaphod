@@ -26,8 +26,8 @@ struct MKnob18 : MKnob {
     }
 };
 
-struct MKnob30 : MKnob {
-    MKnob30() : MKnob("res/knob30.svg", 30) {
+struct MKnob32 : MKnob {
+    MKnob32() : MKnob("res/knob32.svg", 32) {
         shadow->blurRadius = 2.0;
         shadow->box.pos = Vec(0.0, 3.0);
     }

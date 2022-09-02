@@ -70,7 +70,7 @@ struct SATWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
         // knobs and switches
-        addParam(createParamCentered<MKnob30> (Vec(22.5,  78), module, SAT::kDriveParam));
+        addParam(createParamCentered<MKnob32> (Vec(22.5,  78), module, SAT::kDriveParam));
 
         // row 1
         addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, SAT::kDriveCvAmountParam));

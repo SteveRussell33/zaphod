@@ -13,10 +13,10 @@
       font-family: 'American Typewriter';
       font-size: 13pt;
     }
-    text.small-logo {
+    text.logo {
       fill: #a91913;
       font-family: 'American Typewriter';
-      font-size: 10pt;
+      font-size: 11pt;
     }
     text.big-label {
       fill: #343434;
@@ -85,10 +85,10 @@
       </g>
     </symbol>
 
-    <symbol id="knob30" >
-      <g transform="translate(15 15)">
-        <circle r="14.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
-        <circle r="12.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+    <symbol id="knob32" >
+      <g transform="translate(16 16)">
+        <circle r="15.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="13.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
       </g>
     </symbol>
 
@@ -127,7 +127,7 @@
 
   <rect class="background" width="100%" height="100%"/>
   <text class="title" x="50%" y="30"  text-anchor="middle">SAT</text>
-  <text class="small-logo" x="50%" y="362" text-anchor="middle">oberon</text>
+  <text class="logo" x="50%" y="362" text-anchor="middle">obero</text>
 
   <!-- ======== knobs and switches ======== -->  
 
@@ -135,8 +135,8 @@
       <polyline points="0 0 0 42" class="connect"/>
   </g>
   <g transform="translate(22.5 78)">
-    <text x="0" y="-21" class="big-label" text-anchor="middle">DRIVE</text>
-    <use xlink:href="#knob30" transform="translate(-15 -15)"/>
+    <text x="0" y="-22" class="big-label" text-anchor="middle">DRIVE</text>
+    <use xlink:href="#knob32" transform="translate(-16 -16)"/>
   </g>
 
   <!-- ======== row 1 ======== -->  

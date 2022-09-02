@@ -8,7 +8,7 @@ files = [
     'hswitch-0',
     'hswitch-1',
     'knob18',
-    'knob30',
+    'knob32',
     'knob40',
     'knob50',
     'port',
