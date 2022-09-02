@@ -18,6 +18,12 @@
       "name": "FM",
       "description": "FM",
       "tags": []
+    },
+    {
+      "slug": "SAT",
+      "name": "SAT",
+      "description": "SAT",
+      "tags": []
     }
   ]
 }

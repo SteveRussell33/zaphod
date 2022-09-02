@@ -2,9 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="60"
+  width="45"
   height="380"
-  viewBox="0 0 60 380"
+  viewBox="0 0 45 380"
 >
 
   <style>
@@ -13,10 +13,10 @@
       font-family: 'American Typewriter';
       font-size: 13pt;
     }
-    text.logo {
+    text.small-logo {
       fill: #a91913;
       font-family: 'American Typewriter';
-      font-size: 11pt;
+      font-size: 10pt;
     }
     text.big-label {
       fill: #343434;
@@ -85,6 +85,13 @@
       </g>
     </symbol>
 
+    <symbol id="knob30" >
+      <g transform="translate(15 15)">
+        <circle r="14.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="12.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+      </g>
+    </symbol>
+
     <symbol id="knob40" >
       <g transform="translate(20 20)">
         <circle r="19.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
@@ -120,18 +127,21 @@
 
   <rect class="background" width="100%" height="100%"/>
   <text class="title" x="50%" y="30"  text-anchor="middle">SAT</text>
-  <text class="logo" x="50%" y="362" text-anchor="middle">oberon</text>
+  <text class="small-logo" x="50%" y="362" text-anchor="middle">oberon</text>
 
   <!-- ======== knobs and switches ======== -->  
 
-  <g transform="translate(30 96)">
-    <text x="0" y="-24" class="big-label" text-anchor="middle">DRIVE</text>
-    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
+  <g transform="translate(22.5 78)">
+      <polyline points="0 0 0 42" class="connect"/>
+  </g>
+  <g transform="translate(22.5 78)">
+    <text x="0" y="-21" class="big-label" text-anchor="middle">DRIVE</text>
+    <use xlink:href="#knob30" transform="translate(-15 -15)"/>
   </g>
 
   <!-- ======== row 1 ======== -->  
 
-  <g transform="translate(30 194)">
+  <g transform="translate(22.5 120)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="icon"/>
@@ -139,27 +149,27 @@
         <polyline points="5 -2 5 2" class="icon"/>
     </g>
   </g>
-  <g transform="translate(30 194)">
+  <g transform="translate(22.5 120)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <!-- ======== row 2 ======== -->  
 
-  <g transform="translate(30 236)">
+  <g transform="translate(22.5 162)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">DRV</text>
+    <!--text x="0" y="22" class="label" text-anchor="middle">DRV</text-->
   </g>
 
   <!-- ======== row 3 ======== -->  
 
-  <g transform="translate(30 278)">
+  <g transform="translate(22.5 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">IN</text>
   </g>
 
   <!-- ======== row 4 ======== -->  
 
-  <g transform="translate(30 320)">
+  <g transform="translate(22.5 320)">
     <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
     <use xlink:href="#port" transform="translate(-12 -12)"/>
     <text x="0" y="22" class="label" text-anchor="middle">OUT</text>
