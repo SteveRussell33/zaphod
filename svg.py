@@ -10,7 +10,8 @@ files = [
     'knob18',
     'knob40',
     'knob50',
-    'port'
+    'port',
+    'SAT'
 ]
 
 for f in files:
