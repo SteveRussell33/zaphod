@@ -134,21 +134,21 @@ struct FMWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
         // knobs and switches
-        addParam(createParamCentered<MKnob40> (Vec(30,  76), module, FM::kRatioParam));
-        addParam(createParamCentered<MHSwitch>(Vec(30, 112), module, FM::kRatioQuantParam));
-        addParam(createParamCentered<MKnob40> (Vec(30, 176), module, FM::kOffsetParam));
+        addParam(createParamCentered<MKnob40> (Vec(37.5,  76), module, FM::kRatioParam));
+        addParam(createParamCentered<MHSwitch>(Vec(37.5, 112), module, FM::kRatioQuantParam));
+        addParam(createParamCentered<MKnob40> (Vec(37.5, 176), module, FM::kOffsetParam));
 
         // row 1
-        addParam(createParamCentered<MKnob18>(Vec(16, 236), module, FM::kRatioCvAmountParam));
-        addParam(createParamCentered<MKnob18>(Vec(44, 236), module, FM::kOffsetCvAmountParam));
+        addParam(createParamCentered<MKnob18>(Vec(19.5, 236), module, FM::kRatioCvAmountParam));
+        addParam(createParamCentered<MKnob18>(Vec(55.5, 236), module, FM::kOffsetCvAmountParam));
 
         // row 2
-        addInput(createInputCentered<MPort>(Vec(16, 278), module, FM::kRatioCvInput));
-        addInput(createInputCentered<MPort>(Vec(44, 278), module, FM::kOffsetCvInput));
+        addInput(createInputCentered<MPort>(Vec(19.5, 278), module, FM::kRatioCvInput));
+        addInput(createInputCentered<MPort>(Vec(55.5, 278), module, FM::kOffsetCvInput));
 
         // row 3
-        addInput (createInputCentered<MPort> (Vec(16, 320), module, FM::kCarrierPitchInput));
-        addOutput(createOutputCentered<MPort>(Vec(44, 320), module, FM::kModulatorPitchOutput));
+        addInput (createInputCentered<MPort> (Vec(19.5, 320), module, FM::kCarrierPitchInput));
+        addOutput(createOutputCentered<MPort>(Vec(55.5, 320), module, FM::kModulatorPitchOutput));
 
 #ifdef FM_DEBUG
         addOutput(createOutputCentered<MPort>(Vec(12, 12), module, FM::kDebug1));
