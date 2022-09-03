@@ -43,6 +43,7 @@ struct FM : Module {
         configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
         configParam(kRatioCvAmountParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
         configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Quantize Ratio", {"On", "Off"});
+
         configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
         configParam(kOffsetCvAmountParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
 

@@ -6,5 +6,6 @@ void init(Plugin* p) {
     pluginInstance = p;
 
     p->addModel(modelFM);
+    p->addModel(modelFOLD);
     p->addModel(modelSAT);
 }

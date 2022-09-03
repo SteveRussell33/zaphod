@@ -6,4 +6,5 @@ using namespace rack;
 extern Plugin* pluginInstance;
 
 extern Model* modelFM;
+extern Model* modelFOLD;
 extern Model* modelSAT;

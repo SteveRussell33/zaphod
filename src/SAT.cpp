@@ -38,7 +38,7 @@ struct SAT : Module {
     SAT() {
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
-        configParam(kDriveParam, 0.0f, 1.0f, 0.0f, "Drive");
+        configParam(kDriveParam, 0.0f, 10.0f, 0.0f, "Drive");
         configParam(kDriveCvAmountParam, -1.0f, 1.0f, 0.0f, "Drive CV amount");
 
         configInput(kDriveCvInput, "Drive CV");
@@ -61,7 +61,7 @@ struct SAT : Module {
             return;
         }
 
-        float pDrive = params[kDriveParam].getValue();
+        float pDrive = params[kDriveParam].getValue() / 10.0f;
         float pDriveCvAmount = params[kDriveCvAmountParam].getValue();
 
         int channels = std::max(inputs[kSatInput].getChannels(), 1);
