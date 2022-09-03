@@ -4,18 +4,12 @@
 
 using namespace rack;
 
-extern Plugin *pluginInstance;
+extern Plugin* pluginInstance;
 
 struct MKnob : RoundKnob {
     MKnob(const char* svg, int dim) {
         setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, svg)));
         box.size = Vec(dim, dim);
-    }
-
-    // TODO I can't remember why this is here
-    void redraw() {
-        event::Change c;
-        onChange(c);
     }
 };
 
@@ -57,7 +51,7 @@ struct MPort : SvgPort {
 };
 
 struct MHSwitch : SvgSwitch {
-	MHSwitch() {
+    MHSwitch() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/hswitch-1.svg")));
     }

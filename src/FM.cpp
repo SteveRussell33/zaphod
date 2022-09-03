@@ -3,7 +3,7 @@
 
 #include "../lib/bogaudio/BogaudioModules/src/dsp/pitch.hpp"
 
-//define FM_DEBUG
+// define FM_DEBUG
 
 struct FM : Module {
 
@@ -42,7 +42,7 @@ struct FM : Module {
 
         configParam(kRatioParam, 0.01f, 10.0f, 1.0f, "Ratio");
         configParam(kRatioCvAmountParam, -1.0f, 1.0f, 0.0f, "Ratio CV amount");
-		configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Quantize Ratio", {"On", "Off"});
+        configSwitch(kRatioQuantParam, 0.f, 1.f, 0.f, "Quantize Ratio", {"On", "Off"});
         configParam(kOffsetParam, -5.0f, 5.0f, 0.0f, "Offset", " Hz", 0.0f, 40.0f);
         configParam(kOffsetCvAmountParam, -1.0f, 1.0f, 0.0f, "Offset CV amount");
 
@@ -63,34 +63,38 @@ struct FM : Module {
     }
 
     float quantizeRatio(float ratio) {
-        if      (ratio < 0.125f) return 0.01f;
-        else if (ratio < 0.375f) return 0.25f;
-        else if (ratio < 0.75f)  return 0.5f;
-        else                     return round(ratio);
+        if (ratio < 0.125f)
+            return 0.01f;
+        else if (ratio < 0.375f)
+            return 0.25f;
+        else if (ratio < 0.75f)
+            return 0.5f;
+        else
+            return round(ratio);
     }
 
     void process(const ProcessArgs& args) override {
 
-        if (!outputs[kModulatorPitchOutput].isConnected())  {
+        if (!outputs[kModulatorPitchOutput].isConnected()) {
             return;
         }
 
-        float pRatio          = params[kRatioParam].getValue();
-        float pRatioCvAmount  = params[kRatioCvAmountParam].getValue();
-        bool  pRatioQuant     = params[kRatioQuantParam].getValue() < 0.5f;
-        float pOffset         = params[kOffsetParam].getValue();
+        float pRatio = params[kRatioParam].getValue();
+        float pRatioCvAmount = params[kRatioCvAmountParam].getValue();
+        bool pRatioQuant = params[kRatioQuantParam].getValue() < 0.5f;
+        float pOffset = params[kOffsetParam].getValue();
         float pOffsetCvAmount = params[kOffsetCvAmountParam].getValue();
 
-		int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
+        int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
 
 #ifdef FM_DEBUG
-outputs[kDebug1].setVoltage(channels);
+        outputs[kDebug1].setVoltage(channels);
 #endif
 
-		for (int ch = 0; ch < channels; ch++) {
+        for (int ch = 0; ch < channels; ch++) {
 
-            float inRatioCv      = inputs[kRatioCvInput].getPolyVoltage(ch);
-            float inOffsetCv     = inputs[kOffsetCvInput].getPolyVoltage(ch);
+            float inRatioCv = inputs[kRatioCvInput].getPolyVoltage(ch);
+            float inOffsetCv = inputs[kOffsetCvInput].getPolyVoltage(ch);
             float inCarrierPitch = inputs[kCarrierPitchInput].getPolyVoltage(ch);
 
             // ratio
@@ -100,7 +104,8 @@ outputs[kDebug1].setVoltage(channels);
             }
 
 #ifdef FM_DEBUG
-if (ch == 0) outputs[kDebug2].setVoltage(ratio);
+            if (ch == 0)
+                outputs[kDebug2].setVoltage(ratio);
 #endif
 
             // offset
@@ -108,7 +113,8 @@ if (ch == 0) outputs[kDebug2].setVoltage(ratio);
             offset = offset * 40.0f; // -200Hz to 200 Hz
 
 #ifdef FM_DEBUG
-if (ch == 0) outputs[kDebug3].setVoltage(offset/100.0f);
+            if (ch == 0)
+                outputs[kDebug3].setVoltage(offset / 100.0f);
 #endif
 
             // frequency
@@ -118,7 +124,7 @@ if (ch == 0) outputs[kDebug3].setVoltage(offset/100.0f);
 
             outputs[kModulatorPitchOutput].setVoltage(outModulatorPitch, ch);
         }
-		outputs[kModulatorPitchOutput].setChannels(channels);
+        outputs[kModulatorPitchOutput].setChannels(channels);
     }
 };
 
@@ -127,17 +133,17 @@ struct FMWidget : ModuleWidget {
         setModule(module);
         setPanel(createPanel(asset::plugin(pluginInstance, "res/FM.svg")));
 
-        //addChild(createWidget<ScrewSilver>(Vec(15, 0)));
-        //addChild(createWidget<ScrewSilver>(Vec(15, 365)));
-        //addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
-        //addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
+        // addChild(createWidget<ScrewSilver>(Vec(15, 0)));
+        // addChild(createWidget<ScrewSilver>(Vec(15, 365)));
+        // addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
+        // addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
         addChild(createWidget<ScrewSilver>(Vec(0, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
         // knobs and switches
-        addParam(createParamCentered<MKnob40> (Vec(37.5,  82), module, FM::kRatioParam));
+        addParam(createParamCentered<MKnob40>(Vec(37.5, 82), module, FM::kRatioParam));
         addParam(createParamCentered<MHSwitch>(Vec(37.5, 118), module, FM::kRatioQuantParam));
-        addParam(createParamCentered<MKnob40> (Vec(37.5, 180), module, FM::kOffsetParam));
+        addParam(createParamCentered<MKnob40>(Vec(37.5, 180), module, FM::kOffsetParam));
 
         // row 1
         addParam(createParamCentered<MKnob18>(Vec(19.5, 236), module, FM::kRatioCvAmountParam));
@@ -148,7 +154,7 @@ struct FMWidget : ModuleWidget {
         addInput(createInputCentered<MPort>(Vec(55.5, 278), module, FM::kOffsetCvInput));
 
         // row 3
-        addInput (createInputCentered<MPort> (Vec(19.5, 320), module, FM::kCarrierPitchInput));
+        addInput(createInputCentered<MPort>(Vec(19.5, 320), module, FM::kCarrierPitchInput));
         addOutput(createOutputCentered<MPort>(Vec(55.5, 320), module, FM::kModulatorPitchOutput));
 
 #ifdef FM_DEBUG

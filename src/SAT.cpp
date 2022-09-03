@@ -3,7 +3,7 @@
 
 #include "../lib/bogaudio/BogaudioModules/src/dsp/math.hpp"
 
-//define SAT_DEBUG
+// define SAT_DEBUG
 
 struct SAT : Module {
 
@@ -57,28 +57,28 @@ struct SAT : Module {
     }
 
     void process(const ProcessArgs& args) override {
-        if (!outputs[kSatOutput].isConnected())  {
+        if (!outputs[kSatOutput].isConnected()) {
             return;
         }
 
-        float pDrive         = params[kDriveParam].getValue();
+        float pDrive = params[kDriveParam].getValue();
         float pDriveCvAmount = params[kDriveCvAmountParam].getValue();
 
-		int channels = std::max(inputs[kSatInput].getChannels(), 1);
+        int channels = std::max(inputs[kSatInput].getChannels(), 1);
 
-		for (int ch = 0; ch < channels; ch++) {
+        for (int ch = 0; ch < channels; ch++) {
 
             float inDriveCv = inputs[kDriveCvInput].getPolyVoltage(ch);
             float drive = pDrive + inDriveCv * pDriveCvAmount;
 
-            float input = inputs[kSatInput].getPolyVoltage(ch)/5.0f;
+            float input = inputs[kSatInput].getPolyVoltage(ch) / 5.0f;
 
             float sat = fastTanhf.value(input * M_PI);
 
             float output = input * (1 - drive) + sat * drive;
-            outputs[kSatOutput].setVoltage(output*5.0f, ch);
+            outputs[kSatOutput].setVoltage(output * 5.0f, ch);
         }
-		outputs[kSatOutput].setChannels(channels);
+        outputs[kSatOutput].setChannels(channels);
     }
 };
 
@@ -87,26 +87,18 @@ struct SATWidget : ModuleWidget {
         setModule(module);
         setPanel(createPanel(asset::plugin(pluginInstance, "res/SAT.svg")));
 
-        //addChild(createWidget<ScrewSilver>(Vec(15, 0)));
-        //addChild(createWidget<ScrewSilver>(Vec(15, 365)));
-        //addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
-        //addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
+        // addChild(createWidget<ScrewSilver>(Vec(15, 0)));
+        // addChild(createWidget<ScrewSilver>(Vec(15, 365)));
+        // addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
+        // addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 365)));
         addChild(createWidget<ScrewSilver>(Vec(0, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
-        // knobs and switches
-        addParam(createParamCentered<MKnob32> (Vec(22.5,  78), module, SAT::kDriveParam));
+        addParam(createParamCentered<MKnob32>(Vec(22.5, 78), module, SAT::kDriveParam));
 
-        // row 1
         addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, SAT::kDriveCvAmountParam));
-
-        // row 2
         addInput(createInputCentered<MPort>(Vec(22.5, 162), module, SAT::kDriveCvInput));
-
-        // row 3
-        addInput (createInputCentered<MPort> (Vec(22.5, 278), module, SAT::kSatInput));
-
-        // row 3
+        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, SAT::kSatInput));
         addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, SAT::kSatOutput));
 
 #ifdef SAT_DEBUG
