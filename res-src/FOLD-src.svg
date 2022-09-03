@@ -2,16 +2,16 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="75"
+  width="45"
   height="380"
-  viewBox="0 0 75 380"
+  viewBox="0 0 45 380"
 >
 
   <style>
     text.title {
       fill: #a91913;
       font-family: 'Avenir Next';
-      font-size: 12.5pt;
+      font-size: 12pt;
     }
     text.logo {
       fill: #a91913;
@@ -85,6 +85,13 @@
       </g>
     </symbol>
 
+    <symbol id="knob32" >
+      <g transform="translate(16 16)">
+        <circle r="15.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
+        <circle r="13.5" fill="url('#bigKnobMediumGradient')" transform="rotate(90)"/>
+      </g>
+    </symbol>
+
     <symbol id="knob40" >
       <g transform="translate(20 20)">
         <circle r="19.5" fill="url('#bigKnobDarkGradient')" transform="rotate(90)"/>
@@ -119,34 +126,22 @@
   <!-- ======== id ======== -->  
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="title" x="50%" y="30"  text-anchor="middle">FM</text>
+  <text class="title" x="50%" y="30"  text-anchor="middle">FOLD</text>
   <text class="logo" x="50%" y="362" text-anchor="middle">deneb</text>
 
   <!-- ======== knobs and switches ======== -->  
 
-  <g transform="translate(37.5 82)">
-    <text x="0" y="-26" class="big-label" text-anchor="middle">RATIO</text>
-    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
+  <g transform="translate(22.5 78)">
+      <polyline points="0 0 0 42" class="connect"/>
   </g>
-
-  <g transform="translate(37.5 118)">
-    <use xlink:href="#hswitch14" transform="translate(-12 -7)"/>
-    <g transform="translate(19 0)">
-      <polyline points="-4 4 4 -4" class="icon"/>
-    </g>
-    <g transform="translate(-19 0)">
-      <polyline points="-4 4 -4 0 0 0 0 -4 4 -4" class="icon"/>
-    </g>
-  </g>
-
-  <g transform="translate(37.5 180)">
-    <text x="0" y="-26" class="big-label" text-anchor="middle">OFFSET</text>
-    <use xlink:href="#knob40" transform="translate(-20 -20)"/>
+  <g transform="translate(22.5 78)">
+    <text x="0" y="-22" class="big-label" text-anchor="middle">TIMBRE</text>
+    <use xlink:href="#knob32" transform="translate(-16 -16)"/>
   </g>
 
   <!-- ======== row 1 ======== -->  
 
-  <g transform="translate(19.5 236)">
+  <g transform="translate(22.5 120)">
       <polyline points="0 0 0 42" class="connect"/>
       <g transform="translate(0 15)">
         <polyline points="-7 0 -3 0" class="icon"/>
@@ -154,45 +149,30 @@
         <polyline points="5 -2 5 2" class="icon"/>
     </g>
   </g>
-  <g transform="translate(19.5 236)">
-      <use xlink:href="#knob18" transform="translate(-9 -9)"/>
-  </g>
-
-  <g transform="translate(55.5 236)">
-      <polyline points="0 0 0 42" class="connect"/>
-      <g transform="translate(0 15)">
-        <polyline points="-7 0 -3 0" class="icon"/>
-        <polyline points="7 0 3 0" class="icon"/>
-        <polyline points="5 -2 5 2" class="icon"/>
-    </g>
-  </g>
-  <g transform="translate(55.5 236)">
+  <g transform="translate(22.5 120)">
       <use xlink:href="#knob18" transform="translate(-9 -9)"/>
   </g>
 
   <!-- ======== row 2 ======== -->  
 
-  <g transform="translate(19.5 278)">
+  <g transform="translate(22.5 162)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">RAT</text>
-  </g>
-
-  <g transform="translate(55.5 278)">
-    <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">OFS</text>
+    <!--text x="0" y="22" class="label" text-anchor="middle">DRV</text-->
   </g>
 
   <!-- ======== row 3 ======== -->  
 
-  <g transform="translate(19.5 320)">
+  <g transform="translate(22.5 278)">
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">CAR</text>
+    <text x="0" y="22" class="label" text-anchor="middle">IN</text>
   </g>
 
-  <g transform="translate(55.5 320)">
+  <!-- ======== row 4 ======== -->  
+
+  <g transform="translate(22.5 320)">
     <rect x="-16" y="-16" width="32" height="42" rx="3" class="output"/>
     <use xlink:href="#port" transform="translate(-12 -12)"/>
-    <text x="0" y="22" class="label" text-anchor="middle">MOD</text>
+    <text x="0" y="22" class="label" text-anchor="middle">OUT</text>
   </g>
 
 </svg>

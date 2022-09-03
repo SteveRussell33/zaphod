@@ -7,18 +7,16 @@
   viewBox="0 0 45 380"
 >
 
-<!-- text.title: FOLD is 12pt, SAT and FM are 12.5 -->
-
   <style>
     text.title {
       fill: #a91913;
-      font-family: 'American Typewriter';
-      font-size: 12pt;
+      font-family: 'Avenir Next';
+      font-size: 12.5pt;
     }
     text.logo {
       fill: #a91913;
-      font-family: 'American Typewriter';
-      font-size: 11pt;
+      font-family: 'Avenir Next';
+      font-size: 10.5pt;
     }
     text.big-label {
       fill: #343434;
@@ -128,8 +126,8 @@
   <!-- ======== id ======== -->  
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="title" x="50%" y="30"  text-anchor="middle">FOLD</text>
-  <text class="logo" x="50%" y="362" text-anchor="middle">a.r.c.</text>
+  <text class="title" x="50%" y="30"  text-anchor="middle">SAT</text>
+  <text class="logo" x="50%" y="362" text-anchor="middle">deneb</text>
 
   <!-- ======== knobs and switches ======== -->  
 
