@@ -7,6 +7,8 @@
   viewBox="0 0 45 380"
 >
 
+<!-- text.title: FOLD is 12pt, SAT and FM are 12.5 -->
+
   <style>
     text.title {
       fill: #a91913;
