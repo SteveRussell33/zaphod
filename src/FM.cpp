@@ -1,6 +1,7 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
-#include "dsp.hpp"
+
+#include "../lib/bogaudio/BogaudioModules/src/dsp/pitch.hpp"
 
 //define FM_DEBUG
 
@@ -111,9 +112,9 @@ if (ch == 0) outputs[kDebug3].setVoltage(offset/100.0f);
 #endif
 
             // frequency
-            float carrierFreq  = pitchToFreq(inCarrierPitch);
+            float carrierFreq = bogaudio::dsp::cvToFrequency(inCarrierPitch);
             float modulatorFreq = clamp(carrierFreq * ratio + offset, 20.0f, 20000.0f);
-            float outModulatorPitch = freqToPitch(modulatorFreq);
+            float outModulatorPitch = bogaudio::dsp::frequencyToCV(modulatorFreq);
 
             outputs[kModulatorPitchOutput].setVoltage(outModulatorPitch, ch);
         }

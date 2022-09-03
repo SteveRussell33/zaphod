@@ -1,6 +1,5 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
-#include "dsp.hpp"
 
 //define SAT_DEBUG
 
