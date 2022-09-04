@@ -1,13 +1,12 @@
+#include "dsp.hpp"
 #include "plugin.hpp"
 #include "widgets.hpp"
-
-#include "../lib/bogaudio/BogaudioModules/src/dsp/math.hpp"
 
 // define SAT_DEBUG
 
 struct SAT : Module {
 
-    bogaudio::dsp::FastTanhf fastTanhf;
+    Overdrive overdrive;
 
     enum ParamId {
         kDriveParam,
@@ -73,9 +72,8 @@ struct SAT : Module {
 
             float input = inputs[kSatInput].getPolyVoltage(ch) / 5.0f;
 
-            float sat = fastTanhf.value(input * M_PI);
+            float output = overdrive.value(input, drive);
 
-            float output = input * (1 - drive) + sat * drive;
             outputs[kSatOutput].setVoltage(output * 5.0f, ch);
         }
         outputs[kSatOutput].setChannels(channels);
