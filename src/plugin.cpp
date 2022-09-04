@@ -7,5 +7,5 @@ void init(Plugin* p) {
 
     p->addModel(modelFM);
     p->addModel(modelFOLD);
-    p->addModel(modelSAT);
+    p->addModel(modelODRV);
 }

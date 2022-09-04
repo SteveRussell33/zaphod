@@ -124,7 +124,7 @@
   <!-- ======== id ======== -->  
 
   <rect class="background" width="100%" height="100%"/>
-  <text class="title" x="50%" y="30"  text-anchor="middle">SAT</text>
+  <text class="title" x="50%" y="30"  text-anchor="middle">ODRV</text>
   <text class="logo" x="50%" y="362" text-anchor="middle">ACME</text>
 
   <!-- ======== knobs and switches ======== -->  
