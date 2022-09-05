@@ -6,6 +6,8 @@
 
 struct FOLD : Module {
 
+    const int kOversample = 2;
+
     // TODO maybe we can get by with fewer poles
     LowPass16PoleFilter lpf;
 
@@ -67,7 +69,9 @@ struct FOLD : Module {
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
 
-        lpf.setBiquad(1000.0f, e.sampleRate);
+        float nyquist = e.sampleRate/2.0f;
+
+        lpf.setBiquad(nyquist, e.sampleRate*kOversample);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -89,10 +93,27 @@ struct FOLD : Module {
 
     float oversampleFold(float in, float timbre /* [0,1] */) {
 
-        float out = lpf.process(in);
-        //float out = fold(in, timbre);
+        // Upsample using zero-interpolation.
+        float block[16] = {}; // x16 is the max allowable oversample factor. 
+        block[0] = in * kOversample; // apply makeup gain
 
-        return out;
+        // Filter
+        for (int i = 0; i < kOversample; i++) {
+            block[i] = lpf.process(block[i]);
+        }
+
+        // Process
+        for (int i = 0; i < kOversample; i++) {
+            block[i] = fold(block[i], timbre);
+        }
+
+        // Filter
+        for (int i = 0; i < kOversample; i++) {
+            block[i] = lpf.process(block[i]);
+        }
+
+        // Downsample
+        return block[0];
     }
 
     void process(const ProcessArgs& args) override {
@@ -117,10 +138,17 @@ struct FOLD : Module {
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float out = oversampleFold(in, timbre);
+            float out;
+            if (kOversample == 1) {
+                out = fold(in, timbre);
+            } else {
+
+                out = oversampleFold(in, timbre);
+            }
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }
+
         outputs[kOutput].setChannels(channels);
     }
 };
@@ -137,19 +165,19 @@ struct FOLDWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(0, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
-        addParam(createParamCentered<MKnob32>(Vec(22.5, 78), module, FOLD::kTimbreParam));
-
-        addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, FOLD::kTimbreCvAmountParam));
-        addInput(createInputCentered<MPort>(Vec(22.5, 162), module, FOLD::kTimbreCvInput));
-        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, FOLD::kInput));
-        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, FOLD::kOutput));
-
 #ifdef FOLD_DEBUG
         addOutput(createOutputCentered<MPort>(Vec(12, 12), module, FOLD::kDebug1));
         addOutput(createOutputCentered<MPort>(Vec(12, 36), module, FOLD::kDebug2));
         addOutput(createOutputCentered<MPort>(Vec(12, 60), module, FOLD::kDebug3));
         addOutput(createOutputCentered<MPort>(Vec(12, 84), module, FOLD::kDebug4));
 #endif
+
+        addParam(createParamCentered<MKnob32>(Vec(22.5, 78), module, FOLD::kTimbreParam));
+
+        addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, FOLD::kTimbreCvAmountParam));
+        addInput(createInputCentered<MPort>(Vec(22.5, 162), module, FOLD::kTimbreCvInput));
+        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, FOLD::kInput));
+        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, FOLD::kOutput));
     }
 };
 
