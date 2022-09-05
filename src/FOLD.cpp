@@ -2,16 +2,26 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
-#include "../lib/bogaudio/BogaudioModules/src/dsp/filters/multimode.hpp"
+//include "../lib/earlevel/BogaudioModules/src/dsp/filters/multimode.hpp"
+#include "../lib/earlevel/Biquad.h"
 
-// define FOLD_DEBUG
+#define FOLD_DEBUG
 
 struct FOLD : Module {
 
+#ifdef FOLD_DEBUG
+    float debug1;
+    float debug2;
+    float debug3;
+    float debug4;
+#endif
+
     Overdrive overdrive;
 
-    int kOversample = 4;
-    bogaudio::dsp::MultimodeFilter16 oversampleFilter;
+    Biquad lpFilter;
+
+    //int kOversample = 4;
+    //bogaudio::dsp::MultimodeFilter16 oversampleFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -62,13 +72,18 @@ struct FOLD : Module {
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
 
-        oversampleFilter.setParams(
-            e.sampleRate,
-            bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
-            12,
-            bogaudio::dsp::MultimodeFilter::LOWPASS_MODE,
-            e.sampleRate / 4.0f,
-            0);
+        debug1 = e.sampleRate;
+        //debug2 = e.sampleRate/2.0f;
+        //debug3 = 1000.0f/e.sampleRate;
+        lpFilter.setBiquad(bq_type_lowpass, 1000.0f / e.sampleRate, 0.707, 0);
+
+        //oversampleFilter.setParams(
+        //    e.sampleRate,
+        //    bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
+        //    12,
+        //    bogaudio::dsp::MultimodeFilter::LOWPASS_MODE,
+        //    e.sampleRate / 4.0f,
+        //    0);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -91,9 +106,13 @@ struct FOLD : Module {
     }
 
     float oversampleFold(float in, float timbre /* [0,1] */) {
-        float out = oversampleFilter.next(in);
-        //out = fold(out, timbre);
-        //out = oversampleFilter.next(in);
+        ////float out = oversampleFilter.next(in);
+        //float out = fold(in, timbre);
+        ////out = oversampleFilter.next(in);
+        //return out;
+
+        float out = lpFilter.process(in);
+
         return out;
     }
 
@@ -101,6 +120,12 @@ struct FOLD : Module {
         if (!outputs[kOutput].isConnected()) {
             return;
         }
+
+#ifdef FOLD_DEBUG
+        outputs[kDebug1].setVoltage(debug1/1000.0f, 0);
+        outputs[kDebug1].setVoltage(debug2/1000.0f, 0);
+        outputs[kDebug1].setVoltage(debug3/1000.0f, 0);
+#endif
 
         float pTimbre = params[kTimbreParam].getValue() / 10.0f;
         float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
