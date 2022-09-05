@@ -8,9 +8,10 @@
 
 struct FOLD : Module {
 
-    float sampleRate;
     Overdrive overdrive;
-    bogaudio::dsp::MultimodeFilter16 oversamplingFilter;
+
+    int kOversample = 4;
+    bogaudio::dsp::MultimodeFilter16 oversampleFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -60,14 +61,13 @@ struct FOLD : Module {
     }
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
-        sampleRate = e.sampleRate;
 
-        oversamplingFilter.setParams(
-            sampleRate,
+        oversampleFilter.setParams(
+            e.sampleRate,
             bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
             12,
             bogaudio::dsp::MultimodeFilter::LOWPASS_MODE,
-            sampleRate / 4.0f,
+            e.sampleRate / 4.0f,
             0);
     }
 
@@ -90,10 +90,10 @@ struct FOLD : Module {
         return overdrive.value(out, timbre);
     }
 
-    float oversampleFold(float in, float timbre) {
-        float out = oversamplingFilter.next(in);
+    float oversampleFold(float in, float timbre /* [0,1] */) {
+        float out = oversampleFilter.next(in);
         //out = fold(out, timbre);
-        //out = oversamplingFilter.next(in);
+        //out = oversampleFilter.next(in);
         return out;
     }
 
