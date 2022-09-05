@@ -2,7 +2,6 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
-//include "../lib/earlevel/BogaudioModules/src/dsp/filters/multimode.hpp"
 #include "../lib/earlevel/Biquad.h"
 
 #define FOLD_DEBUG
@@ -19,9 +18,6 @@ struct FOLD : Module {
     Overdrive overdrive;
 
     Biquad lpFilter;
-
-    //int kOversample = 4;
-    //bogaudio::dsp::MultimodeFilter16 oversampleFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -80,17 +76,7 @@ struct FOLD : Module {
         debug2 = Fc;
 #endif
 
-        //debug2 = e.sampleRate/2.0f;
-        //debug3 = 1000.0f/e.sampleRate;
         lpFilter.setBiquad(bq_type_lowpass, Fc, 0.707, 0);
-
-        //oversampleFilter.setParams(
-        //    e.sampleRate,
-        //    bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
-        //    12,
-        //    bogaudio::dsp::MultimodeFilter::LOWPASS_MODE,
-        //    e.sampleRate / 4.0f,
-        //    0);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -105,20 +91,16 @@ struct FOLD : Module {
         float out = overdrive.value(in, timbre);
         out = out * ampOffset;
 
-        // TODO switch to wavetable lookup.  Also, we might be able to use
-        // the existing SineTable rather than building a CosineTable.
+        // TODO switch to wavetable lookup for cosf, over -10 to 10. 
         out = std::cosf(kTwoPi * (out + phaseOffset));
 
         return overdrive.value(out, timbre);
     }
 
     float oversampleFold(float in, float timbre /* [0,1] */) {
-        ////float out = oversampleFilter.next(in);
-        //float out = fold(in, timbre);
-        ////out = oversampleFilter.next(in);
-        //return out;
 
-        float out = lpFilter.process(in);
+        //float out = lpFilter.process(in);
+        float out = fold(in, timbre);
 
         return out;
     }
