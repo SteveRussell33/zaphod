@@ -10,7 +10,9 @@ struct Overdrive {
     bogaudio::dsp::FastTanhf fastTanhf;
 
     inline float value(float input, float drive /* [0,1] */) {
-        float tanh = fastTanhf.value(input * M_PI);
-        return input * (1 - drive) + tanh * drive;
+
+        // use cascading tanh for full overdrive
+        float output = input * (1 - drive) + fastTanhf.value(input * M_PI) * drive;
+        return output * (1 - drive) + fastTanhf.value(output * M_PI) * drive;
     }
 };
