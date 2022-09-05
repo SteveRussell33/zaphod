@@ -70,11 +70,11 @@ struct ODRV : Module {
             float inDriveCv = inputs[kDriveCvInput].getPolyVoltage(ch);
             float drive = pDrive + inDriveCv * pDriveCvAmount;
 
-            float input = inputs[kInput].getPolyVoltage(ch) / 5.0f;
+            float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float output = overdrive.value(input, drive);
+            float out = overdrive.value(in, drive);
 
-            outputs[kOutput].setVoltage(output * 5.0f, ch);
+            outputs[kOutput].setVoltage(out * 5.0f, ch);
         }
         outputs[kOutput].setChannels(channels);
     }

@@ -73,21 +73,21 @@ struct FOLD : Module {
 
     // This folding algorithm is derived from a permissively licensed
     // Max/MSP patch created by Randy Jones of Madrona Labs.
-    inline float fold(float input, float timbre /* [0,1] */) {
+    inline float fold(float in, float timbre /* [0,1] */) {
 
         float ampOffset = timbre * 2.0f + 0.1f;
 
         // TODO we may not need this if we use sine instead of cosine below.
         float phaseOffset = timbre + 0.25f;
 
-        float output = overdrive.value(input, timbre);
-        output = output * ampOffset;
+        float out = overdrive.value(in, timbre);
+        out = out * ampOffset;
 
         // TODO switch to wavetable lookup.  Also, we might be able to use
         // the existing SineTable rather than building a CosineTable.
-        output = std::cosf(kTwoPi * (output + phaseOffset));
+        out = std::cosf(kTwoPi * (out + phaseOffset));
 
-        return overdrive.value(output, timbre);
+        return overdrive.value(out, timbre);
     }
 
     void process(const ProcessArgs& args) override {
@@ -95,24 +95,23 @@ struct FOLD : Module {
             return;
         }
 
-        //float pTimbre = params[kTimbreParam].getValue() / 10.0f;
-        //float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
+        // float pTimbre = params[kTimbreParam].getValue() / 10.0f;
+        // float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
 
         int channels = std::max(inputs[kInput].getChannels(), 1);
 
         for (int ch = 0; ch < channels; ch++) {
 
-            //float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
-            //float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
+            // float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
+            // float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
 
-            float input = inputs[kInput].getPolyVoltage(ch) / 5.0f;
+            float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            //float output = fold(input, timbre);
+            // float out = fold(in, timbre);
 
+            float out = lowPassFilter.next(in);
 
-            float output = lowPassFilter.next(input);
-
-            outputs[kOutput].setVoltage(output * 5.0f, ch);
+            outputs[kOutput].setVoltage(out * 5.0f, ch);
         }
         outputs[kOutput].setChannels(channels);
     }
