@@ -10,7 +10,7 @@ struct FOLD : Module {
 
     float sampleRate;
     Overdrive overdrive;
-    bogaudio::dsp::MultimodeFilter16 lowPassFilter;
+    bogaudio::dsp::MultimodeFilter16 oversamplingFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -62,7 +62,7 @@ struct FOLD : Module {
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
         sampleRate = e.sampleRate;
 
-        lowPassFilter.setParams(
+        oversamplingFilter.setParams(
             sampleRate,
             bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
             12,
@@ -73,7 +73,7 @@ struct FOLD : Module {
 
     // This folding algorithm is derived from a permissively licensed
     // Max/MSP patch created by Randy Jones of Madrona Labs.
-    inline float fold(float in, float timbre /* [0,1] */) {
+    float fold(float in, float timbre /* [0,1] */) {
 
         float ampOffset = timbre * 2.0f + 0.1f;
 
@@ -90,26 +90,31 @@ struct FOLD : Module {
         return overdrive.value(out, timbre);
     }
 
+    float oversampleFold(float in, float timbre) {
+        float out = oversamplingFilter.next(in);
+        //out = fold(out, timbre);
+        //out = oversamplingFilter.next(in);
+        return out;
+    }
+
     void process(const ProcessArgs& args) override {
         if (!outputs[kOutput].isConnected()) {
             return;
         }
 
-        // float pTimbre = params[kTimbreParam].getValue() / 10.0f;
-        // float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
+        float pTimbre = params[kTimbreParam].getValue() / 10.0f;
+        float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
 
         int channels = std::max(inputs[kInput].getChannels(), 1);
 
         for (int ch = 0; ch < channels; ch++) {
 
-            // float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
-            // float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
+            float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
+            float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            // float out = fold(in, timbre);
-
-            float out = lowPassFilter.next(in);
+            float out = oversampleFold(in, timbre);
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }
