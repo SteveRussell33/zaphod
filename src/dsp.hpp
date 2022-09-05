@@ -4,7 +4,7 @@
 
 #include "../lib/bogaudio/BogaudioModules/src/dsp/math.hpp"
 
-// const float kTwoPi = 2.0f * M_PI;
+const float kTwoPi = 2.0f * M_PI;
 
 struct Overdrive {
     bogaudio::dsp::FastTanhf fastTanhf;

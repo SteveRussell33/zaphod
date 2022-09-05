@@ -88,10 +88,6 @@ struct FM : Module {
 
         int channels = std::max(inputs[kCarrierPitchInput].getChannels(), 1);
 
-#ifdef FM_DEBUG
-        outputs[kDebug1].setVoltage(channels);
-#endif
-
         for (int ch = 0; ch < channels; ch++) {
 
             float inRatioCv = inputs[kRatioCvInput].getPolyVoltage(ch);
@@ -104,19 +100,9 @@ struct FM : Module {
                 ratio = quantizeRatio(ratio);
             }
 
-#ifdef FM_DEBUG
-            if (ch == 0)
-                outputs[kDebug2].setVoltage(ratio);
-#endif
-
             // offset
             float offset = pOffset + inOffsetCv * pOffsetCvAmount;
             offset = offset * 40.0f; // -200Hz to 200 Hz
-
-#ifdef FM_DEBUG
-            if (ch == 0)
-                outputs[kDebug3].setVoltage(offset / 100.0f);
-#endif
 
             // frequency
             float carrierFreq = bogaudio::dsp::cvToFrequency(inCarrierPitch);

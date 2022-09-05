@@ -17,13 +17,13 @@ struct ODRV : Module {
 
     enum InputId {
         kDriveCvInput,
-        kSatInput,
+        kInput,
 
         kInputsLen
     };
 
     enum OutputId {
-        kSatOutput,
+        kOutput,
 
 #ifdef ODRV_DEBUG
         kDebug1,
@@ -41,11 +41,11 @@ struct ODRV : Module {
         configParam(kDriveCvAmountParam, -1.0f, 1.0f, 0.0f, "Drive CV amount");
 
         configInput(kDriveCvInput, "Drive CV");
-        configInput(kSatInput, "Audio");
+        configInput(kInput, "Audio");
 
-        configOutput(kSatOutput, "Audio");
+        configOutput(kOutput, "Audio");
 
-        configBypass(kSatInput, kSatOutput);
+        configBypass(kInput, kOutput);
 
 #ifdef ODRV_DEBUG
         configOutput(kDebug1, "Debug 1");
@@ -56,27 +56,27 @@ struct ODRV : Module {
     }
 
     void process(const ProcessArgs& args) override {
-        if (!outputs[kSatOutput].isConnected()) {
+        if (!outputs[kOutput].isConnected()) {
             return;
         }
 
         float pDrive = params[kDriveParam].getValue() / 10.0f;
         float pDriveCvAmount = params[kDriveCvAmountParam].getValue();
 
-        int channels = std::max(inputs[kSatInput].getChannels(), 1);
+        int channels = std::max(inputs[kInput].getChannels(), 1);
 
         for (int ch = 0; ch < channels; ch++) {
 
             float inDriveCv = inputs[kDriveCvInput].getPolyVoltage(ch);
             float drive = pDrive + inDriveCv * pDriveCvAmount;
 
-            float input = inputs[kSatInput].getPolyVoltage(ch) / 5.0f;
+            float input = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
             float output = overdrive.value(input, drive);
 
-            outputs[kSatOutput].setVoltage(output * 5.0f, ch);
+            outputs[kOutput].setVoltage(output * 5.0f, ch);
         }
-        outputs[kSatOutput].setChannels(channels);
+        outputs[kOutput].setChannels(channels);
     }
 };
 
@@ -96,8 +96,8 @@ struct ODRVWidget : ModuleWidget {
 
         addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, ODRV::kDriveCvAmountParam));
         addInput(createInputCentered<MPort>(Vec(22.5, 162), module, ODRV::kDriveCvInput));
-        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, ODRV::kSatInput));
-        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, ODRV::kSatOutput));
+        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, ODRV::kInput));
+        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, ODRV::kOutput));
 
 #ifdef ODRV_DEBUG
         addOutput(createOutputCentered<MPort>(Vec(12, 12), module, ODRV::kDebug1));

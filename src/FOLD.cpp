@@ -1,13 +1,12 @@
+#include "dsp.hpp"
 #include "plugin.hpp"
 #include "widgets.hpp"
-
-#include "../lib/bogaudio/BogaudioModules/src/dsp/math.hpp"
 
 // define FOLD_DEBUG
 
 struct FOLD : Module {
 
-    bogaudio::dsp::FastTanhf fastTanhf;
+    Overdrive overdrive;
 
     enum ParamId {
         kTimbreParam,
@@ -18,13 +17,13 @@ struct FOLD : Module {
 
     enum InputId {
         kTimbreCvInput,
-        kFoldInput,
+        kInput,
 
         kInputsLen
     };
 
     enum OutputId {
-        kFoldOutput,
+        kOutput,
 
 #ifdef FOLD_DEBUG
         kDebug1,
@@ -42,11 +41,11 @@ struct FOLD : Module {
         configParam(kTimbreCvAmountParam, -1.0f, 1.0f, 0.0f, "Timbre CV amount");
 
         configInput(kTimbreCvInput, "Timbre CV");
-        configInput(kFoldInput, "Audio");
+        configInput(kInput, "Audio");
 
-        configOutput(kFoldOutput, "Audio");
+        configOutput(kOutput, "Audio");
 
-        configBypass(kFoldInput, kFoldOutput);
+        configBypass(kInput, kOutput);
 
 #ifdef FOLD_DEBUG
         configOutput(kDebug1, "Debug 1");
@@ -56,29 +55,47 @@ struct FOLD : Module {
 #endif
     }
 
+    // This folding algorithm is based on a permissively licensed
+    // Max/MSP patch from Randy Jones of Madrona Labs.
+    inline float fold(float input, float timbre /* [0,1] */) {
+
+        float ampOffset = timbre * 2.0f + 0.1f;
+
+        // TODO we may not need this if we use sine instead of cosine below.
+        float phaseOffset = timbre + 0.25f;
+
+        float output = overdrive.value(input, timbre);
+        output = output * ampOffset;
+
+        // TODO switch to wavetable lookup.  Also, we might be able to use
+        // the existing SineTable rather than building a CosineTable.
+        output = std::cosf(kTwoPi * (output + phaseOffset));
+
+        return overdrive.value(output, timbre);
+    }
+
     void process(const ProcessArgs& args) override {
-        if (!outputs[kFoldOutput].isConnected()) {
+        if (!outputs[kOutput].isConnected()) {
             return;
         }
 
         float pTimbre = params[kTimbreParam].getValue() / 10.0f;
         float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
 
-        int channels = std::max(inputs[kFoldInput].getChannels(), 1);
+        int channels = std::max(inputs[kInput].getChannels(), 1);
 
         for (int ch = 0; ch < channels; ch++) {
 
             float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
-            float drive = pTimbre + inTimbreCv * pTimbreCvAmount;
+            float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
 
-            float input = inputs[kFoldInput].getPolyVoltage(ch) / 5.0f;
+            float input = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float sat = fastTanhf.value(input * M_PI);
+            float output = fold(input, timbre);
 
-            float output = input * (1 - drive) + sat * drive;
-            outputs[kFoldOutput].setVoltage(output * 5.0f, ch);
+            outputs[kOutput].setVoltage(output * 5.0f, ch);
         }
-        outputs[kFoldOutput].setChannels(channels);
+        outputs[kOutput].setChannels(channels);
     }
 };
 
@@ -98,8 +115,8 @@ struct FOLDWidget : ModuleWidget {
 
         addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, FOLD::kTimbreCvAmountParam));
         addInput(createInputCentered<MPort>(Vec(22.5, 162), module, FOLD::kTimbreCvInput));
-        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, FOLD::kFoldInput));
-        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, FOLD::kFoldOutput));
+        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, FOLD::kInput));
+        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, FOLD::kOutput));
 
 #ifdef FOLD_DEBUG
         addOutput(createOutputCentered<MPort>(Vec(12, 12), module, FOLD::kDebug1));
