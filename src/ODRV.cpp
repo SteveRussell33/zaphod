@@ -72,7 +72,7 @@ struct ODRV : Module {
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float out = overdrive.value(in, drive);
+            float out = overdrive.process(in, drive);
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }

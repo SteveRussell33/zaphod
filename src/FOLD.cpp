@@ -2,11 +2,14 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
-#include "../lib/earlevel/Biquad.h"
-
 #define FOLD_DEBUG
 
 struct FOLD : Module {
+
+    // TODO maybe we can get by with fewer poles
+    LowPass16PoleFilter lpf;
+
+    Overdrive overdrive;
 
 #ifdef FOLD_DEBUG
     float debug1;
@@ -14,10 +17,6 @@ struct FOLD : Module {
     float debug3;
     float debug4;
 #endif
-
-    Overdrive overdrive;
-
-    Biquad lpFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -68,15 +67,7 @@ struct FOLD : Module {
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
 
-        //float Fc = 24000.0f / e.sampleRate;
-        float Fc = 12000.0f / e.sampleRate;
-
-#ifdef FOLD_DEBUG
-        debug1 = e.sampleRate/1000.0;
-        debug2 = Fc;
-#endif
-
-        lpFilter.setBiquad(bq_type_lowpass, Fc, 0.707, 0);
+        lpf.setBiquad(1000.0f, e.sampleRate);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -85,22 +76,21 @@ struct FOLD : Module {
 
         float ampOffset = timbre * 2.0f + 0.1f;
 
-        // TODO we may not need this if we use sine instead of cosine below.
         float phaseOffset = timbre + 0.25f;
 
-        float out = overdrive.value(in, timbre);
+        float out = overdrive.process(in, timbre);
         out = out * ampOffset;
 
         // TODO switch to wavetable lookup for cosf, over -10 to 10. 
         out = std::cosf(kTwoPi * (out + phaseOffset));
 
-        return overdrive.value(out, timbre);
+        return overdrive.process(out, timbre);
     }
 
     float oversampleFold(float in, float timbre /* [0,1] */) {
 
-        //float out = lpFilter.process(in);
-        float out = fold(in, timbre);
+        float out = lpf.process(in);
+        //float out = fold(in, timbre);
 
         return out;
     }
