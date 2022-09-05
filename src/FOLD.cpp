@@ -2,11 +2,15 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
+#include "../lib/bogaudio/BogaudioModules/src/dsp/filters/multimode.hpp"
+
 // define FOLD_DEBUG
 
 struct FOLD : Module {
 
+    float sampleRate;
     Overdrive overdrive;
+    bogaudio::dsp::MultimodeFilter16 lowPassFilter;
 
     enum ParamId {
         kTimbreParam,
@@ -55,8 +59,20 @@ struct FOLD : Module {
 #endif
     }
 
-    // This folding algorithm is based on a permissively licensed
-    // Max/MSP patch from Randy Jones of Madrona Labs.
+    void onSampleRateChange(const SampleRateChangeEvent& e) override {
+        sampleRate = e.sampleRate;
+
+        lowPassFilter.setParams(
+            sampleRate,
+            bogaudio::dsp::MultimodeFilter::BUTTERWORTH_TYPE,
+            12,
+            bogaudio::dsp::MultimodeFilter::LOWPASS_MODE,
+            sampleRate / 4.0f,
+            0);
+    }
+
+    // This folding algorithm is derived from a permissively licensed
+    // Max/MSP patch created by Randy Jones of Madrona Labs.
     inline float fold(float input, float timbre /* [0,1] */) {
 
         float ampOffset = timbre * 2.0f + 0.1f;
@@ -79,19 +95,22 @@ struct FOLD : Module {
             return;
         }
 
-        float pTimbre = params[kTimbreParam].getValue() / 10.0f;
-        float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
+        //float pTimbre = params[kTimbreParam].getValue() / 10.0f;
+        //float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
 
         int channels = std::max(inputs[kInput].getChannels(), 1);
 
         for (int ch = 0; ch < channels; ch++) {
 
-            float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
-            float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
+            //float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
+            //float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
 
             float input = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float output = fold(input, timbre);
+            //float output = fold(input, timbre);
+
+
+            float output = lowPassFilter.next(input);
 
             outputs[kOutput].setVoltage(output * 5.0f, ch);
         }
