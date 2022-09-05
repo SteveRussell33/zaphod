@@ -72,10 +72,17 @@ struct FOLD : Module {
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
 
-        debug1 = e.sampleRate;
+        //float Fc = 24000.0f / e.sampleRate;
+        float Fc = 12000.0f / e.sampleRate;
+
+#ifdef FOLD_DEBUG
+        debug1 = e.sampleRate/1000.0;
+        debug2 = Fc;
+#endif
+
         //debug2 = e.sampleRate/2.0f;
         //debug3 = 1000.0f/e.sampleRate;
-        lpFilter.setBiquad(bq_type_lowpass, 1000.0f / e.sampleRate, 0.707, 0);
+        lpFilter.setBiquad(bq_type_lowpass, Fc, 0.707, 0);
 
         //oversampleFilter.setParams(
         //    e.sampleRate,
@@ -122,9 +129,8 @@ struct FOLD : Module {
         }
 
 #ifdef FOLD_DEBUG
-        outputs[kDebug1].setVoltage(debug1/1000.0f, 0);
-        outputs[kDebug1].setVoltage(debug2/1000.0f, 0);
-        outputs[kDebug1].setVoltage(debug3/1000.0f, 0);
+        outputs[kDebug1].setVoltage(debug1, 0);
+        outputs[kDebug2].setVoltage(debug2, 0);
 #endif
 
         float pTimbre = params[kTimbreParam].getValue() / 10.0f;
