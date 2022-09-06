@@ -11,7 +11,7 @@
 
 const float kTwoPi = 2.0f * M_PI;
 
-// Public domain from Aleksey Vaneev.
+// This implementation is by Aleksey Vaneev, and is licensed as public domain.
 // https://www.kvraudio.com/forum/viewtopic.php?p=5447225#p5447225
 inline float fastTanh(const float x) {
     const float ax = fabs(x);

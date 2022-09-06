@@ -8,7 +8,7 @@ struct Oversample {
 
     int oversample;
 
-    // We need to use twelve poles to nuke everything above the Nyquist frequency.
+    // Nuke everything above the Nyquist frequency.
     TwelvePoleLpf upLpf;
     TwelvePoleLpf downLpf;
 
