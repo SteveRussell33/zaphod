@@ -38,6 +38,6 @@ struct Oversample {
         for (int i = 0; i < oversample; ++i) {
             downLpf.process(buffer[i]);
         }
-        return buffer[oversample - 1];
+        return buffer[0];
     }
 };
