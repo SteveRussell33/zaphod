@@ -12,11 +12,7 @@ struct EightPoleLpf {
 
         float Fc = cutoff / sampleRate;
 
-        float q[kQuads] = {
-             0.50979558,
-             0.60134489,
-             0.89997622,
-             2.5629154};
+        float q[kQuads] = {0.50979558, 0.60134489, 0.89997622, 2.5629154};
 
         for (int i = 0; i < kQuads; i++) {
             filter[i].setBiquad(bq_type_lowpass, Fc, q[i], 0);
@@ -34,7 +30,7 @@ struct EightPoleLpf {
 
 ///////////////////////////////////////////////////////////////////////
 //
-// Q values for each filter to achieve Butterworth response 
+// Q values for each filter to achieve Butterworth response
 // for lowpass and highpass filters
 //
 // From https://www.earlevel.com/main/2016/09/29/cascading-filters/

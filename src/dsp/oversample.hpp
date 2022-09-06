@@ -11,8 +11,7 @@ struct Oversample {
     EightPoleLpf upLpf;
     EightPoleLpf downLpf;
 
-    Oversample(int oversample_) : oversample(oversample_) {
-    }
+    Oversample(int oversample_) : oversample(oversample_) {}
 
     void sampleRateChange(float sampleRate) {
 

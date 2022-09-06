@@ -74,9 +74,9 @@ struct FOLD : Module {
         float ampOffset = timbre * 2.0f + 0.1f;
         float phaseOffset = timbre + 0.25f;
 
-        float out = in * ampOffset;
         // TODO switch to wavetable lookup for cosf.
-        return std::cosf(kTwoPi * (out + phaseOffset));
+        float amp = in * ampOffset;
+        return std::cosf(kTwoPi * (amp + phaseOffset));
     }
 
     float oversampleFold(float in, float timbre) {

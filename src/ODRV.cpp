@@ -10,8 +10,6 @@ struct ODRV : Module {
     const int kOversampleFactor = 4;
     Oversample oversample{kOversampleFactor};
 
-    Overdrive overdrive;
-
     enum ParamId {
         kDriveParam,
         kDriveCvAmountParam,
@@ -63,13 +61,22 @@ struct ODRV : Module {
         oversample.sampleRateChange(e.sampleRate);
     }
 
+    float overdrive(float in, float drive) {
+
+        // TODO switch to wavetable lookup for tanhf.
+
+        // Double Overdrive (TM)
+        float out = in * (1 - drive) + std::tanhf(in * M_PI) * drive;
+        return out * (1 - drive) + std::tanhf(out * M_PI) * drive;
+    }
+
     float oversampleDrive(float in, float drive) {
 
         float buffer[kMaxOversample] = {};
         oversample.up(in, buffer);
 
         for (int i = 0; i < kOversampleFactor; i++) {
-            buffer[i] = overdrive.process(buffer[i], drive);
+            buffer[i] = overdrive(buffer[i], drive);
         }
 
         return oversample.down(buffer);

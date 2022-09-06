@@ -11,18 +11,6 @@
 
 const float kTwoPi = 2.0f * M_PI;
 
-struct Overdrive {
-
-    float process(float in, float drive /* [0,1] */) {
-
-        // TODO switch to wavetable lookup for tanhf.
-
-        // Double Overdrive (TM)
-        float out = in * (1 - drive) + std::tanhf(in * M_PI) * drive;
-        return out * (1 - drive) + std::tanhf(out * M_PI) * drive;
-    }
-};
-
 //--------------------------------------------------------------
 // Pitch
 //--------------------------------------------------------------
