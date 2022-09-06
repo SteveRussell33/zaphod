@@ -9,8 +9,6 @@ struct FOLD : Module {
     int oversampleFactor = 16;
     Oversample oversample;
 
-    Overdrive overdrive;
-
 #ifdef FOLD_DEBUG
     float debug1;
     float debug2;
@@ -75,12 +73,10 @@ struct FOLD : Module {
     // Max/MSP patch created by Randy Jones of Madrona Labs.
     float fold(float in, float timbre) {
 
-        float out = overdrive.process(in, timbre);
-
         float ampOffset = timbre * 2.0f + 0.1f;
         float phaseOffset = timbre + 0.25f;
 
-        out = out * ampOffset;
+        float out = in * ampOffset;
         // TODO switch to wavetable lookup for cosf.
         return std::cosf(kTwoPi * (out + phaseOffset));
     }
