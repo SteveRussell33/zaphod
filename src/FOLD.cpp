@@ -83,13 +83,13 @@ struct FOLD : Module {
     float oversampleFold(float in, float timbre) {
 
         float buffer[kMaxOversample] = {};
-        oversample.up(in, buffer);
+        oversample.upsample(in, buffer);
 
         for (int i = 0; i < kOversampleFactor; i++) {
             buffer[i] = fold(buffer[i], timbre);
         }
 
-        return oversample.down(buffer);
+        return oversample.downsample(buffer);
     }
 
     void process(const ProcessArgs& args) override {

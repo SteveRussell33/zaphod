@@ -23,7 +23,7 @@ struct Oversample {
         downLpf.setCutoff(nyquist, oversampleRate);
     }
 
-    void up(float in, float* buffer) {
+    void upsample(float in, float* buffer) {
 
         // Apply gain to compensate for zero-interpolation
         buffer[0] = upLpf.process(in * oversample);
@@ -34,7 +34,7 @@ struct Oversample {
         }
     }
 
-    float down(float* buffer) {
+    float downsample(float* buffer) {
         for (int i = 0; i < oversample; ++i) {
             downLpf.process(buffer[i]);
         }

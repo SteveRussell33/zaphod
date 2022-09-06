@@ -72,13 +72,13 @@ struct SAT : Module {
     float oversampleDrive(float in, float drive) {
 
         float buffer[kMaxOversample] = {};
-        oversample.up(in, buffer);
+        oversample.upsample(in, buffer);
 
         for (int i = 0; i < kOversampleFactor; i++) {
             buffer[i] = overdrive(buffer[i], drive);
         }
 
-        return oversample.down(buffer);
+        return oversample.downsample(buffer);
     }
 
     void process(const ProcessArgs& args) override {
