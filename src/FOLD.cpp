@@ -1,6 +1,7 @@
 #include "oversample.hpp"
 #include "plugin.hpp"
 #include "widgets.hpp"
+#include <math.h>
 
 // define FOLD_DEBUG
 
@@ -77,7 +78,7 @@ struct FOLD : Module {
         float amp = in * ampOffset;
 
         // TODO should we use a fast approximation for cosf()?
-        return std::cosf(kTwoPi * (amp + phaseOffset));
+        return cosf(kTwoPi * (amp + phaseOffset));
     }
 
     float oversampleFold(float in, float timbre) {
