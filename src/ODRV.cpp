@@ -1,10 +1,14 @@
 #include "dsp.hpp"
+#include "oversample.hpp"
 #include "plugin.hpp"
 #include "widgets.hpp"
 
 // define ODRV_DEBUG
 
 struct ODRV : Module {
+
+    int oversampleFactor = 16;
+    Oversample oversample;
 
     Overdrive overdrive;
 
@@ -35,6 +39,8 @@ struct ODRV : Module {
     };
 
     ODRV() {
+        oversample.setOversample(oversampleFactor);
+
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kDriveParam, 0.0f, 10.0f, 0.0f, "Drive");
@@ -55,6 +61,23 @@ struct ODRV : Module {
 #endif
     }
 
+    void onSampleRateChange(const SampleRateChangeEvent& e) override {
+        oversample.sampleRateChange(e.sampleRate);
+    }
+
+    float oversampleDrive(float in, float drive /* [0,1] */) {
+
+        float buffer[kMaxOversample] = {};
+        oversample.up(in, buffer);
+
+        // Process
+        for (int i = 0; i < oversampleFactor; i++) {
+            buffer[i] = overdrive.process(buffer[i], drive);
+        }
+
+        return oversample.down(buffer);
+    }
+
     void process(const ProcessArgs& args) override {
         if (!outputs[kOutput].isConnected()) {
             return;
@@ -72,7 +95,12 @@ struct ODRV : Module {
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float out = overdrive.process(in, drive);
+            float out;
+            if (oversampleFactor == 1) {
+                out = overdrive.process(in, drive);
+            } else {
+                out = oversampleDrive(in, drive);
+            }
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }

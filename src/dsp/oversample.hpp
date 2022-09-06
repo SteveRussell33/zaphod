@@ -26,9 +26,10 @@ struct Oversample {
 
     void up(float in, float* buffer) {
 
-        // Apply gain to input to compensate for zero-interpolation
+        // Apply gain to compensate for zero-interpolation
         buffer[0] = upLpf.process(in * oversample);
 
+        // Interpolate with zeros
         for (int i = 1; i < oversample; ++i) {
             buffer[i] = upLpf.process(0.0f);
         }

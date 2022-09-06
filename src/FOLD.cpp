@@ -2,7 +2,7 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
-#define FOLD_DEBUG
+// define FOLD_DEBUG
 
 struct FOLD : Module {
 
@@ -73,23 +73,19 @@ struct FOLD : Module {
 
     // This folding algorithm is derived from a permissively licensed
     // Max/MSP patch created by Randy Jones of Madrona Labs.
-    float fold(float in, float timbre /* [0,1] */) {
-
-        float ampOffset = timbre * 2.0f + 0.1f;
-
-        // TODO we can skip the 0.25f and use sinf, probably
-        float phaseOffset = timbre + 0.25f;
+    float fold(float in, float timbre) {
 
         float out = overdrive.process(in, timbre);
+
+        float ampOffset = timbre * 2.0f + 0.1f;
+        float phaseOffset = timbre + 0.25f;
+
         out = out * ampOffset;
-
-        // TODO switch to wavetable lookup for cosf, over -10 to 10.
-        out = std::cosf(kTwoPi * (out + phaseOffset));
-
-        return overdrive.process(out, timbre);
+        // TODO switch to wavetable lookup for cosf.
+        return std::cosf(kTwoPi * (out + phaseOffset));
     }
 
-    float oversampleFold(float in, float timbre /* [0,1] */) {
+    float oversampleFold(float in, float timbre) {
 
         float buffer[kMaxOversample] = {};
         oversample.up(in, buffer);
@@ -107,11 +103,6 @@ struct FOLD : Module {
             return;
         }
 
-#ifdef FOLD_DEBUG
-        outputs[kDebug1].setVoltage(debug1, 0);
-        outputs[kDebug2].setVoltage(debug2, 0);
-#endif
-
         float pTimbre = params[kTimbreParam].getValue() / 10.0f;
         float pTimbreCvAmount = params[kTimbreCvAmountParam].getValue();
 
@@ -121,6 +112,9 @@ struct FOLD : Module {
 
             float inTimbreCv = inputs[kTimbreCvInput].getPolyVoltage(ch);
             float timbre = pTimbre + inTimbreCv * pTimbreCvAmount;
+
+            // Turn the timbre down a good bit so its less aggressive
+            timbre = timbre * 0.5f;
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
