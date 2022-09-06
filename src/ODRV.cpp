@@ -61,11 +61,10 @@ struct ODRV : Module {
         oversample.sampleRateChange(e.sampleRate);
     }
 
-    float overdrive(float in, float drive) {
+    inline float overdrive(float in, float drive) {
 
         // TODO switch to wavetable lookup for tanhf.
 
-        // Double Overdrive (TM)
         float out = in * (1 - drive) + std::tanhf(in * M_PI) * drive;
         return out * (1 - drive) + std::tanhf(out * M_PI) * drive;
     }

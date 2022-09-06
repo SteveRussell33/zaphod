@@ -69,7 +69,7 @@ struct FOLD : Module {
 
     // This folding algorithm is derived from a permissively licensed
     // Max/MSP patch created by Randy Jones of Madrona Labs.
-    float fold(float in, float timbre) {
+    inline float fold(float in, float timbre) {
 
         float ampOffset = timbre * 2.0f + 0.1f;
         float phaseOffset = timbre + 0.25f;
