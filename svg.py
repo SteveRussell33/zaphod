@@ -13,7 +13,7 @@ files = [
     'knob40',
     'knob50',
     'port',
-    'ODRV'
+    'SAT'
 ]
 
 for f in files:

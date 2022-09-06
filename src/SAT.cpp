@@ -3,9 +3,9 @@
 #include "plugin.hpp"
 #include "widgets.hpp"
 
-// define ODRV_DEBUG
+// define SAT_DEBUG
 
-struct ODRV : Module {
+struct SAT : Module {
 
     const int kOversampleFactor = 4;
     Oversample oversample{kOversampleFactor};
@@ -27,7 +27,7 @@ struct ODRV : Module {
     enum OutputId {
         kOutput,
 
-#ifdef ODRV_DEBUG
+#ifdef SAT_DEBUG
         kDebug1,
         kDebug2,
         kDebug3,
@@ -36,7 +36,7 @@ struct ODRV : Module {
         kOutputsLen
     };
 
-    ODRV() {
+    SAT() {
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kDriveParam, 0.0f, 10.0f, 0.0f, "Drive");
@@ -49,7 +49,7 @@ struct ODRV : Module {
 
         configBypass(kInput, kOutput);
 
-#ifdef ODRV_DEBUG
+#ifdef SAT_DEBUG
         configOutput(kDebug1, "Debug 1");
         configOutput(kDebug2, "Debug 2");
         configOutput(kDebug3, "Debug 3");
@@ -106,16 +106,16 @@ struct ODRV : Module {
     }
 };
 
-struct ODRVWidget : ModuleWidget {
-    ODRVWidget(ODRV* module) {
+struct SATWidget : ModuleWidget {
+    SATWidget(SAT* module) {
         setModule(module);
-        setPanel(createPanel(asset::plugin(pluginInstance, "res/ODRV.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/SAT.svg")));
 
-#ifdef ODRV_DEBUG
-        addOutput(createOutputCentered<MPort>(Vec(12, 12), module, ODRV::kDebug1));
-        addOutput(createOutputCentered<MPort>(Vec(12, 36), module, ODRV::kDebug2));
-        addOutput(createOutputCentered<MPort>(Vec(12, 60), module, ODRV::kDebug3));
-        addOutput(createOutputCentered<MPort>(Vec(12, 84), module, ODRV::kDebug4));
+#ifdef SAT_DEBUG
+        addOutput(createOutputCentered<MPort>(Vec(12, 12), module, SAT::kDebug1));
+        addOutput(createOutputCentered<MPort>(Vec(12, 36), module, SAT::kDebug2));
+        addOutput(createOutputCentered<MPort>(Vec(12, 60), module, SAT::kDebug3));
+        addOutput(createOutputCentered<MPort>(Vec(12, 84), module, SAT::kDebug4));
 #endif
 
         // addChild(createWidget<ScrewSilver>(Vec(15, 0)));
@@ -125,13 +125,13 @@ struct ODRVWidget : ModuleWidget {
         addChild(createWidget<ScrewSilver>(Vec(0, 0)));
         addChild(createWidget<ScrewSilver>(Vec(box.size.x - 15, 365)));
 
-        addParam(createParamCentered<MKnob32>(Vec(22.5, 78), module, ODRV::kDriveParam));
+        addParam(createParamCentered<MKnob32>(Vec(22.5, 78), module, SAT::kDriveParam));
 
-        addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, ODRV::kDriveCvAmountParam));
-        addInput(createInputCentered<MPort>(Vec(22.5, 162), module, ODRV::kDriveCvInput));
-        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, ODRV::kInput));
-        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, ODRV::kOutput));
+        addParam(createParamCentered<MKnob18>(Vec(22.5, 120), module, SAT::kDriveCvAmountParam));
+        addInput(createInputCentered<MPort>(Vec(22.5, 162), module, SAT::kDriveCvInput));
+        addInput(createInputCentered<MPort>(Vec(22.5, 278), module, SAT::kInput));
+        addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, SAT::kOutput));
     }
 };
 
-Model* modelODRV = createModel<ODRV, ODRVWidget>("ODRV");
+Model* modelSAT = createModel<SAT, SATWidget>("SAT");
