@@ -3,16 +3,16 @@
 #include "Biquad.h"
 #include "dsp.hpp"
 
-struct EightPoleLpf {
+struct TwelvePoleLpf {
 
-    static const int kQuads = 4;
+    static const int kQuads = 6;
     Biquad filter[kQuads];
 
     void setBiquad(float cutoff, float sampleRate) {
 
         float Fc = cutoff / sampleRate;
 
-        float q[kQuads] = {0.50979558, 0.60134489, 0.89997622, 2.5629154};
+        float q[kQuads] = {0.50431448, 0.54119610, 0.63023621, 0.82133982, 1.3065630, 3.8306488};
 
         for (int i = 0; i < kQuads; i++) {
             filter[i].setBiquad(bq_type_lowpass, Fc, q[i], 0);

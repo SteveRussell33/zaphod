@@ -8,8 +8,8 @@ struct Oversample {
 
     int oversample;
 
-    EightPoleLpf upLpf;
-    EightPoleLpf downLpf;
+    TwelvePoleLpf upLpf;
+    TwelvePoleLpf downLpf;
 
     Oversample(int oversample_) : oversample(oversample_) {}
 
