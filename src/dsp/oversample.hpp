@@ -19,8 +19,8 @@ struct Oversample {
         float nyquist = sampleRate / 2.0f;
         float oversampleRate = sampleRate * oversample;
 
-        upLpf.setBiquad(nyquist, oversampleRate);
-        downLpf.setBiquad(nyquist, oversampleRate);
+        upLpf.setCutoff(nyquist, oversampleRate);
+        downLpf.setCutoff(nyquist, oversampleRate);
     }
 
     void up(float in, float* buffer) {

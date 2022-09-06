@@ -5,23 +5,23 @@
 
 struct TwelvePoleLpf {
 
-    static const int kQuads = 6;
-    Biquad filter[kQuads];
+    static const int kFilters = 6;
+    Biquad filter[kFilters];
 
-    void setBiquad(float cutoff, float sampleRate) {
+    void setCutoff(float cutoff, float sampleRate) {
 
         float Fc = cutoff / sampleRate;
 
-        float q[kQuads] = {0.50431448, 0.54119610, 0.63023621, 0.82133982, 1.3065630, 3.8306488};
+        float q[kFilters] = {0.50431448, 0.54119610, 0.63023621, 0.82133982, 1.3065630, 3.8306488};
 
-        for (int i = 0; i < kQuads; i++) {
+        for (int i = 0; i < kFilters; i++) {
             filter[i].setBiquad(bq_type_lowpass, Fc, q[i], 0);
         }
     }
 
     float process(float in) {
         float out = in;
-        for (int i = 0; i < kQuads; i++) {
+        for (int i = 0; i < kFilters; i++) {
             out = filter[i].process(out);
         }
         return out;
