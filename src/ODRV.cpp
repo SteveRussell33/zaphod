@@ -63,10 +63,10 @@ struct ODRV : Module {
 
     inline float overdrive(float in, float drive) {
 
-        // TODO switch to wavetable lookup for tanhf.
-
-        float out = in * (1 - drive) + std::tanhf(in * M_PI) * drive;
-        return out * (1 - drive) + std::tanhf(out * M_PI) * drive;
+        // We need to use two stages to get enough overdrive.
+        float s1 = in * (1 - drive) + fastTanh(in * M_PI) * drive;
+        float s2 = s1 * (1 - drive) + fastTanh(s1 * M_PI) * drive;
+        return s2;
     }
 
     float oversampleDrive(float in, float drive) {
@@ -111,6 +111,13 @@ struct ODRVWidget : ModuleWidget {
         setModule(module);
         setPanel(createPanel(asset::plugin(pluginInstance, "res/ODRV.svg")));
 
+#ifdef ODRV_DEBUG
+        addOutput(createOutputCentered<MPort>(Vec(12, 12), module, ODRV::kDebug1));
+        addOutput(createOutputCentered<MPort>(Vec(12, 36), module, ODRV::kDebug2));
+        addOutput(createOutputCentered<MPort>(Vec(12, 60), module, ODRV::kDebug3));
+        addOutput(createOutputCentered<MPort>(Vec(12, 84), module, ODRV::kDebug4));
+#endif
+
         // addChild(createWidget<ScrewSilver>(Vec(15, 0)));
         // addChild(createWidget<ScrewSilver>(Vec(15, 365)));
         // addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
@@ -124,13 +131,6 @@ struct ODRVWidget : ModuleWidget {
         addInput(createInputCentered<MPort>(Vec(22.5, 162), module, ODRV::kDriveCvInput));
         addInput(createInputCentered<MPort>(Vec(22.5, 278), module, ODRV::kInput));
         addOutput(createOutputCentered<MPort>(Vec(22.5, 320), module, ODRV::kOutput));
-
-#ifdef ODRV_DEBUG
-        addOutput(createOutputCentered<MPort>(Vec(12, 12), module, ODRV::kDebug1));
-        addOutput(createOutputCentered<MPort>(Vec(12, 36), module, ODRV::kDebug2));
-        addOutput(createOutputCentered<MPort>(Vec(12, 60), module, ODRV::kDebug3));
-        addOutput(createOutputCentered<MPort>(Vec(12, 84), module, ODRV::kDebug4));
-#endif
     }
 };
 

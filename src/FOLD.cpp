@@ -74,8 +74,9 @@ struct FOLD : Module {
         float ampOffset = timbre * 2.0f + 0.1f;
         float phaseOffset = timbre + 0.25f;
 
-        // TODO switch to wavetable lookup for cosf.
         float amp = in * ampOffset;
+
+        // TODO should we use a fast approximation for cosf()?
         return std::cosf(kTwoPi * (amp + phaseOffset));
     }
 
