@@ -69,9 +69,9 @@ struct FOLD : Module {
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
 
-        float nyquist = e.sampleRate/2.0f;
+        float nyquist = e.sampleRate / 2.0f;
 
-        lpf.setBiquad(nyquist, e.sampleRate*kOversample);
+        lpf.setBiquad(nyquist, e.sampleRate * kOversample);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -85,7 +85,7 @@ struct FOLD : Module {
         float out = overdrive.process(in, timbre);
         out = out * ampOffset;
 
-        // TODO switch to wavetable lookup for cosf, over -10 to 10. 
+        // TODO switch to wavetable lookup for cosf, over -10 to 10.
         out = std::cosf(kTwoPi * (out + phaseOffset));
 
         return overdrive.process(out, timbre);
@@ -94,20 +94,26 @@ struct FOLD : Module {
     float oversampleFold(float in, float timbre /* [0,1] */) {
 
         // Upsample using zero-interpolation.
-        float block[16] = {}; // x16 is the max allowable oversample factor. 
+        float block[16] = {};        // x16 is the max allowable oversample factor.
         block[0] = in * kOversample; // apply makeup gain
 
-        // Filter
+        //for (int i = 0; i < kOversample; i++) {
+        //    block[i] = in;
+        //}
+
+        //-----------------------------------------------
+
+        //// Filter
         for (int i = 0; i < kOversample; i++) {
             block[i] = lpf.process(block[i]);
         }
 
-        // Process
-        for (int i = 0; i < kOversample; i++) {
-            block[i] = fold(block[i], timbre);
-        }
+        //// Process
+        //for (int i = 0; i < kOversample; i++) {
+        //    block[i] = fold(block[i], timbre);
+        //}
 
-        // Filter
+        //// Filter
         for (int i = 0; i < kOversample; i++) {
             block[i] = lpf.process(block[i]);
         }
