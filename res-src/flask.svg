@@ -24,11 +24,12 @@
   </style>
 
   <!-- Top -->
-  <path class="flask-outline" d="M 35 10 43 10 A 4 4 0 0 0 43 2"/>
+  <path class="flask-outline" d="M 43 10 A 4 4 0 0 0 43 2"/>
   <path class="flask-outline" d="M 43 2 21 2"/>
   <path class="flask-outline" d="M 21 2 A 4 4 0 1 0 21 10"/>
 
   <!-- Hatching -->
+  <path class="flask-outline" d="M 35 10 43 10"/>
   <path class="flask-outline" d= "M 21 16 25 16 M 21 23 25 23"/>
 
   <!-- Bottom -->
