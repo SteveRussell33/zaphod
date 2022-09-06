@@ -1,4 +1,4 @@
-#include "filters.hpp"
+#include "oversample.hpp"
 #include "plugin.hpp"
 #include "widgets.hpp"
 
@@ -6,10 +6,8 @@
 
 struct FOLD : Module {
 
-    const int kOversample = 2;
-
-    // TODO maybe we can get by with fewer poles
-    LowPass16PoleFilter lpf;
+    int oversampleFactor = 16;
+    Oversample oversample;
 
     Overdrive overdrive;
 
@@ -47,6 +45,8 @@ struct FOLD : Module {
     };
 
     FOLD() {
+        oversample.setOversample(oversampleFactor);
+
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kTimbreParam, 0.0f, 10.0f, 0.0f, "Timbre");
@@ -68,10 +68,7 @@ struct FOLD : Module {
     }
 
     void onSampleRateChange(const SampleRateChangeEvent& e) override {
-
-        float nyquist = e.sampleRate / 2.0f;
-
-        lpf.setBiquad(nyquist, e.sampleRate * kOversample);
+        oversample.sampleRateChange(e.sampleRate);
     }
 
     // This folding algorithm is derived from a permissively licensed
@@ -80,6 +77,7 @@ struct FOLD : Module {
 
         float ampOffset = timbre * 2.0f + 0.1f;
 
+        // TODO we can skip the 0.25f and use sinf, probably
         float phaseOffset = timbre + 0.25f;
 
         float out = overdrive.process(in, timbre);
@@ -93,33 +91,15 @@ struct FOLD : Module {
 
     float oversampleFold(float in, float timbre /* [0,1] */) {
 
-        // Upsample using zero-interpolation.
-        float block[16] = {};        // x16 is the max allowable oversample factor.
-        block[0] = in * kOversample; // apply makeup gain
+        float buffer[kMaxOversample] = {};
+        oversample.up(in, buffer);
 
-        //for (int i = 0; i < kOversample; i++) {
-        //    block[i] = in;
-        //}
-
-        //-----------------------------------------------
-
-        //// Filter
-        for (int i = 0; i < kOversample; i++) {
-            block[i] = lpf.process(block[i]);
+        // Process
+        for (int i = 0; i < oversampleFactor; i++) {
+            buffer[i] = fold(buffer[i], timbre);
         }
 
-        //// Process
-        //for (int i = 0; i < kOversample; i++) {
-        //    block[i] = fold(block[i], timbre);
-        //}
-
-        //// Filter
-        for (int i = 0; i < kOversample; i++) {
-            block[i] = lpf.process(block[i]);
-        }
-
-        // Downsample
-        return block[0];
+        return oversample.down(buffer);
     }
 
     void process(const ProcessArgs& args) override {
@@ -145,10 +125,9 @@ struct FOLD : Module {
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
             float out;
-            if (kOversample == 1) {
+            if (oversampleFactor == 1) {
                 out = fold(in, timbre);
             } else {
-
                 out = oversampleFold(in, timbre);
             }
 
