@@ -6,8 +6,8 @@
 
 struct FOLD : Module {
 
-    int oversampleFactor = 16;
-    Oversample oversample;
+    const int kOversampleFactor = 4;
+    Oversample oversample{kOversampleFactor};
 
 #ifdef FOLD_DEBUG
     float debug1;
@@ -43,8 +43,6 @@ struct FOLD : Module {
     };
 
     FOLD() {
-        oversample.setOversample(oversampleFactor);
-
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kTimbreParam, 0.0f, 10.0f, 0.0f, "Timbre");
@@ -86,8 +84,7 @@ struct FOLD : Module {
         float buffer[kMaxOversample] = {};
         oversample.up(in, buffer);
 
-        // Process
-        for (int i = 0; i < oversampleFactor; i++) {
+        for (int i = 0; i < kOversampleFactor; i++) {
             buffer[i] = fold(buffer[i], timbre);
         }
 
@@ -114,12 +111,7 @@ struct FOLD : Module {
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float out;
-            if (oversampleFactor == 1) {
-                out = fold(in, timbre);
-            } else {
-                out = oversampleFold(in, timbre);
-            }
+            float out = oversampleFold(in, timbre);
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }

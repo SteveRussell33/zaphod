@@ -29,7 +29,7 @@ Biquad::Biquad() {
     z1 = z2 = 0.0;
 }
 
-Biquad::Biquad(int type, double Fc, double Q, double peakGainDB) {
+Biquad::Biquad(int type, float Fc, float Q, float peakGainDB) {
     setBiquad(type, Fc, Q, peakGainDB);
     z1 = z2 = 0.0;
 }
@@ -42,22 +42,22 @@ void Biquad::setType(int type) {
     calcBiquad();
 }
 
-void Biquad::setQ(double Q) {
+void Biquad::setQ(float Q) {
     this->Q = Q;
     calcBiquad();
 }
 
-void Biquad::setFc(double Fc) {
+void Biquad::setFc(float Fc) {
     this->Fc = Fc;
     calcBiquad();
 }
 
-void Biquad::setPeakGain(double peakGainDB) {
+void Biquad::setPeakGain(float peakGainDB) {
     this->peakGain = peakGainDB;
     calcBiquad();
 }
     
-void Biquad::setBiquad(int type, double Fc, double Q, double peakGainDB) {
+void Biquad::setBiquad(int type, float Fc, float Q, float peakGainDB) {
     this->type = type;
     this->Q = Q;
     this->Fc = Fc;
@@ -65,9 +65,9 @@ void Biquad::setBiquad(int type, double Fc, double Q, double peakGainDB) {
 }
 
 void Biquad::calcBiquad(void) {
-    double norm;
-    double V = pow(10, fabs(peakGain) / 20.0);
-    double K = tan(M_PI * Fc);
+    float norm;
+    float V = pow(10, fabs(peakGain) / 20.0);
+    float K = tan(M_PI * Fc);
     switch (this->type) {
         case bq_type_lowpass:
             norm = 1 / (1 + K / Q + K * K);

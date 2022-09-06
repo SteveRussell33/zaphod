@@ -6,14 +6,13 @@ const int kMaxOversample = 16;
 
 struct Oversample {
 
-    int oversample = 0;
+    int oversample;
 
-    // TODO change Biquad to float
-    // TODO maybe we can get by with fewer poles
-    LowPass16PoleFilter upLpf;
-    LowPass16PoleFilter downLpf;
+    EightPoleLpf upLpf;
+    EightPoleLpf downLpf;
 
-    void setOversample(int _oversample) { oversample = _oversample; }
+    Oversample(int oversample_) : oversample(oversample_) {
+    }
 
     void sampleRateChange(float sampleRate) {
 

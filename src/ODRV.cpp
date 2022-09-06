@@ -7,8 +7,8 @@
 
 struct ODRV : Module {
 
-    int oversampleFactor = 16;
-    Oversample oversample;
+    const int kOversampleFactor = 4;
+    Oversample oversample{kOversampleFactor};
 
     Overdrive overdrive;
 
@@ -39,8 +39,6 @@ struct ODRV : Module {
     };
 
     ODRV() {
-        oversample.setOversample(oversampleFactor);
-
         config(kParamsLen, kInputsLen, kOutputsLen, 0);
 
         configParam(kDriveParam, 0.0f, 10.0f, 0.0f, "Drive");
@@ -65,13 +63,12 @@ struct ODRV : Module {
         oversample.sampleRateChange(e.sampleRate);
     }
 
-    float oversampleDrive(float in, float drive /* [0,1] */) {
+    float oversampleDrive(float in, float drive) {
 
         float buffer[kMaxOversample] = {};
         oversample.up(in, buffer);
 
-        // Process
-        for (int i = 0; i < oversampleFactor; i++) {
+        for (int i = 0; i < kOversampleFactor; i++) {
             buffer[i] = overdrive.process(buffer[i], drive);
         }
 
@@ -95,12 +92,7 @@ struct ODRV : Module {
 
             float in = inputs[kInput].getPolyVoltage(ch) / 5.0f;
 
-            float out;
-            if (oversampleFactor == 1) {
-                out = overdrive.process(in, drive);
-            } else {
-                out = oversampleDrive(in, drive);
-            }
+            float out = oversampleDrive(in, drive);
 
             outputs[kOutput].setVoltage(out * 5.0f, ch);
         }

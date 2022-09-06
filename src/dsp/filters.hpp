@@ -3,55 +3,41 @@
 #include "Biquad.h"
 #include "dsp.hpp"
 
-// struct LowPass2PoleFilter {
-//
-//     Biquad filter;
-//
-//     void setBiquad(float cutoff, float sampleRate) {
-//         float Fc = cutoff / sampleRate;
-//         filter.setBiquad(bq_type_lowpass, Fc, 0.707, 0);
-//     }
-//
-//     float process(float in) {
-//         return filter.process(in);
-//     }
-//
-// };
+struct EightPoleLpf {
 
-struct LowPass16PoleFilter {
-
-    Biquad filter[8];
+    static const int kQuads = 4;
+    Biquad filter[kQuads];
 
     void setBiquad(float cutoff, float sampleRate) {
 
         float Fc = cutoff / sampleRate;
 
-        float q[8] = {
-            0.50241929,
-            0.52249861,
-            0.56694403,
-            0.64682178,
-            0.78815462,
-            1.0606777,
-            1.7224471,
-            5.1011486};
+        float q[kQuads] = {
+             0.50979558,
+             0.60134489,
+             0.89997622,
+             2.5629154};
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < kQuads; i++) {
             filter[i].setBiquad(bq_type_lowpass, Fc, q[i], 0);
         }
     }
 
     float process(float in) {
         float out = in;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < kQuads; i++) {
             out = filter[i].process(out);
         }
         return out;
     }
 };
 
-// Q values for Cascading filters
-// https://www.earlevel.com/main/2016/09/29/cascading-filters/
+///////////////////////////////////////////////////////////////////////
+//
+// Q values for each filter to achieve Butterworth response 
+// for lowpass and highpass filters
+//
+// From https://www.earlevel.com/main/2016/09/29/cascading-filters/
 //
 // 2-pole:
 //
